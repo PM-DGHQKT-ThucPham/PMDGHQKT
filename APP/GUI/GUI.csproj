@@ -112,23 +112,149 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frm_dangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_dangNhap.Designer.cs">
+      <DependentUpon>frm_dangNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_danhGiaTongThe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_danhGiaTongThe.Designer.cs">
+      <DependentUpon>frm_danhGiaTongThe.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_formHome.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frm_formHome.Designer.cs">
       <DependentUpon>frm_formHome.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_lapHoaDon.cs">
+    <Compile Include="frm_lapThongKeBaoCao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_lapHoaDon.Designer.cs">
-      <DependentUpon>frm_lapHoaDon.cs</DependentUpon>
+    <Compile Include="frm_lapThongKeBaoCao.Designer.cs">
+      <DependentUpon>frm_lapThongKeBaoCao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_phanTichXuHuong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_phanTichXuHuong.Designer.cs">
+      <DependentUpon>frm_phanTichXuHuong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyKhoHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyKhoHang.Designer.cs">
+      <DependentUpon>frm_quanLyKhoHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_lapThongKeChiPhiSanXuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_lapThongKeChiPhiSanXuat.Designer.cs">
+      <DependentUpon>frm_lapThongKeChiPhiSanXuat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_lapThongKeDoanhThu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_lapThongKeDoanhThu.Designer.cs">
+      <DependentUpon>frm_lapThongKeDoanhThu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_lapThongKeLoiNhuan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_lapThongKeLoiNhuan.Designer.cs">
+      <DependentUpon>frm_lapThongKeLoiNhuan.cs</DependentUpon>
     </Compile>
     <Compile Include="frm_main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frm_main.Designer.cs">
       <DependentUpon>frm_main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyBenVung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyBenVung.Designer.cs">
+      <DependentUpon>frm_quanLyBenVung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyChatLuong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyChatLuong.Designer.cs">
+      <DependentUpon>frm_quanLyChatLuong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyChiPhiNguyenLieu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyChiPhiNguyenLieu.Designer.cs">
+      <DependentUpon>frm_quanLyChiPhiNguyenLieu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyChiPhiNhanCong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyChiPhiNhanCong.Designer.cs">
+      <DependentUpon>frm_quanLyChiPhiNhanCong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyChiPhiThietKeBaoBi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyChiPhiThietKeBaoBi.Designer.cs">
+      <DependentUpon>frm_quanLyChiPhiThietKeBaoBi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyDichVuKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyDichVuKhachHang.Designer.cs">
+      <DependentUpon>frm_quanLyDichVuKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyGiaCa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyGiaCa.Designer.cs">
+      <DependentUpon>frm_quanLyGiaCa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyHieuSuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyHieuSuat.Designer.cs">
+      <DependentUpon>frm_quanLyHieuSuat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyNguyenLieu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyNguyenLieu.Designer.cs">
+      <DependentUpon>frm_quanLyNguyenLieu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyNhanVien.Designer.cs">
+      <DependentUpon>frm_quanLyNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyPhanHoiKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyPhanHoiKhachHang.Designer.cs">
+      <DependentUpon>frm_quanLyPhanHoiKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyPhanQuyenNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyPhanQuyenNhanVien.Designer.cs">
+      <DependentUpon>frm_quanLyPhanQuyenNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyThietKe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyThietKe.Designer.cs">
+      <DependentUpon>frm_quanLyThietKe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_quanLyTinhNang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyTinhNang.Designer.cs">
+      <DependentUpon>frm_quanLyTinhNang.cs</DependentUpon>
     </Compile>
     <Compile Include="frm_wait.cs">
       <SubType>Form</SubType>
@@ -138,14 +264,74 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frm_danhGiaTongThe.resx">
+      <DependentUpon>frm_danhGiaTongThe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_formHome.resx">
       <DependentUpon>frm_formHome.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_lapHoaDon.resx">
-      <DependentUpon>frm_lapHoaDon.cs</DependentUpon>
+    <EmbeddedResource Include="frm_lapThongKeBaoCao.resx">
+      <DependentUpon>frm_lapThongKeBaoCao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_lapThongKeChiPhiSanXuat.resx">
+      <DependentUpon>frm_lapThongKeChiPhiSanXuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_lapThongKeDoanhThu.resx">
+      <DependentUpon>frm_lapThongKeDoanhThu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_lapThongKeLoiNhuan.resx">
+      <DependentUpon>frm_lapThongKeLoiNhuan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_main.resx">
       <DependentUpon>frm_main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_phanTichXuHuong.resx">
+      <DependentUpon>frm_phanTichXuHuong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyBenVung.resx">
+      <DependentUpon>frm_quanLyBenVung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyChatLuong.resx">
+      <DependentUpon>frm_quanLyChatLuong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyChiPhiNguyenLieu.resx">
+      <DependentUpon>frm_quanLyChiPhiNguyenLieu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyChiPhiNhanCong.resx">
+      <DependentUpon>frm_quanLyChiPhiNhanCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyChiPhiThietKeBaoBi.resx">
+      <DependentUpon>frm_quanLyChiPhiThietKeBaoBi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyDichVuKhachHang.resx">
+      <DependentUpon>frm_quanLyDichVuKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyGiaCa.resx">
+      <DependentUpon>frm_quanLyGiaCa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyHieuSuat.resx">
+      <DependentUpon>frm_quanLyHieuSuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyKhoHang.resx">
+      <DependentUpon>frm_quanLyKhoHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyNguyenLieu.resx">
+      <DependentUpon>frm_quanLyNguyenLieu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyNhanVien.resx">
+      <DependentUpon>frm_quanLyNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyPhanHoiKhachHang.resx">
+      <DependentUpon>frm_quanLyPhanHoiKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyPhanQuyenNhanVien.resx">
+      <DependentUpon>frm_quanLyPhanQuyenNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyThietKe.resx">
+      <DependentUpon>frm_quanLyThietKe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyTinhNang.resx">
+      <DependentUpon>frm_quanLyTinhNang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_wait.resx">
       <DependentUpon>frm_wait.cs</DependentUpon>

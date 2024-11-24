@@ -41,12 +41,131 @@ namespace GUI
 
         }
 
-        private void btn_LapHoaDon_Click(object sender, EventArgs e)
+        // lập thống kê báo cáo
+        private void btn_lapThongKeChiPhiSanXuat_Click(object sender, EventArgs e)
         {
-            loadForm(new frm_lapHoaDon());
+            loadForm(new frm_lapThongKeChiPhiSanXuat());
         }
 
-        private void accordionControlElement14_Click(object sender, EventArgs e)
+        private void btn_lapThongKeDoanhThu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_lapThongKeLoiNhuan_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_lapThongKeChiPhiLoiIch_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_lapThongKeBaoCao_Click(object sender, EventArgs e)
+        {
+
+        }
+        /// <summary>
+        /// phân tích đanh giá chỉ số hiệu quả 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_danhGiaTongThe_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_phanTichXuHuong_Click(object sender, EventArgs e)
+        {
+
+        }
+        /// <summary>
+        /// quản lý kho hàng
+        /// 
+        private void btn_quanLyKhoHang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// quản lý nhân viên
+        /// 
+        private void btn_quanLyNhanVien_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyPhanQuyenNhanVien_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Quản lý các chi phí 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_quanLyChiPhiNguyenLieu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyChiPhiNhanCong_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyChiPhiThietKeBaoBi_Click(object sender, EventArgs e)
+        {
+
+        }
+        /// <summary>
+        /// quản lý các tiêu chi đánh giá sản phẩm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_quanLyNguyenLieu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyChatLuong_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyThietKe_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyHieuSuat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyGiaCa_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyDichVuKhachHang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyPhanHoiKhachHang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyBenVung_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_tinhNangBoSung_Click(object sender, EventArgs e)
         {
 
         }
