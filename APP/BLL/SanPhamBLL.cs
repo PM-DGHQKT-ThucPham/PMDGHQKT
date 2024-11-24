@@ -1,39 +1,34 @@
-﻿using DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace DAL
+using DAL;
+using DTO;
+namespace BLL
 {
-    public class SanPhamDAL
+    public class SanPhamBLL
     {
-        DoAnTotNghiepDataContext db = new DoAnTotNghiepDataContext();
-        List<SanPham> _lstSanPham = null;
+        SanPhamDAL _SanPhamDAL = new SanPhamDAL();
 
         // Lấy danh sách san pham
         public List<SanPham> LayDanhSachSanPham()
         {
             try
             {
-                _lstSanPham = new List<SanPham>();
-                _lstSanPham = db.SanPhams.ToList();
-                return _lstSanPham;
+                return _SanPhamDAL.LayDanhSachSanPham();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        // Lấy san pham theo mã
+        //Lấy sản phẩm theo mã
         public SanPham LaySanPhamTheoMa(string maSanPham)
         {
             try
             {
-                SanPham SanPham = new SanPham();
-                SanPham = db.SanPhams.FirstOrDefault(x => x.MaSanPham == maSanPham);
-                return SanPham;
+                return _SanPhamDAL.LaySanPhamTheoMa(maSanPham);
             }
             catch (Exception ex)
             {
