@@ -210,9 +210,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.chart_doanhThu);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(950, 80);
+            this.groupBox3.Location = new System.Drawing.Point(936, 80);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(360, 715);
+            this.groupBox3.Size = new System.Drawing.Size(374, 715);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Biểu đồ doanh thu";
@@ -226,7 +226,7 @@
             this.chart_doanhThu.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart_doanhThu.Legends.Add(legend1);
-            this.chart_doanhThu.Location = new System.Drawing.Point(26, 42);
+            this.chart_doanhThu.Location = new System.Drawing.Point(6, 42);
             this.chart_doanhThu.Name = "chart_doanhThu";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
@@ -245,7 +245,11 @@
             this.btn_timKiem.Size = new System.Drawing.Size(59, 39);
             this.btn_timKiem.TabIndex = 8;
             this.btn_timKiem.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.chart_doanhThu.Size = new System.Drawing.Size(362, 646);
+            this.chart_doanhThu.TabIndex = 0;
+            this.chart_doanhThu.Text = "chart1";
+            //
             // frm_lapThongKeDoanhThu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

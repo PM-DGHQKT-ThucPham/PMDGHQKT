@@ -13,11 +13,11 @@ namespace BLL
         LoaiDoanhThuDAL _loaiDoanhThuDAL = new LoaiDoanhThuDAL();
 
         // Lấy danh sách loại doanh thu
-        public List<LoaiDoanhThu> LayDanhSachLoaiDoanhThu()
+        public List<LoaiDoanhThu> LayDanhSachLoaiDoanhThu(string maSanPham)
         {
             try
             {
-                return _loaiDoanhThuDAL.LayDanhSachLoaiDoanhThu();
+                return _loaiDoanhThuDAL.LayDanhSachLoaiDoanhThu(maSanPham);
             }
             catch (Exception ex)
             {
@@ -25,11 +25,11 @@ namespace BLL
             }
         }
         // Lấy loại doanh thu theo mã
-        public LoaiDoanhThu LayLoaiDoanhThuTheoMa(string maLoaiDoanhThu)
+        public LoaiDoanhThu LayLoaiDoanhThuTheoMa(string maLoaiDoanhThu, string maSanPham)
         {
             try
             {
-                return _loaiDoanhThuDAL.LayLoaiDoanhThuTheoMa(maLoaiDoanhThu);
+                return _loaiDoanhThuDAL.LayLoaiDoanhThuTheoMa(maLoaiDoanhThu,maSanPham);
             }
             catch (Exception ex)
             {

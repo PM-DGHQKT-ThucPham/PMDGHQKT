@@ -20,6 +20,7 @@ namespace GUI
         private DoanhThuBLL _doanhThuBLL = new DoanhThuBLL();
         private List<LoaiDoanhThu> _lstLoaiDoanhThu = null;
         private List<DoanhThu> _lstDoanhThu = null;
+        private string maSanPham = "SP001";
         public frm_lapThongKeDoanhThu()
         {
             InitializeComponent();
@@ -29,15 +30,21 @@ namespace GUI
         private void Frm_lapThongKeDoanhThu_Load(object sender, EventArgs e)
         {
             _lstDoanhThu = new List<DoanhThu>();
-            _lstDoanhThu = _doanhThuBLL.LayDanhSachDoanhThu();
+            _lstDoanhThu = _doanhThuBLL.LayDanhSachDoanhThu(maSanPham);
             HienThiDanhSachDoanhThu(_lstDoanhThu);
+            HienThiDoanhThuTheoLoaiDoanhThu(_lstDoanhThu);
             LoadComboboxTimKiem();
             LoadComboboxLoaiDoanhThu();
+            cbo_chucNang.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbo_loaiDoanhThu.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbo_sanPham.DropDownStyle = ComboBoxStyle.DropDownList;
+            dgv_dsDoanhThu.ReadOnly = true;
             //sự kiện khi chọn combo box
             cbo_chucNang.SelectedIndexChanged += Cbo_chucNang_SelectedIndexChanged;
             cbo_loaiDoanhThu.SelectedIndexChanged += Cbo_loaiDoanhThu_SelectedIndexChanged;
             //sự kiện click cho button tìm kiếm
             btn_timKiem.Click += Btn_timKiem_Click;
+            PlaceHolder.SetPlaceholder(txt_timKiem, "Nhập từ khóa tìm kiếm");
         }
 
         private void Cbo_loaiDoanhThu_SelectedIndexChanged(object sender, EventArgs e)
@@ -51,7 +58,7 @@ namespace GUI
             }
             else
             {
-                _lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoMaLoaiDoanhThu(maLoaiDoanhThu);
+                _lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoMaLoaiDoanhThu(maLoaiDoanhThu, maSanPham);
                 HienThiDanhSachDoanhThu(_lstDoanhThu);
                 string tile = "Doanh thu  theo " + tenLoaiDoanhThu;
                 HienThiDoanhThuTheoThang(_lstDoanhThu,tile);
@@ -116,7 +123,7 @@ namespace GUI
                         MessageBox.Show("Vui lòng nhập từ khóa tìm kiếm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    DoanhThu doanhThu = _doanhThuBLL.LayDoanhThuTheoMa(timKiem);
+                    DoanhThu doanhThu = _doanhThuBLL.LayDoanhThuTheoMa(timKiem, maSanPham);
                     if (doanhThu != null)
                     {
                         _lstDoanhThu.Add(doanhThu);
@@ -130,7 +137,7 @@ namespace GUI
                         MessageBox.Show("Vui lòng nhập từ khóa tìm kiếm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    _lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoMaLoaiDoanhThu(timKiem);
+                    _lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoMaLoaiDoanhThu(timKiem, maSanPham);
                     if(_lstDoanhThu.Count == 0)
                     {
                         MessageBox.Show("Không tìm thấy kết quả", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -143,7 +150,7 @@ namespace GUI
                     // lấy ngày tháng năm từ datetimepicker
                     int thang = ngay.Month;
                     int nam = ngay.Year;
-                    _lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoThang(thang,nam);
+                    _lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoThang(thang,nam, maSanPham);
                     if (_lstDoanhThu.Count == 0)
                     {
                         MessageBox.Show("Không tìm thấy kết quả", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -155,7 +162,7 @@ namespace GUI
                 {
                     DateTime ngayBatDau = dtp_ngayBatDau.Value;
                     DateTime ngayKetThuc = dtp_ngayKetThuc.Value;
-                    _lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoKhoangThoiGian(ngayBatDau,ngayKetThuc);
+                    _lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoKhoangThoiGian(ngayBatDau,ngayKetThuc, maSanPham);
                     if (_lstDoanhThu.Count == 0)
                     {
                         MessageBox.Show("Không tìm thấy kết quả", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -165,7 +172,7 @@ namespace GUI
                 }
                 else if (chucNang == "Hiển thị tất cả")
                 {
-                    _lstDoanhThu = _doanhThuBLL.LayDanhSachDoanhThu();
+                    _lstDoanhThu = _doanhThuBLL.LayDanhSachDoanhThu(maSanPham);
                     HienThiDanhSachDoanhThu(_lstDoanhThu);
                     HienThiDoanhThuTheoLoaiDoanhThu(_lstDoanhThu);
                 }
@@ -178,6 +185,7 @@ namespace GUI
         }
 
         //viết hàm xử lý 
+        // Hiển thị doanh thu theo loại doanh thu lên biểu đồ Pie
         private void HienThiDoanhThuTheoLoaiDoanhThu(List<DoanhThu> _lstDoanhThu)
         {
             // Xóa dữ liệu cũ
@@ -229,7 +237,6 @@ namespace GUI
             chart_doanhThu.Legends.Add(legend);
         }
 
-
         // Hiển thị doanh thu từng tháng lên biểu đồ
         private void HienThiDoanhThuTheoThang(List<DoanhThu> _lstDoanhThu, string title)
         {
@@ -276,7 +283,7 @@ namespace GUI
         //load combobox loại doanh thu
         private void LoadComboboxLoaiDoanhThu()
         {
-            _lstLoaiDoanhThu = _loaiDoanhThuBLL.LayDanhSachLoaiDoanhThu();
+            _lstLoaiDoanhThu = _loaiDoanhThuBLL.LayDanhSachLoaiDoanhThu(maSanPham);
             if (_lstLoaiDoanhThu != null)
             {
                 cbo_loaiDoanhThu.DataSource = _lstLoaiDoanhThu;
@@ -298,27 +305,25 @@ namespace GUI
         // viết hàm xử lý thêm cột số thứ tự nếu chưa có
         private void dgvSanPham_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            // Hiển thị số thứ tự
-            var grid = sender as DataGridView;
-            string rowIndex = (e.RowIndex + 1).ToString();
-            var centerFormat = new StringFormat()
+            if (dgv_dsDoanhThu.Columns.Contains("SoThuTu"))
             {
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
-            Rectangle headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
-            e.Graphics.DrawString(rowIndex, grid.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
+                dgv_dsDoanhThu.Rows[e.RowIndex].Cells["SoThuTu"].Value = (e.RowIndex + 1).ToString();
+            }
         }
         private void themCotSoThuTu(DataGridView dgvSanPham)
         {
+            // Kiểm tra xem cột đã tồn tại hay chưa
             if (dgvSanPham.Columns["SoThuTu"] == null)
             {
-                // Thêm cột nếu chưa tồn tại
-                DataGridViewTextBoxColumn soThuTuColumn = new DataGridViewTextBoxColumn();
-                soThuTuColumn.Name = "SoThuTu";
-                soThuTuColumn.HeaderText = "STT";
-                soThuTuColumn.Width = 40;
-                soThuTuColumn.ReadOnly = true;
+                DataGridViewTextBoxColumn soThuTuColumn = new DataGridViewTextBoxColumn
+                {
+                    Name = "SoThuTu",
+                    HeaderText = "STT",
+                    Width = 40,
+                    ReadOnly = true
+                };
+
+                // Thêm cột số thứ tự vào đầu DataGridView
                 dgvSanPham.Columns.Insert(0, soThuTuColumn);
             }
         }
@@ -338,24 +343,12 @@ namespace GUI
             dgv_dsDoanhThu.Columns["SoTien"].HeaderCell.Style.Font = new Font("Arial", 12, FontStyle.Bold);
             dgv_dsDoanhThu.Columns["ThoiGian"].HeaderCell.Style.Font = new Font("Arial", 12, FontStyle.Bold);
 
-            //định dạng datagridview hiển thị căn đều
-            dgv_dsDoanhThu.Columns[1].Width = 100;
-            dgv_dsDoanhThu.Columns[2].Width = 100;
-            dgv_dsDoanhThu.Columns[3].Width = 100;
-            dgv_dsDoanhThu.Columns[4].Width = 100;
-            dgv_dsDoanhThu.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv_dsDoanhThu.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv_dsDoanhThu.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv_dsDoanhThu.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgv_dsDoanhThu.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv_dsDoanhThu.AllowUserToAddRows = false;
             //ẩn các dòng trống
             dgv_dsDoanhThu.AllowUserToAddRows = false;
             dgv_dsDoanhThu.AllowUserToDeleteRows = false;
             dgv_dsDoanhThu.AllowUserToResizeRows = false;
             dgv_dsDoanhThu.RowHeadersVisible = false;
             dgv_dsDoanhThu.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgv_dsDoanhThu.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_dsDoanhThu.ReadOnly = true;
             //định dạng kiểu tiền tệ
             dgv_dsDoanhThu.Columns["SoTien"].DefaultCellStyle.Format = "N0";

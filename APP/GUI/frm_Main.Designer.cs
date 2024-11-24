@@ -207,6 +207,7 @@
             this.btn_lapThongKeLoiNhuan,
             this.btn_lapThongKeChiPhiLoiIch,
             this.btn_lapThongKeBaoCao});
+            this.accordionControlElement1.Expanded = true;
             this.accordionControlElement1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement1.ImageOptions.Image")));
             this.accordionControlElement1.Name = "accordionControlElement1";
             this.accordionControlElement1.Text = "Thống kê và Báo cáo";
