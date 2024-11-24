@@ -49,22 +49,21 @@ namespace GUI
 
         private void btn_lapThongKeDoanhThu_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_lapThongKeDoanhThu());
         }
 
         private void btn_lapThongKeLoiNhuan_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_lapThongKeLoiNhuan());
         }
 
         private void btn_lapThongKeChiPhiLoiIch_Click(object sender, EventArgs e)
         {
-
         }
 
         private void btn_lapThongKeBaoCao_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_lapThongKeBaoCao());
         }
         /// <summary>
         /// phân tích đanh giá chỉ số hiệu quả 
@@ -73,19 +72,19 @@ namespace GUI
         /// <param name="e"></param>
         private void btn_danhGiaTongThe_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_danhGiaTongThe());
         }
 
         private void btn_phanTichXuHuong_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_phanTichXuHuong());
         }
         /// <summary>
         /// quản lý kho hàng
         /// 
         private void btn_quanLyKhoHang_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyKhoHang());
         }
 
         /// <summary>
@@ -93,12 +92,12 @@ namespace GUI
         /// 
         private void btn_quanLyNhanVien_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyNhanVien());
         }
 
         private void btn_quanLyPhanQuyenNhanVien_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyPhanQuyenNhanVien());
         }
 
         /// <summary>
@@ -108,17 +107,17 @@ namespace GUI
         /// <param name="e"></param>
         private void btn_quanLyChiPhiNguyenLieu_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyChiPhiNguyenLieu());
         }
 
         private void btn_quanLyChiPhiNhanCong_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyChiPhiNhanCong());
         }
 
         private void btn_quanLyChiPhiThietKeBaoBi_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyChiPhiThietKeBaoBi());
         }
         /// <summary>
         /// quản lý các tiêu chi đánh giá sản phẩm
@@ -127,47 +126,47 @@ namespace GUI
         /// <param name="e"></param>
         private void btn_quanLyNguyenLieu_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyChiPhiNguyenLieu());
         }
 
         private void btn_quanLyChatLuong_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyChatLuong());
         }
 
         private void btn_quanLyThietKe_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyThietKe());
         }
 
         private void btn_quanLyHieuSuat_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyHieuSuat());
         }
 
         private void btn_quanLyGiaCa_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyGiaCa());
         }
 
         private void btn_quanLyDichVuKhachHang_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyDichVuKhachHang());
         }
 
         private void btn_quanLyPhanHoiKhachHang_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyPhanHoiKhachHang());
         }
 
         private void btn_quanLyBenVung_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyBenVung());
         }
 
         private void btn_tinhNangBoSung_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyTinhNang());
         }
     }
 }
