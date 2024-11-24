@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChiPhiDAL.cs" />
     <Compile Include="DoanhThuDAL.cs" />
+    <Compile Include="LoaiChiPhiDAL.cs" />
     <Compile Include="LoaiDoanhThuDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
