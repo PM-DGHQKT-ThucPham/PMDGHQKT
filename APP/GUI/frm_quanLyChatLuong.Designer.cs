@@ -32,12 +32,12 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtMucDoAnhHuong = new System.Windows.Forms.TextBox();
             this.txtDanhGiaDoBen = new System.Windows.Forms.TextBox();
-            this.txtTuoiTho = new System.Windows.Forms.TextBox();
+            this.txtTuoiThoNgay = new System.Windows.Forms.TextBox();
             this.txtMoTaChiTiet = new System.Windows.Forms.TextBox();
             this.txtMaDoBen = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cboSanPham = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblMoTa = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,9 +46,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvDoBen = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.themXoaSuaDoBen = new UC.ThemXoaSua();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -66,7 +64,7 @@
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1291, 53);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 3;
             this.label1.Text = "Tiêu đề";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -76,12 +74,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.txtMucDoAnhHuong);
             this.groupBox1.Controls.Add(this.txtDanhGiaDoBen);
-            this.groupBox1.Controls.Add(this.txtTuoiTho);
+            this.groupBox1.Controls.Add(this.txtTuoiThoNgay);
             this.groupBox1.Controls.Add(this.txtMoTaChiTiet);
             this.groupBox1.Controls.Add(this.txtMaDoBen);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.cboSanPham);
             this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.lblMoTa);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
@@ -92,7 +90,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 56);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1267, 268);
-            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin chi tiết";
             // 
@@ -101,21 +99,21 @@
             this.txtMucDoAnhHuong.Location = new System.Drawing.Point(657, 219);
             this.txtMucDoAnhHuong.Name = "txtMucDoAnhHuong";
             this.txtMucDoAnhHuong.Size = new System.Drawing.Size(273, 26);
-            this.txtMucDoAnhHuong.TabIndex = 3;
+            this.txtMucDoAnhHuong.TabIndex = 7;
             // 
             // txtDanhGiaDoBen
             // 
             this.txtDanhGiaDoBen.Location = new System.Drawing.Point(657, 154);
             this.txtDanhGiaDoBen.Name = "txtDanhGiaDoBen";
             this.txtDanhGiaDoBen.Size = new System.Drawing.Size(273, 26);
-            this.txtDanhGiaDoBen.TabIndex = 3;
+            this.txtDanhGiaDoBen.TabIndex = 6;
             // 
-            // txtTuoiTho
+            // txtTuoiThoNgay
             // 
-            this.txtTuoiTho.Location = new System.Drawing.Point(657, 89);
-            this.txtTuoiTho.Name = "txtTuoiTho";
-            this.txtTuoiTho.Size = new System.Drawing.Size(273, 26);
-            this.txtTuoiTho.TabIndex = 3;
+            this.txtTuoiThoNgay.Location = new System.Drawing.Point(657, 89);
+            this.txtTuoiThoNgay.Name = "txtTuoiThoNgay";
+            this.txtTuoiThoNgay.Size = new System.Drawing.Size(273, 26);
+            this.txtTuoiThoNgay.TabIndex = 5;
             // 
             // txtMoTaChiTiet
             // 
@@ -125,7 +123,7 @@
             this.txtMoTaChiTiet.Multiline = true;
             this.txtMoTaChiTiet.Name = "txtMoTaChiTiet";
             this.txtMoTaChiTiet.Size = new System.Drawing.Size(220, 218);
-            this.txtMoTaChiTiet.TabIndex = 3;
+            this.txtMoTaChiTiet.TabIndex = 8;
             // 
             // txtMaDoBen
             // 
@@ -133,15 +131,15 @@
             this.txtMaDoBen.Location = new System.Drawing.Point(657, 24);
             this.txtMaDoBen.Name = "txtMaDoBen";
             this.txtMaDoBen.Size = new System.Drawing.Size(273, 26);
-            this.txtMaDoBen.TabIndex = 3;
+            this.txtMaDoBen.TabIndex = 4;
             // 
-            // comboBox1
+            // cboSanPham
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(133, 32);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(293, 28);
-            this.comboBox1.TabIndex = 2;
+            this.cboSanPham.FormattingEnabled = true;
+            this.cboSanPham.Location = new System.Drawing.Point(133, 32);
+            this.cboSanPham.Name = "cboSanPham";
+            this.cboSanPham.Size = new System.Drawing.Size(293, 28);
+            this.cboSanPham.TabIndex = 11;
             // 
             // pictureBox1
             // 
@@ -152,14 +150,14 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // label7
+            // lblMoTa
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(936, 27);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(99, 20);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Mô tả chi tiết";
+            this.lblMoTa.AutoSize = true;
+            this.lblMoTa.Location = new System.Drawing.Point(936, 27);
+            this.lblMoTa.Name = "lblMoTa";
+            this.lblMoTa.Size = new System.Drawing.Size(99, 20);
+            this.lblMoTa.TabIndex = 9;
+            this.lblMoTa.Text = "Mô tả chi tiết";
             // 
             // label6
             // 
@@ -167,7 +165,7 @@
             this.label6.Location = new System.Drawing.Point(486, 222);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(141, 20);
-            this.label6.TabIndex = 0;
+            this.label6.TabIndex = 3;
             this.label6.Text = "Mức độ ảnh hưởng";
             // 
             // label5
@@ -176,7 +174,7 @@
             this.label5.Location = new System.Drawing.Point(486, 157);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(126, 20);
-            this.label5.TabIndex = 0;
+            this.label5.TabIndex = 2;
             this.label5.Text = "Đánh giá độ bền";
             // 
             // label4
@@ -185,7 +183,7 @@
             this.label4.Location = new System.Drawing.Point(486, 92);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(110, 20);
-            this.label4.TabIndex = 0;
+            this.label4.TabIndex = 1;
             this.label4.Text = "Tuổi thọ(ngày)";
             // 
             // label3
@@ -203,7 +201,7 @@
             this.label2.Location = new System.Drawing.Point(6, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(121, 20);
-            this.label2.TabIndex = 0;
+            this.label2.TabIndex = 10;
             this.label2.Text = "Chọn sản phẩm";
             // 
             // groupBox2
@@ -216,8 +214,8 @@
             this.groupBox2.ForeColor = System.Drawing.Color.Navy;
             this.groupBox2.Location = new System.Drawing.Point(12, 457);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1267, 338);
-            this.groupBox2.TabIndex = 5;
+            this.groupBox2.Size = new System.Drawing.Size(1267, 294);
+            this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Danh sách độ bền";
             // 
@@ -227,62 +225,29 @@
             this.dgvDoBen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDoBen.Location = new System.Drawing.Point(3, 22);
             this.dgvDoBen.Name = "dgvDoBen";
-            this.dgvDoBen.Size = new System.Drawing.Size(1261, 313);
+            this.dgvDoBen.Size = new System.Drawing.Size(1261, 269);
             this.dgvDoBen.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.themXoaSuaDoBen);
             this.panel1.Controls.Add(this.textBox6);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.ForeColor = System.Drawing.Color.Navy;
             this.panel1.Location = new System.Drawing.Point(12, 330);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1267, 121);
-            this.panel1.TabIndex = 6;
+            this.panel1.TabIndex = 1;
             // 
-            // button1
+            // themXoaSuaDoBen
             // 
-            this.button1.AutoSize = true;
-            this.button1.Image = global::GUI.Properties.Resources.icons8_add_35;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.Location = new System.Drawing.Point(21, 31);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(128, 58);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Tạo mới độ bền";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.AutoSize = true;
-            this.button2.Image = global::GUI.Properties.Resources.icons8_delete_35;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button2.Location = new System.Drawing.Point(155, 31);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(128, 58);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Xoá độ bền";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.AutoSize = true;
-            this.button3.Image = global::GUI.Properties.Resources.icons8_save_as_32;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button3.Location = new System.Drawing.Point(289, 31);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(128, 58);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "Lưu";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button3.UseVisualStyleBackColor = true;
+            this.themXoaSuaDoBen.Location = new System.Drawing.Point(29, 3);
+            this.themXoaSuaDoBen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.themXoaSuaDoBen.Name = "themXoaSuaDoBen";
+            this.themXoaSuaDoBen.Size = new System.Drawing.Size(524, 115);
+            this.themXoaSuaDoBen.TabIndex = 0;
             // 
             // textBox6
             // 
@@ -323,12 +288,12 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtMucDoAnhHuong;
         private System.Windows.Forms.TextBox txtDanhGiaDoBen;
-        private System.Windows.Forms.TextBox txtTuoiTho;
+        private System.Windows.Forms.TextBox txtTuoiThoNgay;
         private System.Windows.Forms.TextBox txtMoTaChiTiet;
         private System.Windows.Forms.TextBox txtMaDoBen;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cboSanPham;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblMoTa;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -338,8 +303,6 @@
         private System.Windows.Forms.DataGridView dgvDoBen;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private UC.ThemXoaSua themXoaSuaDoBen;
     }
 }
