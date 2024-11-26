@@ -32,6 +32,16 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgv_dsLoaiChiPhi = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_clear = new System.Windows.Forms.Button();
+            this.themXoaSuaChiPhi = new UC.ThemXoaSua();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txt_moTaLoaiChiPhi = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txt_tongTien = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txt_tenLoaiChiPhi = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.cbo_sanPham = new System.Windows.Forms.ComboBox();
             this.cbo_loaiChiPhi = new System.Windows.Forms.ComboBox();
             this.btn_timKiem = new System.Windows.Forms.Button();
@@ -39,27 +49,17 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgv_dsChiPhi = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txt_maChiPhi = new System.Windows.Forms.TextBox();
-            this.txt_moTa = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.cbp_chucNang = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txt_maLoaiChiPhi = new System.Windows.Forms.TextBox();
+            this.dtp_thoiGian = new System.Windows.Forms.DateTimePicker();
+            this.label9 = new System.Windows.Forms.Label();
             this.txt_soTien = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txt_maLoaiChiPhi = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.dtp_thoiGian = new System.Windows.Forms.DateTimePicker();
-            this.txt_tongTien = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txt_tenLoaiChiPhi = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txt_moTaLoaiChiPhi = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.cbp_chucNang = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.themXoaSua1 = new UC.ThemXoaSua();
-            this.btn_clear = new System.Windows.Forms.Button();
+            this.txt_moTa = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txt_maChiPhi = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsLoaiChiPhi)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -109,7 +109,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btn_clear);
-            this.groupBox2.Controls.Add(this.themXoaSua1);
+            this.groupBox2.Controls.Add(this.themXoaSuaChiPhi);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txt_moTaLoaiChiPhi);
             this.groupBox2.Controls.Add(this.label11);
@@ -127,6 +127,109 @@
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tìm kiếm thông tin doanh thu";
+            // 
+            // btn_clear
+            // 
+            this.btn_clear.BackgroundImage = global::GUI.Properties.Resources.icons8_clear_32;
+            this.btn_clear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_clear.Location = new System.Drawing.Point(428, 113);
+            this.btn_clear.Name = "btn_clear";
+            this.btn_clear.Size = new System.Drawing.Size(51, 40);
+            this.btn_clear.TabIndex = 26;
+            this.btn_clear.UseVisualStyleBackColor = true;
+            // 
+            // themXoaSuaChiPhi
+            // 
+            this.themXoaSuaChiPhi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.themXoaSuaChiPhi.Location = new System.Drawing.Point(186, 154);
+            this.themXoaSuaChiPhi.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.themXoaSuaChiPhi.Name = "themXoaSuaChiPhi";
+            this.themXoaSuaChiPhi.Size = new System.Drawing.Size(479, 80);
+            this.themXoaSuaChiPhi.TabIndex = 26;
+            this.themXoaSuaChiPhi.Load += new System.EventHandler(this.themXoaSua_Load);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label5.Location = new System.Drawing.Point(441, 69);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(90, 20);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "Sản phẩm";
+            // 
+            // txt_moTaLoaiChiPhi
+            // 
+            this.txt_moTaLoaiChiPhi.BackColor = System.Drawing.Color.White;
+            this.txt_moTaLoaiChiPhi.Enabled = false;
+            this.txt_moTaLoaiChiPhi.Location = new System.Drawing.Point(149, 66);
+            this.txt_moTaLoaiChiPhi.Multiline = true;
+            this.txt_moTaLoaiChiPhi.Name = "txt_moTaLoaiChiPhi";
+            this.txt_moTaLoaiChiPhi.Size = new System.Drawing.Size(253, 48);
+            this.txt_moTaLoaiChiPhi.TabIndex = 23;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label11.Location = new System.Drawing.Point(17, 69);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(54, 20);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "Mô tả";
+            // 
+            // txt_tongTien
+            // 
+            this.txt_tongTien.BackColor = System.Drawing.Color.White;
+            this.txt_tongTien.Enabled = false;
+            this.txt_tongTien.Location = new System.Drawing.Point(149, 120);
+            this.txt_tongTien.Name = "txt_tongTien";
+            this.txt_tongTien.Size = new System.Drawing.Size(253, 26);
+            this.txt_tongTien.TabIndex = 21;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label2.Location = new System.Drawing.Point(17, 123);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(84, 20);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "Tổng tiền";
+            // 
+            // txt_tenLoaiChiPhi
+            // 
+            this.txt_tenLoaiChiPhi.BackColor = System.Drawing.Color.White;
+            this.txt_tenLoaiChiPhi.Enabled = false;
+            this.txt_tenLoaiChiPhi.Location = new System.Drawing.Point(540, 24);
+            this.txt_tenLoaiChiPhi.Name = "txt_tenLoaiChiPhi";
+            this.txt_tenLoaiChiPhi.Size = new System.Drawing.Size(253, 26);
+            this.txt_tenLoaiChiPhi.TabIndex = 19;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label3.Location = new System.Drawing.Point(441, 27);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 20);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Tên loại";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label4.Location = new System.Drawing.Point(17, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(123, 20);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Mã loại chi phí";
             // 
             // cbo_sanPham
             // 
@@ -213,45 +316,52 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Thông tin chi phí";
             // 
-            // label1
+            // cbp_chucNang
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label1.Location = new System.Drawing.Point(33, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 20);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Mã chi phí";
+            this.cbp_chucNang.FormattingEnabled = true;
+            this.cbp_chucNang.Location = new System.Drawing.Point(428, 99);
+            this.cbp_chucNang.Name = "cbp_chucNang";
+            this.cbp_chucNang.Size = new System.Drawing.Size(177, 28);
+            this.cbp_chucNang.TabIndex = 25;
             // 
-            // txt_maChiPhi
+            // label10
             // 
-            this.txt_maChiPhi.BackColor = System.Drawing.Color.White;
-            this.txt_maChiPhi.Enabled = false;
-            this.txt_maChiPhi.Location = new System.Drawing.Point(165, 25);
-            this.txt_maChiPhi.Name = "txt_maChiPhi";
-            this.txt_maChiPhi.Size = new System.Drawing.Size(253, 26);
-            this.txt_maChiPhi.TabIndex = 11;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label10.Location = new System.Drawing.Point(424, 28);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(82, 20);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Thời gian";
             // 
-            // txt_moTa
+            // txt_maLoaiChiPhi
             // 
-            this.txt_moTa.BackColor = System.Drawing.Color.White;
-            this.txt_moTa.Enabled = false;
-            this.txt_moTa.Location = new System.Drawing.Point(165, 59);
-            this.txt_moTa.Name = "txt_moTa";
-            this.txt_moTa.Size = new System.Drawing.Size(253, 26);
-            this.txt_moTa.TabIndex = 13;
+            this.txt_maLoaiChiPhi.BackColor = System.Drawing.Color.White;
+            this.txt_maLoaiChiPhi.Enabled = false;
+            this.txt_maLoaiChiPhi.Location = new System.Drawing.Point(165, 132);
+            this.txt_maLoaiChiPhi.Name = "txt_maLoaiChiPhi";
+            this.txt_maLoaiChiPhi.Size = new System.Drawing.Size(253, 26);
+            this.txt_maLoaiChiPhi.TabIndex = 17;
             // 
-            // label7
+            // dtp_thoiGian
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label7.Location = new System.Drawing.Point(33, 62);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(54, 20);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Mô tả";
+            this.dtp_thoiGian.Enabled = false;
+            this.dtp_thoiGian.Location = new System.Drawing.Point(433, 59);
+            this.dtp_thoiGian.Name = "dtp_thoiGian";
+            this.dtp_thoiGian.Size = new System.Drawing.Size(241, 26);
+            this.dtp_thoiGian.TabIndex = 11;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label9.Location = new System.Drawing.Point(33, 138);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(123, 20);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Mã loại chi phí";
             // 
             // txt_soTien
             // 
@@ -273,154 +383,45 @@
             this.label8.TabIndex = 16;
             this.label8.Text = "Số tiền";
             // 
-            // txt_maLoaiChiPhi
+            // txt_moTa
             // 
-            this.txt_maLoaiChiPhi.BackColor = System.Drawing.Color.White;
-            this.txt_maLoaiChiPhi.Enabled = false;
-            this.txt_maLoaiChiPhi.Location = new System.Drawing.Point(165, 132);
-            this.txt_maLoaiChiPhi.Name = "txt_maLoaiChiPhi";
-            this.txt_maLoaiChiPhi.Size = new System.Drawing.Size(253, 26);
-            this.txt_maLoaiChiPhi.TabIndex = 17;
+            this.txt_moTa.BackColor = System.Drawing.Color.White;
+            this.txt_moTa.Enabled = false;
+            this.txt_moTa.Location = new System.Drawing.Point(165, 59);
+            this.txt_moTa.Name = "txt_moTa";
+            this.txt_moTa.Size = new System.Drawing.Size(253, 26);
+            this.txt_moTa.TabIndex = 13;
             // 
-            // label9
+            // label7
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label9.Location = new System.Drawing.Point(33, 138);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(123, 20);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "Mã loại chi phí";
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label7.Location = new System.Drawing.Point(33, 62);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(54, 20);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Mô tả";
             // 
-            // label10
+            // txt_maChiPhi
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label10.Location = new System.Drawing.Point(424, 28);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(82, 20);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Thời gian";
+            this.txt_maChiPhi.BackColor = System.Drawing.Color.White;
+            this.txt_maChiPhi.Enabled = false;
+            this.txt_maChiPhi.Location = new System.Drawing.Point(165, 25);
+            this.txt_maChiPhi.Name = "txt_maChiPhi";
+            this.txt_maChiPhi.Size = new System.Drawing.Size(253, 26);
+            this.txt_maChiPhi.TabIndex = 11;
             // 
-            // dtp_thoiGian
+            // label1
             // 
-            this.dtp_thoiGian.Enabled = false;
-            this.dtp_thoiGian.Location = new System.Drawing.Point(433, 59);
-            this.dtp_thoiGian.Name = "dtp_thoiGian";
-            this.dtp_thoiGian.Size = new System.Drawing.Size(241, 26);
-            this.dtp_thoiGian.TabIndex = 11;
-            // 
-            // txt_tongTien
-            // 
-            this.txt_tongTien.BackColor = System.Drawing.Color.White;
-            this.txt_tongTien.Enabled = false;
-            this.txt_tongTien.Location = new System.Drawing.Point(149, 120);
-            this.txt_tongTien.Name = "txt_tongTien";
-            this.txt_tongTien.Size = new System.Drawing.Size(253, 26);
-            this.txt_tongTien.TabIndex = 21;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label2.Location = new System.Drawing.Point(17, 123);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 20);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "Tổng tiền";
-            // 
-            // txt_tenLoaiChiPhi
-            // 
-            this.txt_tenLoaiChiPhi.BackColor = System.Drawing.Color.White;
-            this.txt_tenLoaiChiPhi.Enabled = false;
-            this.txt_tenLoaiChiPhi.Location = new System.Drawing.Point(540, 24);
-            this.txt_tenLoaiChiPhi.Name = "txt_tenLoaiChiPhi";
-            this.txt_tenLoaiChiPhi.Size = new System.Drawing.Size(253, 26);
-            this.txt_tenLoaiChiPhi.TabIndex = 19;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label3.Location = new System.Drawing.Point(441, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 20);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "Tên loại";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label4.Location = new System.Drawing.Point(17, 27);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(123, 20);
-            this.label4.TabIndex = 18;
-            this.label4.Text = "Mã loại chi phí";
-            // 
-            // txt_moTaLoaiChiPhi
-            // 
-            this.txt_moTaLoaiChiPhi.BackColor = System.Drawing.Color.White;
-            this.txt_moTaLoaiChiPhi.Enabled = false;
-            this.txt_moTaLoaiChiPhi.Location = new System.Drawing.Point(149, 66);
-            this.txt_moTaLoaiChiPhi.Multiline = true;
-            this.txt_moTaLoaiChiPhi.Name = "txt_moTaLoaiChiPhi";
-            this.txt_moTaLoaiChiPhi.Size = new System.Drawing.Size(253, 48);
-            this.txt_moTaLoaiChiPhi.TabIndex = 23;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label11.Location = new System.Drawing.Point(17, 69);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(54, 20);
-            this.label11.TabIndex = 24;
-            this.label11.Text = "Mô tả";
-            // 
-            // cbp_chucNang
-            // 
-            this.cbp_chucNang.FormattingEnabled = true;
-            this.cbp_chucNang.Location = new System.Drawing.Point(428, 99);
-            this.cbp_chucNang.Name = "cbp_chucNang";
-            this.cbp_chucNang.Size = new System.Drawing.Size(177, 28);
-            this.cbp_chucNang.TabIndex = 25;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label5.Location = new System.Drawing.Point(441, 69);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 20);
-            this.label5.TabIndex = 25;
-            this.label5.Text = "Sản phẩm";
-            // 
-            // themXoaSua1
-            // 
-            this.themXoaSua1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.themXoaSua1.Location = new System.Drawing.Point(186, 154);
-            this.themXoaSua1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.themXoaSua1.Name = "themXoaSua1";
-            this.themXoaSua1.Size = new System.Drawing.Size(479, 80);
-            this.themXoaSua1.TabIndex = 26;
-            // 
-            // btn_clear
-            // 
-            this.btn_clear.BackgroundImage = global::GUI.Properties.Resources.icons8_clear_32;
-            this.btn_clear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btn_clear.Location = new System.Drawing.Point(428, 113);
-            this.btn_clear.Name = "btn_clear";
-            this.btn_clear.Size = new System.Drawing.Size(51, 40);
-            this.btn_clear.TabIndex = 26;
-            this.btn_clear.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label1.Location = new System.Drawing.Point(33, 28);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(90, 20);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Mã chi phí";
             // 
             // frm_quanLyChiPhi
             // 
@@ -478,7 +479,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbp_chucNang;
         private System.Windows.Forms.Label label5;
-        private UC.ThemXoaSua themXoaSua1;
+        private UC.ThemXoaSua themXoaSuaChiPhi;
         private System.Windows.Forms.Button btn_clear;
     }
 }
