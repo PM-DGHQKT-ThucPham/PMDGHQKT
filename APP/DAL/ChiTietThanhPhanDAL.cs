@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,11 @@ namespace DAL
 {
     public class ChiTietThanhPhanDAL
     {
+        DoAnTotNghiepDataContext db = new DoAnTotNghiepDataContext();
+        public List<ChiTietThanhPhan> LayCTTP_CuaSanPham(string masp)
+        {
+            var dscttp = db.ChiTietThanhPhans.Where(t=> t.MaSanPham ==  masp).ToList();
+            return dscttp;
+        }
     }
 }

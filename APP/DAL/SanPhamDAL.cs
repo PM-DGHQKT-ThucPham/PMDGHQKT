@@ -40,5 +40,51 @@ namespace DAL
                 throw ex;
             }
         }
+
+        public bool ThemSanPham(SanPham sp)
+        {
+            try
+            {
+                db.SanPhams.InsertOnSubmit(sp);
+                db.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
+        }
+        public bool XoaSanPham(SanPham sp)
+        {
+            try
+            {
+                db.SanPhams.DeleteOnSubmit(sp);
+                db.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        public bool SuaSanPham(string masp1, SanPham sp1)
+        {
+            try
+            {
+                SanPham sp = db.SanPhams.Where(t => t.MaSanPham == masp1).FirstOrDefault();
+                // Sản phẩm cũ bằng sản phẩm mới
+                sp = sp1;
+                db.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
     }
 }
