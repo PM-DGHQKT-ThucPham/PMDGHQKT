@@ -21,7 +21,7 @@ namespace BLL
             {
                 return _loaiChiPhiDAL.LayDanhSachLoaiChiPhi(maSanPham);
             }
-            catch (Exception ex)
+            catch  
             {
                 return null;
             }
@@ -33,7 +33,7 @@ namespace BLL
             {
                 return _loaiChiPhiDAL.LayLoaiChiPhiTheoMaLoaiChiPhi(maLoaiChiPhi, maSanPham);
             }
-            catch (Exception ex)
+            catch  
             {
                 return null;
             }

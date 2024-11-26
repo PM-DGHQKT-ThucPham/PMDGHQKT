@@ -26,7 +26,7 @@ namespace DAL
                     return _lstLoaiChiPhi;
                 }
             }
-            catch (Exception ex)
+            catch  
             {
                 return null;
             }
@@ -44,7 +44,7 @@ namespace DAL
                     return _loaiChiPhi;
                 }
             }
-            catch (Exception ex)
+            catch  
             {
                 return null;
             }

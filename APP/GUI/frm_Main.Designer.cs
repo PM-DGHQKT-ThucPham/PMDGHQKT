@@ -74,6 +74,9 @@
             this.btn_quanLyBenVung = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_tinhNangBoSung = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlElement3 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_quanLyDoanhThu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_tinhToanLoiNhuan = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_quanLyThiTruong = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.fluentDesignFormControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentFormDefaultManager1)).BeginInit();
             this.pnLeft.SuspendLayout();
@@ -285,6 +288,9 @@
             this.accordionControlElement8,
             this.accordionControlElement9,
             this.accordionControlElement11,
+            this.btn_quanLyDoanhThu,
+            this.btn_tinhToanLoiNhuan,
+            this.btn_quanLyThiTruong,
             this.accordionControlElement5});
             this.accordionControlElement2.Expanded = true;
             this.accordionControlElement2.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement2.ImageOptions.Image")));
@@ -409,7 +415,6 @@
             this.btn_quanLyPhanHoiKhachHang,
             this.btn_quanLyBenVung,
             this.btn_tinhNangBoSung});
-            this.accordionControlElement5.Expanded = true;
             this.accordionControlElement5.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement5.ImageOptions.Image")));
             this.accordionControlElement5.Name = "accordionControlElement5";
             this.accordionControlElement5.Text = "Quản lý tiêu chi sản phẩm";
@@ -492,6 +497,30 @@
             this.accordionControlElement3.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.accordionControlElement3.Text = "Element3";
             // 
+            // btn_quanLyDoanhThu
+            // 
+            this.btn_quanLyDoanhThu.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement4.ImageOptions.Image")));
+            this.btn_quanLyDoanhThu.Name = "btn_quanLyDoanhThu";
+            this.btn_quanLyDoanhThu.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_quanLyDoanhThu.Text = "Doanh thu";
+            this.btn_quanLyDoanhThu.Click += new System.EventHandler(this.btn_quanLyDoanhThu_Click);
+            // 
+            // btn_tinhToanLoiNhuan
+            // 
+            this.btn_tinhToanLoiNhuan.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement6.ImageOptions.Image")));
+            this.btn_tinhToanLoiNhuan.Name = "btn_tinhToanLoiNhuan";
+            this.btn_tinhToanLoiNhuan.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_tinhToanLoiNhuan.Text = "Tính toán lợi nhuận";
+            this.btn_tinhToanLoiNhuan.Click += new System.EventHandler(this.btn_tinhToanLoiNhuan_Click);
+            // 
+            // btn_quanLyThiTruong
+            // 
+            this.btn_quanLyThiTruong.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement10.ImageOptions.Image")));
+            this.btn_quanLyThiTruong.Name = "btn_quanLyThiTruong";
+            this.btn_quanLyThiTruong.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_quanLyThiTruong.Text = "Thị trường";
+            this.btn_quanLyThiTruong.Click += new System.EventHandler(this.btn_quanLyThiTruong_Click);
+            // 
             // frm_main
             // 
             this.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
@@ -561,5 +590,8 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_danhGiaTongThe;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement3;
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_phanTichXuHuong;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyDoanhThu;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement btn_tinhToanLoiNhuan;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyThiTruong;
     }
 }

@@ -21,7 +21,7 @@ namespace BLL
             {
                 return _chiPhiDAL.LayDanhSachChiPhi(maSanPham);
             }
-            catch (Exception ex)
+            catch  
             {
                 return null;
             }
@@ -33,7 +33,7 @@ namespace BLL
             {
                 return _chiPhiDAL.LayChiPhiTheoMaChiPhi(maChiPhi, maSanPham);
             }
-            catch (Exception ex)
+            catch  
             {
                 return null;
             }
@@ -45,7 +45,7 @@ namespace BLL
             {
                 return _chiPhiDAL.LayChiPhiTheoMaLoaiChiPhi(maLoaiChiPhi, maSanPham);
             }
-            catch (Exception ex)
+            catch  
             {
                 return null;
             }
@@ -57,7 +57,7 @@ namespace BLL
             {
                 return _chiPhiDAL.LayChiPhiTheoThangNam(thang, nam, maSanPham);
             }
-            catch (Exception ex)
+            catch  
             {
                 return null;
             }
@@ -69,7 +69,7 @@ namespace BLL
             {
                 return _chiPhiDAL.LayChiPhiTheoKhoangThoiGian(tuNgay, denNgay, maSanPham);
             }
-            catch (Exception ex)
+            catch  
             {
                 return null;
             }

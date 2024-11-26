@@ -25,7 +25,7 @@ namespace DAL
                     return _lstChiPhi;
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
@@ -43,7 +43,7 @@ namespace DAL
                     return _chiPhi;
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
@@ -61,7 +61,7 @@ namespace DAL
                     return _lstChiPhi;
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
@@ -79,7 +79,7 @@ namespace DAL
                     return _lstChiPhi;
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
@@ -97,7 +97,7 @@ namespace DAL
                     return _lstChiPhi;
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 return null;
             }

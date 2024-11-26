@@ -168,6 +168,21 @@ namespace GUI
         {
             loadForm(new frm_quanLyTinhNang());
         }
+
+        private void btn_quanLyDoanhThu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_tinhToanLoiNhuan_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_quanLyThiTruong_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
     
