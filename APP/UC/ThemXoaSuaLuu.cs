@@ -53,22 +53,6 @@ namespace UC
         private void btnThem_Click(object sender, EventArgs e)
         {
             ThemClicked?.Invoke(this, EventArgs.Empty);
-            //if (btnHuyThem.Enabled == false)
-            //{
-            //    btnHuyThem.Enabled = true;
-            //    btnXoa.Enabled = false;
-            //    btnSua.Enabled = false;
-            //    btnLuu.Enabled  = false;
-            //    btnThem.Image = Properties.Resources.icons8_tick_35;
-            //}
-            //else
-            //{
-            //    btnXoa.Enabled = true;
-            //    btnSua.Enabled = true;
-            //    btnLuu.Enabled = true;
-            //    btnHuyThem.Enabled = false;
-            //    btnThem.Image = Properties.Resources.icons8_add_35;
-            //}
             
         }
 
