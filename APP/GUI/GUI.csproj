@@ -156,6 +156,12 @@
     <Compile Include="frm_quanLyChiPhi.Designer.cs">
       <DependentUpon>frm_quanLyChiPhi.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_quanLyDoanhThu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyDoanhThu.Designer.cs">
+      <DependentUpon>frm_quanLyDoanhThu.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_quanLyKhoHang.cs">
       <SubType>Form</SubType>
     </Compile>
