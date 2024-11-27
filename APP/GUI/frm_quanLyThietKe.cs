@@ -451,13 +451,6 @@ namespace GUI
                 }
             }
 
-            // Nếu không có thiết kế nào trong danh sách, thông báo cho người dùng
-            if (danhSachThietKe.Count == 0)
-            {
-                MessageBox.Show("Không có thiết kế nào để lưu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             // Gọi phương thức cập nhật danh sách thiết kế vào cơ sở dữ liệu
             ThietKeBLL thietKeBLL = new ThietKeBLL();
             bool ketQua = thietKeBLL.CapNhatThietKeDuaTrenDanhSachThietKe(danhSachThietKe);
