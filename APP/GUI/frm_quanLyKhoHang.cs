@@ -190,9 +190,21 @@ namespace GUI
             {
                 if (KiemTraRongTextBoxSanPham() == false)
                 {
-                    SanPham sp = LaySanPhamTuGiaoDien();
-                    XoaSanPhamDuocChon();
-                    ThemSanPhamVaoDataGridView(sp);
+                    if (KiemTraRongTextBoxSanPham() == false) //Tất cả đều nhập
+                    {
+                        SanPham sp = LaySanPhamTuGiaoDien();
+                        dgv_dsSanPham.CurrentRow.Cells["TenSanPham"].Value = sp.TenSanPham;
+                        dgv_dsSanPham.CurrentRow.Cells["MoTa"].Value = sp.MoTa;
+                        dgv_dsSanPham.CurrentRow.Cells["Gia"].Value = sp.Gia;
+                        dgv_dsSanPham.CurrentRow.Cells["DanhMuc"].Value = sp.DanhMuc;
+                        dgv_dsSanPham.CurrentRow.Cells["SoLuongTon"].Value = sp.SoLuongTon;
+                        dgv_dsSanPham.CurrentRow.Cells["NgayPhatHanh"].Value = sp.NgayPhatHanh;
+                        dgv_dsSanPham.CurrentRow.Cells["MucDoAnhHuongTongNguyenLieu"].Value = sp.MucDoAnhHuongTongNguyenLieu;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Có thông tin đang trống");
+                    }
                 }
                 else
                 {

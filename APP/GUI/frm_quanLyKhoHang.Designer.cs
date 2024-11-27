@@ -48,9 +48,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtMaSanPham = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.themXoaSuaSanPham = new UC.ThemXoaSua();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtDanhGiaChatLuongNguyenLieu = new System.Windows.Forms.TextBox();
             this.txtPhanTramNguyenLieu = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.themXoaSuaCTTP = new UC.ThemXoaSua();
             this.label10 = new System.Windows.Forms.Label();
             this.dgv_ChiTietThanhPhan = new System.Windows.Forms.DataGridView();
             this.txtMoTaNguyenLieu = new System.Windows.Forms.TextBox();
@@ -59,9 +62,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txtTenNguyenLieu = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtDanhGiaChatLuongNguyenLieu = new System.Windows.Forms.TextBox();
-            this.themXoaSuaCTTP = new UC.ThemXoaSua();
-            this.themXoaSuaSanPham = new UC.ThemXoaSua();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsSanPham)).BeginInit();
@@ -292,6 +292,15 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Mã sản phẩm";
             // 
+            // themXoaSuaSanPham
+            // 
+            this.themXoaSuaSanPham.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.themXoaSuaSanPham.Location = new System.Drawing.Point(10, 315);
+            this.themXoaSuaSanPham.Margin = new System.Windows.Forms.Padding(9);
+            this.themXoaSuaSanPham.Name = "themXoaSuaSanPham";
+            this.themXoaSuaSanPham.Size = new System.Drawing.Size(418, 83);
+            this.themXoaSuaSanPham.TabIndex = 1;
+            // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -317,7 +326,15 @@
             this.groupBox3.Size = new System.Drawing.Size(624, 832);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Nguyên liệu";
+            this.groupBox3.Text = "Chi Tiết Thành Phần Nguyên Liệu";
+            // 
+            // txtDanhGiaChatLuongNguyenLieu
+            // 
+            this.txtDanhGiaChatLuongNguyenLieu.Enabled = false;
+            this.txtDanhGiaChatLuongNguyenLieu.Location = new System.Drawing.Point(196, 269);
+            this.txtDanhGiaChatLuongNguyenLieu.Name = "txtDanhGiaChatLuongNguyenLieu";
+            this.txtDanhGiaChatLuongNguyenLieu.Size = new System.Drawing.Size(302, 26);
+            this.txtDanhGiaChatLuongNguyenLieu.TabIndex = 28;
             // 
             // txtPhanTramNguyenLieu
             // 
@@ -335,6 +352,16 @@
             this.label14.Size = new System.Drawing.Size(91, 20);
             this.label14.TabIndex = 27;
             this.label14.Text = "Phần trăm";
+            // 
+            // themXoaSuaCTTP
+            // 
+            this.themXoaSuaCTTP.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.themXoaSuaCTTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.themXoaSuaCTTP.Location = new System.Drawing.Point(4, 352);
+            this.themXoaSuaCTTP.Margin = new System.Windows.Forms.Padding(6);
+            this.themXoaSuaCTTP.Name = "themXoaSuaCTTP";
+            this.themXoaSuaCTTP.Size = new System.Drawing.Size(414, 69);
+            this.themXoaSuaCTTP.TabIndex = 2;
             // 
             // label10
             // 
@@ -413,33 +440,6 @@
             this.label12.Size = new System.Drawing.Size(135, 20);
             this.label12.TabIndex = 21;
             this.label12.Text = "Tên nguyên liệu";
-            // 
-            // txtDanhGiaChatLuongNguyenLieu
-            // 
-            this.txtDanhGiaChatLuongNguyenLieu.Enabled = false;
-            this.txtDanhGiaChatLuongNguyenLieu.Location = new System.Drawing.Point(196, 269);
-            this.txtDanhGiaChatLuongNguyenLieu.Name = "txtDanhGiaChatLuongNguyenLieu";
-            this.txtDanhGiaChatLuongNguyenLieu.Size = new System.Drawing.Size(302, 26);
-            this.txtDanhGiaChatLuongNguyenLieu.TabIndex = 28;
-            // 
-            // themXoaSuaCTTP
-            // 
-            this.themXoaSuaCTTP.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.themXoaSuaCTTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.themXoaSuaCTTP.Location = new System.Drawing.Point(4, 352);
-            this.themXoaSuaCTTP.Margin = new System.Windows.Forms.Padding(6);
-            this.themXoaSuaCTTP.Name = "themXoaSuaCTTP";
-            this.themXoaSuaCTTP.Size = new System.Drawing.Size(414, 69);
-            this.themXoaSuaCTTP.TabIndex = 2;
-            // 
-            // themXoaSuaSanPham
-            // 
-            this.themXoaSuaSanPham.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.themXoaSuaSanPham.Location = new System.Drawing.Point(10, 315);
-            this.themXoaSuaSanPham.Margin = new System.Windows.Forms.Padding(9);
-            this.themXoaSuaSanPham.Name = "themXoaSuaSanPham";
-            this.themXoaSuaSanPham.Size = new System.Drawing.Size(418, 83);
-            this.themXoaSuaSanPham.TabIndex = 1;
             // 
             // frm_quanLyKhoHang
             // 
