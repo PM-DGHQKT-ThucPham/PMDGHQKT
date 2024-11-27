@@ -83,5 +83,16 @@ namespace BLL
                 throw ex;
             }
         }
+        public bool CapNhatThemXoaSuaDoanhThu(List<DoanhThu> _lstDoanhThu, string maLoaiDoanhThu)
+        {
+            try
+            {
+                return _doanhThuDAL.CapNhatThemXoaSuaDoanhThu(_lstDoanhThu,maLoaiDoanhThu);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

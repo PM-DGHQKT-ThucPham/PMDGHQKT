@@ -1132,57 +1132,136 @@ namespace GUI
         {
             try
             {
-                //đổi tên cột
+                // Đổi tên cột
                 dgv_dsChiPhi.Columns["MaChiPhi"].HeaderText = "Mã chi phí";
                 dgv_dsChiPhi.Columns["MoTa"].HeaderText = "Tên chi phí";
                 dgv_dsChiPhi.Columns["SoTien"].HeaderText = "Số tiền";
-                dgv_dsChiPhi.Columns["ThoiGian"].HeaderText = "ThoiGian";
+                dgv_dsChiPhi.Columns["ThoiGian"].HeaderText = "Thời gian";
                 dgv_dsChiPhi.Columns["MaLoaiChiPhi"].HeaderText = "Mã loại chi phí";
-                //in đậm tiêu đề
-                dgv_dsChiPhi.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12, FontStyle.Bold);
-                //căn giữa tiêu đề
-                dgv_dsChiPhi.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                //ẩn cột
-                dgv_dsChiPhi.Columns["LoaiChiPhi"].Visible = false;
-                //định dạng tiền
-                dgv_dsChiPhi.Columns["SoTien"].DefaultCellStyle.Format = "N0";
 
-                //hiển thị tràn viền
+                // In đậm tiêu đề
+                dgv_dsChiPhi.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12, FontStyle.Bold);
+
+                // Căn giữa tiêu đề
+                dgv_dsChiPhi.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                // Ẩn cột không cần thiết
+                dgv_dsChiPhi.Columns["LoaiChiPhi"].Visible = false;
+
+                // Định dạng tiền cho cột "SoTien"
+                if (dgv_dsChiPhi.Columns.Contains("SoTien"))
+                {
+                    dgv_dsChiPhi.Columns["SoTien"].DefaultCellStyle.Format = "N0"; // Định dạng số tiền với dấu phân cách hàng nghìn
+                    dgv_dsChiPhi.Columns["SoTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Căn phải
+                }
+
+                // Đảm bảo cột "ThoiGian" có định dạng ngày tháng nếu cần
+                if (dgv_dsChiPhi.Columns.Contains("ThoiGian"))
+                {
+                    dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Format = "dd/MM/yyyy"; // Định dạng ngày tháng (tuỳ theo yêu cầu)
+                    dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Căn giữa
+                }
+
+                // Đảm bảo cột "MoTa" luôn hiển thị cuối cùng
+                if (dgv_dsChiPhi.Columns.Contains("MoTa"))
+                {
+                    dgv_dsChiPhi.Columns["MoTa"].DisplayIndex = dgv_dsChiPhi.Columns.Count - 1; // Đưa cột MoTa vào cuối cùng
+                    dgv_dsChiPhi.Columns["MoTa"].DefaultCellStyle.WrapMode = DataGridViewTriState.True; // Bật chế độ tự động xuống dòng cho cột MoTa
+                }
+
+                // Hiển thị toàn bộ bảng, tự động thay đổi kích thước cột cho phù hợp
                 dgv_dsChiPhi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                // FillWeight cho các cột
+                dgv_dsChiPhi.Columns["SoThuTu"].FillWeight = 7;
+                dgv_dsChiPhi.Columns["MaChiPhi"].FillWeight = 15;
+                dgv_dsChiPhi.Columns["MoTa"].FillWeight = 40;
+                dgv_dsChiPhi.Columns["SoTien"].FillWeight = 20;
+                dgv_dsChiPhi.Columns["ThoiGian"].FillWeight = 20;
+                dgv_dsChiPhi.Columns["MaLoaiChiPhi"].FillWeight = 17;
+
+                // Tự động điều chỉnh chiều cao hàng dựa trên nội dung của các ô
+                dgv_dsChiPhi.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+                // Nếu cần, có thể đặt chiều cao tối thiểu cho các hàng
+                foreach (DataGridViewRow row in dgv_dsChiPhi.Rows)
+                {
+                    row.Height = Math.Max(row.Height, 30); // Đặt chiều cao tối thiểu cho các hàng
+                }
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Lỗi khi khởi tạo DataGridView chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void KhoiTaoLoaiChiPhi()
         {
             try
             {
-                // đổi tên cột
+                // Đổi tên cột
                 dgv_dsLoaiChiPhi.Columns["MaLoaiChiPhi"].HeaderText = "Mã loại chi phí";
                 dgv_dsLoaiChiPhi.Columns["TenLoaiChiPhi"].HeaderText = "Tên loại chi phí";
                 dgv_dsLoaiChiPhi.Columns["MoTa"].HeaderText = "Mô tả";
                 dgv_dsLoaiChiPhi.Columns["TongTien"].HeaderText = "Số tiền";
                 dgv_dsLoaiChiPhi.Columns["MaSanPham"].HeaderText = "Mã sản phẩm";
-                //in đậm tiêu đề
+
+                // In đậm tiêu đề
                 dgv_dsLoaiChiPhi.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12, FontStyle.Bold);
-                //căn giữa tiêu đề
+
+                // Căn giữa tiêu đề
                 dgv_dsLoaiChiPhi.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                //ẩn cột
+
+                // Ẩn cột không cần thiết
                 dgv_dsLoaiChiPhi.Columns["SanPham"].Visible = false;
 
-                //định dạng tiền
-                dgv_dsLoaiChiPhi.Columns["TongTien"].DefaultCellStyle.Format = "N0";
-                //hiển thị full bảng
+                // Định dạng tiền
+                if (dgv_dsLoaiChiPhi.Columns.Contains("TongTien"))
+                {
+                    dgv_dsLoaiChiPhi.Columns["TongTien"].DefaultCellStyle.Format = "N0"; // Định dạng tiền
+                    dgv_dsLoaiChiPhi.Columns["TongTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Căn phải cho cột tiền
+                }
+
+                // Định dạng cột "SoThuTu" là số
+                if (dgv_dsLoaiChiPhi.Columns.Contains("SoThuTu"))
+                {
+                    dgv_dsLoaiChiPhi.Columns["SoThuTu"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Căn giữa cho STT
+                    dgv_dsLoaiChiPhi.Columns["SoThuTu"].DefaultCellStyle.Format = "D0"; // Định dạng số nguyên (ví dụ: 1, 2, 3...)
+                }
+
+                // Thiết lập tự động xuống dòng cho cột "MoTa"
+                if (dgv_dsLoaiChiPhi.Columns.Contains("MoTa"))
+                {
+                    dgv_dsLoaiChiPhi.Columns["MoTa"].DefaultCellStyle.WrapMode = DataGridViewTriState.True; // Bật tính năng xuống dòng cho cột "MoTa"
+                }
+
+                // Hiển thị toàn bộ bảng, tự động thay đổi kích thước cột cho phù hợp
                 dgv_dsLoaiChiPhi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                // FillWeight cho các cột
+                dgv_dsLoaiChiPhi.Columns["MaLoaiChiPhi"].FillWeight = 15;
+                dgv_dsLoaiChiPhi.Columns["TenLoaiChiPhi"].FillWeight = 20;
+                dgv_dsLoaiChiPhi.Columns["MoTa"].FillWeight = 28; // Cột "Mô tả" chiếm nhiều không gian hơn
+                dgv_dsLoaiChiPhi.Columns["TongTien"].FillWeight = 18;
+                dgv_dsLoaiChiPhi.Columns["MaSanPham"].FillWeight = 12;
+                dgv_dsLoaiChiPhi.Columns["SoThuTu"].FillWeight = 7; // Cột "STT" có thể chiếm ít không gian hơn
+
+                // Tự động điều chỉnh chiều cao hàng dựa trên nội dung của các ô
+                dgv_dsLoaiChiPhi.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+                // Nếu cần, có thể đặt chiều cao tối thiểu cho các hàng
+                foreach (DataGridViewRow row in dgv_dsLoaiChiPhi.Rows)
+                {
+                    row.Height = Math.Max(row.Height, 30); // Đặt chiều cao tối thiểu cho các hàng
+                }
+
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Lỗi khi khởi tạo DataGridView loại chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+
         //load dữ liệu chi phí
         private void HienThiChiPhi(string maLoaiChiPhi)
         {
@@ -1198,8 +1277,8 @@ namespace GUI
                     dgv_dsChiPhi.DataSource = _bindingListChiPhi;
 
                     // Khởi tạo giao diện DataGridView
-                    KhoiTaoChiPhi();
                     themCotSoThuTu(dgv_dsChiPhi);
+                    KhoiTaoChiPhi();
 
                     // Sự kiện RowPostPaint để hiển thị số thứ tự
                     dgv_dsChiPhi.RowPostPaint -= dgvSanPham_RowPostPaint;
@@ -1231,8 +1310,8 @@ namespace GUI
                 // Tạo BindingList và gán làm DataSource
                 _bindingListLoaiChiPhi = new BindingList<LoaiChiPhi>(danhSachLoaiChiPhi);
                 dgv_dsLoaiChiPhi.DataSource = _bindingListLoaiChiPhi;
-                KhoiTaoLoaiChiPhi();
                 themCotSoThuTu(dgv_dsLoaiChiPhi);
+                KhoiTaoLoaiChiPhi();
                 dgv_dsLoaiChiPhi.RowPostPaint -= dgvSanPham_RowPostPaint;
                 dgv_dsLoaiChiPhi.RowPostPaint += dgvSanPham_RowPostPaint;
                 dgv_dsLoaiChiPhi.Invalidate();

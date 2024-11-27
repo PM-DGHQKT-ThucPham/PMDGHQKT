@@ -32,6 +32,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgv_dsLoaiChiPhi = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_khoiPhuc = new System.Windows.Forms.Button();
             this.btn_clear = new System.Windows.Forms.Button();
             this.themXoaSuaChiPhi = new UC.ThemXoaSua();
             this.txt_maLoaiChiPhi = new System.Windows.Forms.TextBox();
@@ -49,6 +50,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgv_dsChiPhi = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.themXoaSuaCP = new UC.ThemXoaSua();
             this.cbo_loaiChiPhi = new System.Windows.Forms.ComboBox();
             this.cbp_chucNang = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -60,8 +62,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txt_maChiPhi = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.themXoaSuaCP = new UC.ThemXoaSua();
-            this.btn_khoiPhuc = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsLoaiChiPhi)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -130,6 +130,16 @@
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tìm kiếm thông tin doanh thu";
+            // 
+            // btn_khoiPhuc
+            // 
+            this.btn_khoiPhuc.BackgroundImage = global::GUI.Properties.Resources.icons8_load_32;
+            this.btn_khoiPhuc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_khoiPhuc.Location = new System.Drawing.Point(672, 175);
+            this.btn_khoiPhuc.Name = "btn_khoiPhuc";
+            this.btn_khoiPhuc.Size = new System.Drawing.Size(54, 50);
+            this.btn_khoiPhuc.TabIndex = 27;
+            this.btn_khoiPhuc.UseVisualStyleBackColor = true;
             // 
             // btn_clear
             // 
@@ -316,6 +326,15 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Thông tin chi phí";
             // 
+            // themXoaSuaCP
+            // 
+            this.themXoaSuaCP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.themXoaSuaCP.Location = new System.Drawing.Point(124, 165);
+            this.themXoaSuaCP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.themXoaSuaCP.Name = "themXoaSuaCP";
+            this.themXoaSuaCP.Size = new System.Drawing.Size(412, 76);
+            this.themXoaSuaCP.TabIndex = 27;
+            // 
             // cbo_loaiChiPhi
             // 
             this.cbo_loaiChiPhi.FormattingEnabled = true;
@@ -418,25 +437,6 @@
             this.label1.Size = new System.Drawing.Size(90, 20);
             this.label1.TabIndex = 12;
             this.label1.Text = "Mã chi phí";
-            // 
-            // themXoaSuaCP
-            // 
-            this.themXoaSuaCP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.themXoaSuaCP.Location = new System.Drawing.Point(124, 165);
-            this.themXoaSuaCP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.themXoaSuaCP.Name = "themXoaSuaCP";
-            this.themXoaSuaCP.Size = new System.Drawing.Size(412, 76);
-            this.themXoaSuaCP.TabIndex = 27;
-            // 
-            // btn_khoiPhuc
-            // 
-            this.btn_khoiPhuc.BackgroundImage = global::GUI.Properties.Resources.icons8_load_32;
-            this.btn_khoiPhuc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btn_khoiPhuc.Location = new System.Drawing.Point(672, 175);
-            this.btn_khoiPhuc.Name = "btn_khoiPhuc";
-            this.btn_khoiPhuc.Size = new System.Drawing.Size(54, 50);
-            this.btn_khoiPhuc.TabIndex = 27;
-            this.btn_khoiPhuc.UseVisualStyleBackColor = true;
             // 
             // frm_quanLyChiPhi
             // 

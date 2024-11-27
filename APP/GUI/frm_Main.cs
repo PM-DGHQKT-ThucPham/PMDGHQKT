@@ -171,7 +171,7 @@ namespace GUI
 
         private void btn_quanLyDoanhThu_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyDoanhThu());
         }
 
         private void btn_tinhToanLoiNhuan_Click(object sender, EventArgs e)

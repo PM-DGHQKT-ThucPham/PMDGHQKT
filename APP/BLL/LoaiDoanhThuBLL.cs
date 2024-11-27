@@ -36,5 +36,16 @@ namespace BLL
                 throw ex;
             }
         }
+        public bool CapNhatThemXoaSuaLoaiDoanhThu(List<LoaiDoanhThu> _lstLoaiDoanhThu)
+        {
+            try
+            {
+                return _loaiDoanhThuDAL.CapNhatThemXoaSuaLoaiDoanhThu(_lstLoaiDoanhThu);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
