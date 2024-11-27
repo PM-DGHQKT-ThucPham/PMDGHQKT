@@ -150,6 +150,12 @@
     <Compile Include="frm_phanTichXuHuong.Designer.cs">
       <DependentUpon>frm_phanTichXuHuong.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_quanLyChiPhi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_quanLyChiPhi.Designer.cs">
+      <DependentUpon>frm_quanLyChiPhi.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_quanLyKhoHang.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -264,6 +270,12 @@
     <Compile Include="frm_quanLyTinhNang.Designer.cs">
       <DependentUpon>frm_quanLyTinhNang.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_themChiTietThanhPhanNguyenLieu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_themChiTietThanhPhanNguyenLieu.Designer.cs">
+      <DependentUpon>frm_themChiTietThanhPhanNguyenLieu.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_wait.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -303,6 +315,9 @@
     <EmbeddedResource Include="frm_quanLyChatLuong.resx">
       <DependentUpon>frm_quanLyChatLuong.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frm_quanLyChiPhi.resx">
+      <DependentUpon>frm_quanLyChiPhi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_quanLyChiPhiNguyenLieu.resx">
       <DependentUpon>frm_quanLyChiPhiNguyenLieu.cs</DependentUpon>
     </EmbeddedResource>
@@ -341,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_quanLyTinhNang.resx">
       <DependentUpon>frm_quanLyTinhNang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_themChiTietThanhPhanNguyenLieu.resx">
+      <DependentUpon>frm_themChiTietThanhPhanNguyenLieu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_wait.resx">
       <DependentUpon>frm_wait.cs</DependentUpon>

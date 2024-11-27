@@ -38,5 +38,16 @@ namespace BLL
                 return null;
             }
         }
+        public bool CapNhatThemXoaSua(List<LoaiChiPhi> _lst)
+        {
+            try
+            {
+                return _loaiChiPhiDAL.CapNhatThemXoaSua(_lst);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

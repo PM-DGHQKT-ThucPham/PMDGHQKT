@@ -59,10 +59,7 @@
             this.btn_HoaDon = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlElement9 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_quanLyNhomKhachHang = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement11 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.btn_quanLyChiPhiNguyenLieu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.btn_quanLyChiPhiNhanCong = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.btn_quanLyChiPhiThietKeBaoBi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_quanLyChiPhi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_quanLyDoanhThu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_tinhToanLoiNhuan = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_quanLyThiTruong = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -77,6 +74,8 @@
             this.btn_quanLyBenVung = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_tinhNangBoSung = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlElement3 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_quanLyChiPhiNhanCong = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_quanLyChiPhiThietKeBaoBi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.fluentDesignFormControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fluentFormDefaultManager1)).BeginInit();
             this.pnLeft.SuspendLayout();
@@ -209,7 +208,6 @@
             this.btn_lapThongKeLoiNhuan,
             this.btn_lapThongKeChiPhiLoiIch,
             this.btn_lapThongKeBaoCao});
-            this.accordionControlElement1.Expanded = true;
             this.accordionControlElement1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement1.ImageOptions.Image")));
             this.accordionControlElement1.Name = "accordionControlElement1";
             this.accordionControlElement1.Text = "Thống kê và Báo cáo";
@@ -286,7 +284,7 @@
             this.accordionControlElement7,
             this.accordionControlElement8,
             this.accordionControlElement9,
-            this.accordionControlElement11,
+            this.btn_quanLyChiPhi,
             this.btn_quanLyDoanhThu,
             this.btn_tinhToanLoiNhuan,
             this.btn_quanLyThiTruong,
@@ -326,7 +324,6 @@
             this.btn_quanLyNhanVien,
             this.btn_quanLyPhanQuyenNhanVien,
             this.btn_HoaDon});
-            this.accordionControlElement8.Expanded = true;
             this.accordionControlElement8.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement8.ImageOptions.Image")));
             this.accordionControlElement8.Name = "accordionControlElement8";
             this.accordionControlElement8.Text = "Nhân viên";
@@ -370,40 +367,37 @@
             this.btn_quanLyNhomKhachHang.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.btn_quanLyNhomKhachHang.Text = "Quản lý nhóm khách hàng";
             // 
-            // accordionControlElement11
+            // btn_quanLyChiPhi
             // 
-            this.accordionControlElement11.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.btn_quanLyChiPhiNguyenLieu,
-            this.btn_quanLyChiPhiNhanCong,
-            this.btn_quanLyChiPhiThietKeBaoBi});
-            this.accordionControlElement11.Expanded = true;
-            this.accordionControlElement11.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement11.ImageOptions.Image")));
-            this.accordionControlElement11.Name = "accordionControlElement11";
-            this.accordionControlElement11.Text = "Chi Phí";
+            this.btn_quanLyChiPhi.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyChiPhi.ImageOptions.Image")));
+            this.btn_quanLyChiPhi.Name = "btn_quanLyChiPhi";
+            this.btn_quanLyChiPhi.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_quanLyChiPhi.Text = "Chi Phí";
+            this.btn_quanLyChiPhi.Click += new System.EventHandler(this.btn_quanLyChiPhi_Click);
             // 
-            // btn_quanLyChiPhiNguyenLieu
+            // btn_quanLyDoanhThu
             // 
-            this.btn_quanLyChiPhiNguyenLieu.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyChiPhiNguyenLieu.ImageOptions.Image")));
-            this.btn_quanLyChiPhiNguyenLieu.Name = "btn_quanLyChiPhiNguyenLieu";
-            this.btn_quanLyChiPhiNguyenLieu.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.btn_quanLyChiPhiNguyenLieu.Text = "Quản lý chi phí nguyên liệu";
-            this.btn_quanLyChiPhiNguyenLieu.Click += new System.EventHandler(this.btn_quanLyChiPhiNguyenLieu_Click);
+            this.btn_quanLyDoanhThu.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyDoanhThu.ImageOptions.Image")));
+            this.btn_quanLyDoanhThu.Name = "btn_quanLyDoanhThu";
+            this.btn_quanLyDoanhThu.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_quanLyDoanhThu.Text = "Doanh thu";
+            this.btn_quanLyDoanhThu.Click += new System.EventHandler(this.btn_quanLyDoanhThu_Click);
             // 
-            // btn_quanLyChiPhiNhanCong
+            // btn_tinhToanLoiNhuan
             // 
-            this.btn_quanLyChiPhiNhanCong.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyChiPhiNhanCong.ImageOptions.Image")));
-            this.btn_quanLyChiPhiNhanCong.Name = "btn_quanLyChiPhiNhanCong";
-            this.btn_quanLyChiPhiNhanCong.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.btn_quanLyChiPhiNhanCong.Text = "Quản lý chi phí nhân công";
-            this.btn_quanLyChiPhiNhanCong.Click += new System.EventHandler(this.btn_quanLyChiPhiNhanCong_Click);
+            this.btn_tinhToanLoiNhuan.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_tinhToanLoiNhuan.ImageOptions.Image")));
+            this.btn_tinhToanLoiNhuan.Name = "btn_tinhToanLoiNhuan";
+            this.btn_tinhToanLoiNhuan.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_tinhToanLoiNhuan.Text = "Tính toán lợi nhuận";
+            this.btn_tinhToanLoiNhuan.Click += new System.EventHandler(this.btn_tinhToanLoiNhuan_Click);
             // 
-            // btn_quanLyChiPhiThietKeBaoBi
+            // btn_quanLyThiTruong
             // 
-            this.btn_quanLyChiPhiThietKeBaoBi.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyChiPhiThietKeBaoBi.ImageOptions.Image")));
-            this.btn_quanLyChiPhiThietKeBaoBi.Name = "btn_quanLyChiPhiThietKeBaoBi";
-            this.btn_quanLyChiPhiThietKeBaoBi.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.btn_quanLyChiPhiThietKeBaoBi.Text = "Quản lý chi phí thiết kế bao bì";
-            this.btn_quanLyChiPhiThietKeBaoBi.Click += new System.EventHandler(this.btn_quanLyChiPhiThietKeBaoBi_Click);
+            this.btn_quanLyThiTruong.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyThiTruong.ImageOptions.Image")));
+            this.btn_quanLyThiTruong.Name = "btn_quanLyThiTruong";
+            this.btn_quanLyThiTruong.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_quanLyThiTruong.Text = "Thị trường";
+            this.btn_quanLyThiTruong.Click += new System.EventHandler(this.btn_quanLyThiTruong_Click);
             // 
             // btn_quanLyDoanhThu
             // 
@@ -566,7 +560,6 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_NhaCC;
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyNhomKhachHang;
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyKhoHang;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyChiPhiNguyenLieu;
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyNhanVien;
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraBars.BarButtonItem btn_thietLapTaiKhoan;
@@ -575,9 +568,7 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement7;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement8;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement9;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement11;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyChiPhiNhanCong;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyChiPhiThietKeBaoBi;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyChiPhi;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement5;
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyNguyenLieu;
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyChatLuong;
@@ -596,5 +587,7 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyDoanhThu;
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_tinhToanLoiNhuan;
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyThiTruong;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyChiPhiNhanCong;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyChiPhiThietKeBaoBi;
     }
 }
