@@ -15,5 +15,10 @@ namespace DAL
             var dscttp = db.ChiTietThanhPhans.Where(t=> t.MaSanPham ==  masp).ToList();
             return dscttp;
         }
+        public List<ChiTietThanhPhan> LayCTTP_CuaNguyenLieu(string maNguyenLieu)
+        {
+            var dscttp = db.ChiTietThanhPhans.Where(t => t.MaNguyenLieu == maNguyenLieu).ToList();
+            return dscttp;
+        }
     }
 }
