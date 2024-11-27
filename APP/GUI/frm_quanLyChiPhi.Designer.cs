@@ -34,6 +34,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btn_clear = new System.Windows.Forms.Button();
             this.themXoaSuaChiPhi = new UC.ThemXoaSua();
+            this.txt_maLoaiChiPhi = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txt_moTaLoaiChiPhi = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -43,23 +44,24 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbo_sanPham = new System.Windows.Forms.ComboBox();
-            this.cbo_loaiChiPhi = new System.Windows.Forms.ComboBox();
             this.btn_timKiem = new System.Windows.Forms.Button();
             this.txt_timKiem = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgv_dsChiPhi = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbo_loaiChiPhi = new System.Windows.Forms.ComboBox();
             this.cbp_chucNang = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.txt_maLoaiChiPhi = new System.Windows.Forms.TextBox();
             this.dtp_thoiGian = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
             this.txt_soTien = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txt_moTa = new System.Windows.Forms.TextBox();
+            this.txt_moTaChiPhi = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txt_maChiPhi = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.themXoaSuaCP = new UC.ThemXoaSua();
+            this.btn_khoiPhuc = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsLoaiChiPhi)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -108,8 +110,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btn_khoiPhuc);
             this.groupBox2.Controls.Add(this.btn_clear);
             this.groupBox2.Controls.Add(this.themXoaSuaChiPhi);
+            this.groupBox2.Controls.Add(this.txt_maLoaiChiPhi);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txt_moTaLoaiChiPhi);
             this.groupBox2.Controls.Add(this.label11);
@@ -119,7 +123,6 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.cbo_sanPham);
-            this.groupBox2.Controls.Add(this.cbo_loaiChiPhi);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(12, 68);
             this.groupBox2.Name = "groupBox2";
@@ -146,7 +149,15 @@
             this.themXoaSuaChiPhi.Name = "themXoaSuaChiPhi";
             this.themXoaSuaChiPhi.Size = new System.Drawing.Size(479, 80);
             this.themXoaSuaChiPhi.TabIndex = 26;
-            this.themXoaSuaChiPhi.Load += new System.EventHandler(this.themXoaSua_Load);
+            // 
+            // txt_maLoaiChiPhi
+            // 
+            this.txt_maLoaiChiPhi.BackColor = System.Drawing.Color.White;
+            this.txt_maLoaiChiPhi.Enabled = false;
+            this.txt_maLoaiChiPhi.Location = new System.Drawing.Point(149, 24);
+            this.txt_maLoaiChiPhi.Name = "txt_maLoaiChiPhi";
+            this.txt_maLoaiChiPhi.Size = new System.Drawing.Size(253, 26);
+            this.txt_maLoaiChiPhi.TabIndex = 17;
             // 
             // label5
             // 
@@ -162,7 +173,6 @@
             // txt_moTaLoaiChiPhi
             // 
             this.txt_moTaLoaiChiPhi.BackColor = System.Drawing.Color.White;
-            this.txt_moTaLoaiChiPhi.Enabled = false;
             this.txt_moTaLoaiChiPhi.Location = new System.Drawing.Point(149, 66);
             this.txt_moTaLoaiChiPhi.Multiline = true;
             this.txt_moTaLoaiChiPhi.Name = "txt_moTaLoaiChiPhi";
@@ -183,7 +193,6 @@
             // txt_tongTien
             // 
             this.txt_tongTien.BackColor = System.Drawing.Color.White;
-            this.txt_tongTien.Enabled = false;
             this.txt_tongTien.Location = new System.Drawing.Point(149, 120);
             this.txt_tongTien.Name = "txt_tongTien";
             this.txt_tongTien.Size = new System.Drawing.Size(253, 26);
@@ -203,7 +212,6 @@
             // txt_tenLoaiChiPhi
             // 
             this.txt_tenLoaiChiPhi.BackColor = System.Drawing.Color.White;
-            this.txt_tenLoaiChiPhi.Enabled = false;
             this.txt_tenLoaiChiPhi.Location = new System.Drawing.Point(540, 24);
             this.txt_tenLoaiChiPhi.Name = "txt_tenLoaiChiPhi";
             this.txt_tenLoaiChiPhi.Size = new System.Drawing.Size(253, 26);
@@ -238,15 +246,6 @@
             this.cbo_sanPham.Name = "cbo_sanPham";
             this.cbo_sanPham.Size = new System.Drawing.Size(253, 28);
             this.cbo_sanPham.TabIndex = 10;
-            // 
-            // cbo_loaiChiPhi
-            // 
-            this.cbo_loaiChiPhi.Enabled = false;
-            this.cbo_loaiChiPhi.FormattingEnabled = true;
-            this.cbo_loaiChiPhi.Location = new System.Drawing.Point(149, 24);
-            this.cbo_loaiChiPhi.Name = "cbo_loaiChiPhi";
-            this.cbo_loaiChiPhi.Size = new System.Drawing.Size(253, 28);
-            this.cbo_loaiChiPhi.TabIndex = 9;
             // 
             // btn_timKiem
             // 
@@ -295,14 +294,15 @@
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.themXoaSuaCP);
+            this.groupBox4.Controls.Add(this.cbo_loaiChiPhi);
             this.groupBox4.Controls.Add(this.cbp_chucNang);
             this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Controls.Add(this.txt_maLoaiChiPhi);
             this.groupBox4.Controls.Add(this.dtp_thoiGian);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.txt_soTien);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.txt_moTa);
+            this.groupBox4.Controls.Add(this.txt_moTaChiPhi);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.txt_maChiPhi);
             this.groupBox4.Controls.Add(this.btn_timKiem);
@@ -315,6 +315,14 @@
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Thông tin chi phí";
+            // 
+            // cbo_loaiChiPhi
+            // 
+            this.cbo_loaiChiPhi.FormattingEnabled = true;
+            this.cbo_loaiChiPhi.Location = new System.Drawing.Point(165, 132);
+            this.cbo_loaiChiPhi.Name = "cbo_loaiChiPhi";
+            this.cbo_loaiChiPhi.Size = new System.Drawing.Size(253, 28);
+            this.cbo_loaiChiPhi.TabIndex = 27;
             // 
             // cbp_chucNang
             // 
@@ -335,18 +343,8 @@
             this.label10.TabIndex = 12;
             this.label10.Text = "Thời gian";
             // 
-            // txt_maLoaiChiPhi
-            // 
-            this.txt_maLoaiChiPhi.BackColor = System.Drawing.Color.White;
-            this.txt_maLoaiChiPhi.Enabled = false;
-            this.txt_maLoaiChiPhi.Location = new System.Drawing.Point(165, 132);
-            this.txt_maLoaiChiPhi.Name = "txt_maLoaiChiPhi";
-            this.txt_maLoaiChiPhi.Size = new System.Drawing.Size(253, 26);
-            this.txt_maLoaiChiPhi.TabIndex = 17;
-            // 
             // dtp_thoiGian
             // 
-            this.dtp_thoiGian.Enabled = false;
             this.dtp_thoiGian.Location = new System.Drawing.Point(433, 59);
             this.dtp_thoiGian.Name = "dtp_thoiGian";
             this.dtp_thoiGian.Size = new System.Drawing.Size(241, 26);
@@ -366,7 +364,6 @@
             // txt_soTien
             // 
             this.txt_soTien.BackColor = System.Drawing.Color.White;
-            this.txt_soTien.Enabled = false;
             this.txt_soTien.Location = new System.Drawing.Point(165, 96);
             this.txt_soTien.Name = "txt_soTien";
             this.txt_soTien.Size = new System.Drawing.Size(253, 26);
@@ -383,14 +380,13 @@
             this.label8.TabIndex = 16;
             this.label8.Text = "Số tiền";
             // 
-            // txt_moTa
+            // txt_moTaChiPhi
             // 
-            this.txt_moTa.BackColor = System.Drawing.Color.White;
-            this.txt_moTa.Enabled = false;
-            this.txt_moTa.Location = new System.Drawing.Point(165, 59);
-            this.txt_moTa.Name = "txt_moTa";
-            this.txt_moTa.Size = new System.Drawing.Size(253, 26);
-            this.txt_moTa.TabIndex = 13;
+            this.txt_moTaChiPhi.BackColor = System.Drawing.Color.White;
+            this.txt_moTaChiPhi.Location = new System.Drawing.Point(165, 59);
+            this.txt_moTaChiPhi.Name = "txt_moTaChiPhi";
+            this.txt_moTaChiPhi.Size = new System.Drawing.Size(253, 26);
+            this.txt_moTaChiPhi.TabIndex = 13;
             // 
             // label7
             // 
@@ -423,6 +419,25 @@
             this.label1.TabIndex = 12;
             this.label1.Text = "Mã chi phí";
             // 
+            // themXoaSuaCP
+            // 
+            this.themXoaSuaCP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.themXoaSuaCP.Location = new System.Drawing.Point(124, 165);
+            this.themXoaSuaCP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.themXoaSuaCP.Name = "themXoaSuaCP";
+            this.themXoaSuaCP.Size = new System.Drawing.Size(412, 76);
+            this.themXoaSuaCP.TabIndex = 27;
+            // 
+            // btn_khoiPhuc
+            // 
+            this.btn_khoiPhuc.BackgroundImage = global::GUI.Properties.Resources.icons8_load_32;
+            this.btn_khoiPhuc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_khoiPhuc.Location = new System.Drawing.Point(672, 175);
+            this.btn_khoiPhuc.Name = "btn_khoiPhuc";
+            this.btn_khoiPhuc.Size = new System.Drawing.Size(54, 50);
+            this.btn_khoiPhuc.TabIndex = 27;
+            this.btn_khoiPhuc.UseVisualStyleBackColor = true;
+            // 
             // frm_quanLyChiPhi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -454,7 +469,6 @@
         private System.Windows.Forms.DataGridView dgv_dsLoaiChiPhi;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox cbo_sanPham;
-        private System.Windows.Forms.ComboBox cbo_loaiChiPhi;
         private System.Windows.Forms.Button btn_timKiem;
         private System.Windows.Forms.TextBox txt_timKiem;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -466,7 +480,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txt_soTien;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txt_moTa;
+        private System.Windows.Forms.TextBox txt_moTaChiPhi;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DateTimePicker dtp_thoiGian;
@@ -481,5 +495,8 @@
         private System.Windows.Forms.Label label5;
         private UC.ThemXoaSua themXoaSuaChiPhi;
         private System.Windows.Forms.Button btn_clear;
+        private System.Windows.Forms.ComboBox cbo_loaiChiPhi;
+        private UC.ThemXoaSua themXoaSuaCP;
+        private System.Windows.Forms.Button btn_khoiPhuc;
     }
 }

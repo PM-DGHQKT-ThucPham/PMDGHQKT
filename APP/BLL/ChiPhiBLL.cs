@@ -74,5 +74,16 @@ namespace BLL
                 return null;
             }
         }
+        public bool CapNhatThemXoaSuaChiPhi(List<ChiPhi> _lstChiPhi,string maLoaiChiPhi)
+        {
+            try
+            {
+                  return _chiPhiDAL.CapNhatThemXoaSuaChiPhi(_lstChiPhi,maLoaiChiPhi);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

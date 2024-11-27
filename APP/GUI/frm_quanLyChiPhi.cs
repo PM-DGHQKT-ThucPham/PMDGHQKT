@@ -19,7 +19,7 @@ namespace GUI
         string maSanPham = "SP001";
         ThemXoaSua t = new ThemXoaSua();
         private BindingList<LoaiChiPhi> _bindingListLoaiChiPhi;
-
+        private BindingList<ChiPhi> _bindingListChiPhi;
         public frm_quanLyChiPhi()
         {
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace GUI
             HienThiLoaiChiPhi();
             dgv_dsLoaiChiPhi.SelectionChanged += Dgv_dsLoaiChiPhi_SelectionChanged;
             dgv_dsChiPhi.SelectionChanged += Dgv_dsChiPhi_SelectionChanged;
-
+            cbo_sanPham.DropDownStyle=ComboBoxStyle.DropDownList;
             themXoaSuaChiPhi.ThemClicked += ThemXoaSuaChiPhi_ThemClicked;
             themXoaSuaChiPhi.HuyThemClicked += ThemXoaSuaChiPhi_HuyThemClicked;
             themXoaSuaChiPhi.XoaClicked += ThemXoaSuaChiPhi_XoaClicked;
@@ -40,42 +40,263 @@ namespace GUI
             btn_clear.Click += Btn_clear_Click;
             // Cấu hình DataGridView
             dgv_dsLoaiChiPhi.AllowUserToAddRows = true;
+            themXoaSuaCP.ThemClicked += ThemXoaSuaCP_ThemClicked;
+            themXoaSuaCP.XoaClicked += ThemXoaSuaCP_XoaClicked;
+            themXoaSuaCP.SuaClicked += ThemXoaSuaCP_SuaClicked;
+            themXoaSuaCP.LuuClicked += ThemXoaSuaCP_LuuClicked;
+            themXoaSuaCP.HuyThemClicked += ThemXoaSuaCP_HuyThemClicked;
+            LoadDataComboboxLoaiChiPhi();
+            btn_khoiPhuc.Click += Btn_khoiPhuc_Click;
+
         }
 
-        private void ThemXoaSuaChiPhi_LuuClicked(object sender, EventArgs e)
+        private void Btn_khoiPhuc_Click(object sender, EventArgs e)
+        {
+            HienThiLoaiChiPhi();
+        }
+
+        private void ThemXoaSuaCP_HuyThemClicked(object sender, EventArgs e)
         {
             try
             {
-                // Hiển thị hộp thoại xác nhận
-                DialogResult result = MessageBox.Show(
-                    "Bạn có chắc chắn muốn lưu các thay đổi không?",
-                    "Xác nhận lưu",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
+                // Khôi phục giao diện
+                txt_maChiPhi.Enabled = false;
+                BatDataBindingDataGridViewChiPhi();
+                dgv_dsChiPhi.SelectionChanged += Dgv_dsChiPhi_SelectionChanged;
 
-                // Kiểm tra người dùng chọn Yes hay No
-                if (result == DialogResult.Yes)
+                // Điều chỉnh trạng thái nút
+                themXoaSuaCP.BtnSua.Enabled = true;
+                themXoaSuaCP.BtnXoa.Enabled = true;
+                themXoaSuaCP.BtnLuu.Enabled = true;
+                themXoaSuaCP.BtnHuyThem.Enabled = false;
+
+                // Đổi biểu tượng nút "Thêm" và "Sửa" về trạng thái ban đầu
+                themXoaSuaCP.BtnThem.Image = Properties.Resources.icons8_add_35;
+
+                MessageBox.Show("Hủy thao tác thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi hủy thêm: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ThemXoaSuaCP_LuuClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                // Xác nhận lưu thay đổi
+                var confirmResult = MessageBox.Show("Bạn có chắc chắn muốn lưu tất cả thay đổi?",
+                                                    "Xác nhận lưu",
+                                                    MessageBoxButtons.YesNo,
+                                                    MessageBoxIcon.Question);
+
+                if (confirmResult == DialogResult.Yes)
                 {
-                    List<LoaiChiPhi> temp = (List<LoaiChiPhi>)dgv_dsLoaiChiPhi.DataSource;
-                    // Thực hiện lưu dữ liệu
-                    bool kq = _loaiChiPhiBLL.CapNhatThemXoaSua(temp);
-                    if (kq == true)
+                    string maLoai = dgv_dsLoaiChiPhi.CurrentRow.Cells["MaLoaiChiPhi"].Value.ToString();
+                    // Lưu danh sách chi phí xuống cơ sở dữ liệu
+                    var danhSachChiPhi = _bindingListChiPhi.ToList();
+                    bool ketQua = _chiPhiBLL.CapNhatThemXoaSuaChiPhi(danhSachChiPhi,maLoai);
+                    if (ketQua)
                     {
-                        MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //Sau khi lưu thành công load lại GridView
-                        LoadLaiDanhSachSanPham();
+                        MessageBox.Show("Lưu thay đổi thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        HienThiChiPhi(maLoai);
                     }
                     else
                     {
-                        MessageBox.Show("Lưu thất bại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Lưu thay đổi thất bại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch (Exception ex)
             {
+                MessageBox.Show($"Lỗi khi lưu chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-                throw ex;
+        private void ThemXoaSuaCP_SuaClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgv_dsChiPhi.CurrentRow != null)
+                {
+                    var row = dgv_dsChiPhi.CurrentRow;
+
+                    // Lấy dữ liệu mới từ giao diện
+                    if (string.IsNullOrEmpty(txt_moTaChiPhi.Text) || string.IsNullOrEmpty(txt_soTien.Text))
+                    {
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin trước khi sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (!decimal.TryParse(txt_soTien.Text, out decimal soTien))
+                    {
+                        MessageBox.Show("Số tiền phải là một giá trị hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (cbo_loaiChiPhi.SelectedValue == null)
+                    {
+                        MessageBox.Show("Vui lòng chọn một loại chi phí hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Cập nhật dữ liệu vào DataGridView
+                    row.Cells["MoTa"].Value = txt_moTaChiPhi.Text;
+                    row.Cells["SoTien"].Value = soTien;
+                    row.Cells["ThoiGian"].Value = dtp_thoiGian.Value;
+                    row.Cells["MaLoaiChiPhi"].Value = cbo_loaiChiPhi.SelectedValue.ToString();
+
+                    // Làm mới DataGridView
+                    dgv_dsChiPhi.Refresh();
+
+                    MessageBox.Show("Sửa chi phí thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Khôi phục trạng thái ban đầu
+                    txt_maChiPhi.Enabled = false;
+                    themXoaSuaCP.BtnThem.Enabled = true;
+                    themXoaSuaCP.BtnXoa.Enabled = true;
+                    themXoaSuaCP.BtnLuu.Enabled = true;
+                    themXoaSuaCP.BtnHuyThem.Enabled = false;
+
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn một chi phí để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi sửa chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void ThemXoaSuaCP_XoaClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgv_dsChiPhi.CurrentRow != null)
+                {
+                    // Lấy dòng được chọn
+                    var row = dgv_dsChiPhi.CurrentRow;
+                    string maChiPhi = row.Cells["MaChiPhi"].Value?.ToString();
+
+                    // Xác nhận xóa
+                    var confirmResult = MessageBox.Show($"Bạn có chắc chắn muốn xóa chi phí có mã: {maChiPhi}?",
+                                                        "Xác nhận xóa",
+                                                        MessageBoxButtons.YesNo,
+                                                        MessageBoxIcon.Question);
+
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        // Xóa khỏi BindingList
+                        _bindingListChiPhi.RemoveAt(row.Index);
+                        dgv_dsChiPhi.Refresh();
+
+                        MessageBox.Show("Xóa chi phí thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn một chi phí để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xóa chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ThemXoaSuaCP_ThemClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                // Nếu nút Hủy Thêm đang ẩn, bật chế độ thêm mới
+                if (!themXoaSuaCP.BtnHuyThem.Enabled)
+                {
+                    // Bật các TextBox để nhập liệu
+                    TatBatTextBoxChiPhi(true);
+
+                    // Xóa sạch TextBox để chuẩn bị thêm mới
+                    XoaTextBoxChiPhi();
+
+                    // Tắt binding và sự kiện SelectionChanged
+                    TatDataBindingDataGridViewChiPhi();
+                    dgv_dsChiPhi.SelectionChanged -= Dgv_dsChiPhi_SelectionChanged;
+
+                    // Điều chỉnh trạng thái nút
+                    themXoaSuaCP.BtnSua.Enabled = false;
+                    themXoaSuaCP.BtnXoa.Enabled = false;
+                    themXoaSuaCP.BtnLuu.Enabled = false;
+                    themXoaSuaCP.BtnHuyThem.Enabled = true;
+
+                    // Đổi biểu tượng nút "Thêm" thành xác nhận
+                    themXoaSuaCP.BtnThem.Image = Properties.Resources.icons8_tick_35;
+                }
+                else
+                {
+                    // Kiểm tra rỗng
+                    if (KiemTraRongTextBoxChiPhi())
+                    {
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin chi phí!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Lấy chi phí từ giao diện
+                    ChiPhi chiPhi = LayChiPhiTuGiaoDien();
+                    if (chiPhi == null) return;
+
+                    // Kiểm tra trùng mã chi phí
+                    if (_bindingListChiPhi.Any(c => c.MaChiPhi == chiPhi.MaChiPhi))
+                    {
+                        MessageBox.Show("Mã chi phí đã tồn tại! Vui lòng nhập mã khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Thêm chi phí vào BindingList
+                    _bindingListChiPhi.Add(chiPhi);
+                    dgv_dsChiPhi.Refresh();
+
+                    // Khôi phục giao diện
+                    TatBatTextBoxChiPhi(false);
+                    BatDataBindingDataGridViewChiPhi();
+                    dgv_dsChiPhi.SelectionChanged += Dgv_dsChiPhi_SelectionChanged;
+
+                    // Điều chỉnh trạng thái nút
+                    themXoaSuaCP.BtnSua.Enabled = true;
+                    themXoaSuaCP.BtnXoa.Enabled = true;
+                    themXoaSuaCP.BtnLuu.Enabled = true;
+                    themXoaSuaCP.BtnHuyThem.Enabled = false;
+
+                    // Đổi biểu tượng nút "Thêm" về trạng thái ban đầu
+                    themXoaSuaCP.BtnThem.Image = Properties.Resources.icons8_add_35;
+
+                    MessageBox.Show("Thêm chi phí thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi thêm chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void ThemXoaSuaChiPhi_LuuClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                // Lưu Loại Chi Phí
+                var danhSachLoaiChiPhi = _bindingListLoaiChiPhi.ToList();
+                _loaiChiPhiBLL.CapNhatThemXoaSua(danhSachLoaiChiPhi);
+
+                // Lưu Chi Phí
+                MessageBox.Show("Lưu thành công tất cả thay đổi!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                HienThiLoaiChiPhi();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lưu: " + ex.Message, "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -83,22 +304,63 @@ namespace GUI
         {
             try
             {
-                if (KiemTraRongTextBoxSanPham() == false)
+                // Kiểm tra xem có dòng nào được chọn trong DataGridView không
+                if (dgv_dsLoaiChiPhi.CurrentRow != null)
                 {
-                    SanPham sp = LaySanPhamTuGiaoDien();
-                    XoaSanPhamDuocChon();
-                    ThemSanPhamVaoDataGridView(sp);
+                    // Lấy dòng hiện tại
+                    var row = dgv_dsLoaiChiPhi.CurrentRow;
+
+                    // Hiển thị các TextBox và cho phép người dùng sửa
+                    txt_maLoaiChiPhi.Enabled = false; // Mã loại chi phí không được sửa
+                    txt_tenLoaiChiPhi.Enabled = true;
+                    txt_moTaLoaiChiPhi.Enabled = true;
+                    txt_tongTien.Enabled = true;
+
+                    // Gắn dữ liệu dòng hiện tại vào TextBox để chỉnh sửa
+                    txt_maLoaiChiPhi.Text = row.Cells["MaLoaiChiPhi"].Value?.ToString();
+                    txt_tenLoaiChiPhi.Text = row.Cells["TenLoaiChiPhi"].Value?.ToString();
+                    txt_moTaLoaiChiPhi.Text = row.Cells["MoTa"].Value?.ToString();
+                    txt_tongTien.Text = row.Cells["TongTien"].Value?.ToString();
+
+                    // Kiểm tra các điều kiện khi người dùng nhấn nút sửa lần thứ hai
+                    if (!KiemTraRongTextBoxLoaiChiPhi()) // Kiểm tra không rỗng
+                    {
+                        // Cập nhật giá trị từ TextBox vào dòng
+                        row.Cells["TenLoaiChiPhi"].Value = txt_tenLoaiChiPhi.Text;
+                        row.Cells["MoTa"].Value = txt_moTaLoaiChiPhi.Text;
+
+                        if (decimal.TryParse(txt_tongTien.Text, out decimal tongTien))
+                        {
+                            row.Cells["TongTien"].Value = tongTien;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Tổng tiền phải là số hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+
+                        // Kích hoạt lại các nút
+                        themXoaSuaChiPhi.BtnThem.Enabled = true;
+                        themXoaSuaChiPhi.BtnXoa.Enabled = true;
+                        themXoaSuaChiPhi.BtnLuu.Enabled = true;
+                        themXoaSuaChiPhi.BtnHuyThem.Enabled = false;
+                        MessageBox.Show("Sửa loại chi phí thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        dgv_dsLoaiChiPhi.Refresh();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin trước khi sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Chưa nhập đầy đủ thông tin của sản phẩm");
-                    return;
+                    MessageBox.Show("Vui lòng chọn một loại chi phí để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                MessageBox.Show($"Lỗi khi sửa loại chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -106,12 +368,38 @@ namespace GUI
         {
             try
             {
-                XoaSanPhamDuocChon();
+                if (dgv_dsLoaiChiPhi.CurrentRow != null)
+                {
+                    // Lấy loại chi phí hiện tại
+                    var row = dgv_dsLoaiChiPhi.CurrentRow;
+                    string maLoaiChiPhi = row.Cells["MaLoaiChiPhi"].Value?.ToString();
+
+                    if (string.IsNullOrEmpty(maLoaiChiPhi))
+                    {
+                        MessageBox.Show("Dữ liệu không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Kiểm tra chi phí liên quan
+                    var danhSachChiPhi = _chiPhiBLL.LayChiPhiTheoMaLoaiChiPhi(maLoaiChiPhi, maSanPham);
+                    if (danhSachChiPhi != null && danhSachChiPhi.Count > 0)
+                    {
+                        MessageBox.Show("Không thể xóa loại chi phí này vì có chi phí liên quan!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Xóa loại chi phí
+                    _bindingListLoaiChiPhi.RemoveAt(row.Index);
+                    MessageBox.Show("Xóa loại chi phí thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn một loại chi phí để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -119,9 +407,9 @@ namespace GUI
         {
             try
             {
-                txtMaSanPham.Enabled = false;
-                BatDataBindingDataGridViewSanPham();
-                dgv_dsSanPham.SelectionChanged += Dgv_dsSanPham_SelectionChanged;
+                txt_maLoaiChiPhi.Enabled = false;
+                BatDataBindingDataGridViewLoaiChiPhi();
+                dgv_dsLoaiChiPhi.SelectionChanged += Dgv_dsLoaiChiPhi_SelectionChanged;
             }
             catch (Exception ex)
             {
@@ -133,253 +421,91 @@ namespace GUI
         {
             try
             {
-                //Nêu nút hủy bị ẩn tức là nút thêm chưa được nhấn lần đầu
-                if (themXoaSuaSanPham.BtnHuyThem.Enabled == false)
+                // Nếu nút "Hủy Thêm" đang ẩn, nghĩa là đây là lần đầu nhấn nút "Thêm"
+                if (!themXoaSuaChiPhi.BtnHuyThem.Enabled)
                 {
-                    //Bật txtMaSanPham
-                    txtMaSanPham.Enabled = true;
-                    //Nếu như nút thêm được nhấn lần đầu thì tắt binding và tắt seletion changed
-                    TatDataBindingDataGridViewSanPham();
-                    dgv_dsSanPham.SelectionChanged -= Dgv_dsSanPham_SelectionChanged;
-                    //Sau đó xóa hết các textbox
-                    XoaTextBoxSanPham();
-                    //Sau đó ẩn các nút Luu Xoa Sua để người dùng không nhấn được                
-                    themXoaSuaSanPham.BtnXoa.Enabled = false;
-                    themXoaSuaSanPham.BtnSua.Enabled = false;
-                    themXoaSuaSanPham.BtnLuu.Enabled = false;
-                    //Đồng thời cho nút hủy lưu sáng lên để có thể hủy lưu
-                    themXoaSuaSanPham.BtnHuyThem.Enabled = true;
-                    //Đổi image của btnThem thành dấu tick Xanh
-                    themXoaSuaSanPham.BtnThem.Image = Properties.Resources.icons8_tick_35;
+                    // Bật chế độ nhập liệu
+                    TatBatTextBox(true);
+
+                    // Tắt binding và sự kiện SelectionChanged
+                    TatDataBindingDataGridViewLoaiChiPhi();
+                    dgv_dsLoaiChiPhi.SelectionChanged -= Dgv_dsLoaiChiPhi_SelectionChanged;
+
+                    // Xóa các trường nhập liệu
+                    XoaTextBoxLoaiChiPhi();
+
+                    // Thay đổi trạng thái của các nút
+                    themXoaSuaChiPhi.BtnXoa.Enabled = false;
+                    themXoaSuaChiPhi.BtnSua.Enabled = false;
+                    themXoaSuaChiPhi.BtnLuu.Enabled = false;
+                    themXoaSuaChiPhi.BtnHuyThem.Enabled = true;
+
+                    // Đổi biểu tượng nút "Thêm" thành dấu tick (xác nhận)
+                    themXoaSuaChiPhi.BtnThem.Image = Properties.Resources.icons8_tick_35;
+
+                    MessageBox.Show("Sẵn sàng để thêm loại chi phí mới!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else //Ngược lại btnHuyTHem = true tức là btnThem đang ở trạng thái chờ xác nhận
+                else // Khi nút "Hủy Thêm" đang hiện, nghĩa là đang chờ xác nhận thêm
                 {
-                    if (KiemTraRongTextBoxSanPham() == false) //Nếu tất cả text box đều nhập giá trị
+                    // Kiểm tra dữ liệu nhập liệu
+                    if (!KiemTraRongTextBoxLoaiChiPhi())
                     {
-                        //Lấy sản phẩm từ text box
-                        SanPham sp = LaySanPhamTuGiaoDien();
-                        //Thêm sản phẩm vào listSanPham
-                        if (lstSanPham.Where(t => string.Equals(t.MaSanPham, sp.MaSanPham, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() != null)
-                        //Phân biệt hoa thường sp001 và SP001 tức là trùng sản phẩm
+                        // Lấy loại chi phí từ các TextBox
+                        LoaiChiPhi loaiChiPhi = new LoaiChiPhi
                         {
-                            //Đã có sản phẩm này
-                            MessageBox.Show("Đã tồn tại mã sản phẩm này !!!");
-                            txtMaSanPham.Focus();
-                            //Return để cho người dùng nhập lại
+                            MaLoaiChiPhi = txt_maLoaiChiPhi.Text,
+                            TenLoaiChiPhi = txt_tenLoaiChiPhi.Text,
+                            MoTa = txt_moTaLoaiChiPhi.Text,
+                            TongTien = decimal.TryParse(txt_tongTien.Text, out decimal tongTien) ? tongTien : 0,
+                            MaSanPham = maSanPham
+                        };
+
+                        // Kiểm tra trùng mã loại chi phí
+                        if (_bindingListLoaiChiPhi.Any(l => l.MaLoaiChiPhi.Equals(loaiChiPhi.MaLoaiChiPhi, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            MessageBox.Show("Mã loại chi phí đã tồn tại! Vui lòng nhập mã khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txt_maLoaiChiPhi.Focus();
                             return;
                         }
-                        else //Chưa có sản phẩm náy
-                        {
-                            ThemSanPhamVaoDataGridView(sp);
-                        }
+
+                        // Thêm loại chi phí vào BindingList
+                        _bindingListLoaiChiPhi.Add(loaiChiPhi);
+                        dgv_dsLoaiChiPhi.Refresh();
+
+                        // Khôi phục trạng thái ban đầu của giao diện
+                        txt_maLoaiChiPhi.Enabled = false;
+
+                        BatDataBindingDataGridViewLoaiChiPhi();
+                        dgv_dsLoaiChiPhi.SelectionChanged += Dgv_dsLoaiChiPhi_SelectionChanged;
+
+                        // Kích hoạt lại các nút
+                        themXoaSuaChiPhi.BtnXoa.Enabled = true;
+                        themXoaSuaChiPhi.BtnSua.Enabled = true;
+                        themXoaSuaChiPhi.BtnLuu.Enabled = true;
+                        themXoaSuaChiPhi.BtnHuyThem.Enabled = false;
+
+                        // Đổi biểu tượng nút "Thêm" về trạng thái ban đầu
+                        themXoaSuaChiPhi.BtnThem.Image = Properties.Resources.icons8_add_35;
+
+                        MessageBox.Show("Thêm loại chi phí mới thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        //Thông báo chưa nhập
-                        MessageBox.Show("Chưa nhập đầy đủ các giá trị của sản phẩm. Vui lòng kiểm tra lại");
-                        return;
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin trước khi thêm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Lỗi khi thêm loại chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-        private void XoaSanPhamDuocChon()
-        {
-            try
-            {
-                SanPham spDuocChon = (SanPham)dgv_dsSanPham.CurrentRow.DataBoundItem;
-                //Kiểm tra xem thành phần có nguyên liệu nào hay chưa          
-                List<ChiTietThanhPhan> lstCTTP = cttpBLL.LayCTTP_CuaSanPham(spDuocChon.MaSanPham);
-                if (lstCTTP == null || lstCTTP.Count == 0)
-                {
-                    //Nếu không có chi tiết thành phần nào thì xóa được
-                    lstSanPham.Remove(spDuocChon);
-                    //Xóa grid view và cập nhật lại list mới cho grid view
-                    //Trước khi xóa tắt sự kiện selection Changed để không bị lỗi
-                    //Tắt luôn databinding
-                    TatDataBindingDataGridViewSanPham();
-                    dgv_dsSanPham.SelectionChanged -= Dgv_dsSanPham_SelectionChanged;
-                    dgv_dsSanPham.DataSource = null;
-                    dgv_dsSanPham.DataSource = lstSanPham;
-                    //dgv_dsSanPham.Invalidate();
-                    dgv_dsSanPham.Refresh();
-                    dgv_dsSanPham.Rows[0].Selected = true;
-                    //Đã xóa sản phẩm
-                    //Bật data binding cho sản phẩm
-                    //Xóa text
-                    XoaTextBoxSanPham();
-                    BatDataBindingDataGridViewSanPham();
-                    //Bật lại selection changed
-                    dgv_dsSanPham.SelectionChanged += Dgv_dsSanPham_SelectionChanged;
-                }
-                else
-                {
-                    MessageBox.Show("Không thể xóa sản phẩm này vì có dữ liệu trong bảng chi tiết thành phần");
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private void Dgv_dsSanPham_SelectionChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                BatDataBindingDataGridViewSanPham();
-                string masp = dgv_dsSanPham.SelectedRows[0].Cells["MaSanPham"].Value.ToString();
-                //SanPham sp = spBll.LaySanPhamTheoMa(masp);
-                //Load dgvChiTietThanhPhan
-                dgv_ChiTietThanhPhan.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgv_ChiTietThanhPhan.MultiSelect = false;
-                dgv_ChiTietThanhPhan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                List<ChiTietThanhPhan> lstCTTP = cttpBLL.LayCTTP_CuaSanPham(masp);
-                if (lstCTTP != null && lstCTTP.Count > 0)
-                {
-                    dgv_ChiTietThanhPhan.DataSource = lstCTTP;
-                    dgv_ChiTietThanhPhan.Columns[3].Visible = false;
-                    dgv_ChiTietThanhPhan.Columns[4].Visible = false;
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        private void ThemSanPhamVaoDataGridView(SanPham sp)
-        {
-            try
-            {
-                //Thêm vào list Sản phẩm
-                lstSanPham.Add(sp);
-                //Xóa grid view và cập nhật lại list mới cho grid view
-                //Trước khi thêm tắt sự kiện selection Changed để không bị lỗi
-                TatDataBindingDataGridViewSanPham();
-                dgv_dsSanPham.SelectionChanged -= Dgv_dsSanPham_SelectionChanged;
-                dgv_dsSanPham.DataSource = null;
-                dgv_dsSanPham.Invalidate();
-                dgv_dsSanPham.Refresh();
-                dgv_dsSanPham.DataSource = lstSanPham;
-                //Đã xêm sản phẩm xong
-                //Ẩn đi txtMaSanPham
-                txtMaSanPham.Enabled = false;
-                //Trả lại các nút như ban đầu
-                themXoaSuaSanPham.BtnXoa.Enabled = true;
-                themXoaSuaSanPham.BtnSua.Enabled = true;
-                themXoaSuaSanPham.BtnLuu.Enabled = true;
-                themXoaSuaSanPham.BtnHuyThem.Enabled = false;
-                themXoaSuaSanPham.BtnThem.Image = Properties.Resources.icons8_add_35;
-                //Bật data binding cho sản phẩm
-                BatDataBindingDataGridViewSanPham();
-                //Bật lại selection changed
-                dgv_dsSanPham.SelectionChanged += Dgv_dsSanPham_SelectionChanged;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        private SanPham LaySanPhamTuGiaoDien()
-        {
-            try
-            {
-                SanPham sp = new SanPham();
-                sp.MaSanPham = txtMaSanPham.Text;
-                sp.TenSanPham = txtTenSanPham.Text;
-                sp.MoTa = txtMoTa.Text;
-                sp.Gia = decimal.Parse(txtGia.Text);
-                sp.DanhMuc = txtDanhMuc.Text;
-                sp.SoLuongTon = int.Parse(txtSoLuongTon.Text);
-                sp.NgayPhatHanh = dtpNgayPhatHanh.Value.Date;
-                sp.MucDoAnhHuongTongNguyenLieu = decimal.Parse(txtMucDoAnhHuongNguyenLieu.Text);
-                return sp;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        private bool KiemTraRongTextBoxSanPham()
-        {
-            try
-            {
-                if (String.IsNullOrEmpty(txtDanhMuc.Text))
-                {
-                    return true;
-                }
-                if (String.IsNullOrEmpty(txtMaSanPham.Text))
-                {
-                    return true;
-                }
-                if (String.IsNullOrEmpty(txtTenSanPham.Text))
-                {
-                    return true;
-                }
-                if (String.IsNullOrEmpty(txtGia.Text))
-                {
-                    return true;
-                }
-                if (String.IsNullOrEmpty(txtMoTa.Text))
-                {
-                    return true;
-                }
-                if (String.IsNullOrEmpty(txtMucDoAnhHuongNguyenLieu.Text))
-                {
-                    return true;
-                }
-                if (String.IsNullOrEmpty(txtSoLuongTon.Text))
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        private void XoaTextBoxSanPham()
-        {
-            try
-            {
-                txtDanhMuc.Clear();
-                txtGia.Clear();
-                txtMaSanPham.Clear();
-                txtMoTa.Clear();
-                txtMucDoAnhHuongNguyenLieu.Clear();
-                txtSoLuongTon.Clear();
-                txtTenSanPham.Clear();
-                dtpNgayPhatHanh.Value = DateTime.Now.Date;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
         private void Frm_quanLyKhoHang_Load(object sender, EventArgs e)
         {
             try
             {
-                LoadDanhSachSanPham();
-                txtMaSanPham.Enabled = false;
+                LoadDanhSachLoaiChiPhi();
+                txt_maLoaiChiPhi.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -387,112 +513,57 @@ namespace GUI
                 throw ex;
             }
         }
-
-        private void LoadDanhSachSanPham()
-        {
-            try
-            {
-                lstSanPham = spBll.LayDanhSachSanPham();
-                dgv_dsSanPham.DataSource = lstSanPham;
-                dgv_dsSanPham.AllowUserToAddRows = false;
-                dgv_dsSanPham.AutoGenerateColumns = false;
-                dgv_dsSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-                dgv_dsSanPham.MultiSelect = false;
-                dgv_dsSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgv_dsSanPham.Columns[0].HeaderText = "Mã sản phẩm";
-                dgv_dsSanPham.Columns[1].HeaderText = "Tên sản phẩm";
-                dgv_dsSanPham.Columns[2].HeaderText = "Mô tả";
-                dgv_dsSanPham.Columns[3].HeaderText = "Giá";
-                dgv_dsSanPham.Columns[4].HeaderText = "Danh mục";
-                dgv_dsSanPham.Columns[5].HeaderText = "Số lượng tồn";
-                dgv_dsSanPham.Columns[6].HeaderText = "Ngày phát hành";
-                dgv_dsSanPham.Columns[7].HeaderText = "Mức độ ảnh hưởng";
-                dgv_dsSanPham.SelectionChanged += Dgv_dsSanPham_SelectionChanged;
-                TatDataBindingDataGridViewSanPham();
-                BatDataBindingDataGridViewSanPham();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        private void TatDataBindingDataGridViewSanPham()
-        {
-            try
-            {
-                // Xóa các binding cũ (nếu có)
-                txtMaSanPham.DataBindings.Clear();
-                txtTenSanPham.DataBindings.Clear();
-                txtMoTa.DataBindings.Clear();
-                txtGia.DataBindings.Clear();
-                txtDanhMuc.DataBindings.Clear();
-                txtSoLuongTon.DataBindings.Clear();
-                txtMucDoAnhHuongNguyenLieu.DataBindings.Clear();
-                dtpNgayPhatHanh.DataBindings.Clear();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public void BatDataBindingDataGridViewSanPham()
-        {
-            try
-            {
-                TatDataBindingDataGridViewSanPham();
-                // Ràng buộc dữ liệu từ DataGridView vào các điều khiển
-                txtMaSanPham.Text = dgv_dsSanPham.CurrentRow.Cells["MaSanPham"].Value.ToString();
-                txtTenSanPham.Text = dgv_dsSanPham.CurrentRow.Cells["TenSanPham"].Value.ToString();
-                txtMoTa.Text = dgv_dsSanPham.CurrentRow.Cells["MoTa"].Value.ToString();
-                txtGia.Text = dgv_dsSanPham.CurrentRow.Cells["Gia"].Value.ToString();
-                txtDanhMuc.Text = dgv_dsSanPham.CurrentRow.Cells["DanhMuc"].Value.ToString();
-                txtSoLuongTon.Text = dgv_dsSanPham.CurrentRow.Cells["SoLuongTon"].Value.ToString();
-                dtpNgayPhatHanh.Text = dgv_dsSanPham.CurrentRow.Cells["NgayPhatHanh"].Value.ToString();
-                txtMucDoAnhHuongNguyenLieu.Text = dgv_dsSanPham.CurrentRow.Cells["MucDoAnhHuongTongNguyenLieu"].Value.ToString();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
 
         private void Btn_clear_Click(object sender, EventArgs e)
         {
             // Kích hoạt chế độ nhập liệu
-            cbo_loaiChiPhi.Enabled = true; // Mã chi phí
+            txt_maLoaiChiPhi.Enabled = true; // Mã chi phí
             txt_tenLoaiChiPhi.Enabled = true; // Tên chi phí
             txt_moTaLoaiChiPhi.Enabled = true; // Mô tả
             txt_tongTien.Enabled = true; // Số tiền
-            cbo_loaiChiPhi.Text = string.Empty;
+            txt_maLoaiChiPhi.Text = string.Empty;
             txt_tenLoaiChiPhi.Text = string.Empty;
             txt_tongTien.Text = string.Empty;
             txt_moTaLoaiChiPhi.Text = string.Empty;
         }
 
-
         private void Dgv_dsChiPhi_SelectionChanged(object sender, EventArgs e)
         {
             try
             {
-                //hiển thị dòng đang chọn lên textbox
+                // Hiển thị dòng đang chọn lên TextBox
                 if (dgv_dsChiPhi.CurrentRow != null)
                 {
-                    txt_maChiPhi.Text = dgv_dsChiPhi.CurrentRow.Cells["MaChiPhi"].Value.ToString();
-                    txt_moTa.Text = dgv_dsChiPhi.CurrentRow.Cells["MoTa"].Value.ToString();
-                    txt_soTien.Text = dgv_dsChiPhi.CurrentRow.Cells["SoTien"].Value.ToString();
-                    dtp_thoiGian.Value = Convert.ToDateTime(dgv_dsChiPhi.CurrentRow.Cells["ThoiGian"].Value.ToString());
-                    txt_maLoaiChiPhi.Text = dgv_dsChiPhi.CurrentRow.Cells["MaLoaiChiPhi"].Value.ToString();
+                    // Lấy thông tin từ dòng hiện tại
+                    txt_maChiPhi.Text = dgv_dsChiPhi.CurrentRow.Cells["MaChiPhi"].Value?.ToString();
+                    txt_moTaChiPhi.Text = dgv_dsChiPhi.CurrentRow.Cells["MoTa"].Value?.ToString();
+                    txt_soTien.Text = dgv_dsChiPhi.CurrentRow.Cells["SoTien"].Value?.ToString();
+
+                    if (DateTime.TryParse(dgv_dsChiPhi.CurrentRow.Cells["ThoiGian"].Value?.ToString(), out DateTime thoiGian))
+                    {
+                        dtp_thoiGian.Value = thoiGian;
+                    }
+
+                    string maLoaiChiPhi = dgv_dsChiPhi.CurrentRow.Cells["MaLoaiChiPhi"].Value?.ToString();
+
+                    // Tìm và hiển thị tên loại chi phí trong ComboBox
+                    if (!string.IsNullOrEmpty(maLoaiChiPhi))
+                    {
+                        // Gán giá trị SelectedValue cho ComboBox
+                        cbo_loaiChiPhi.SelectedValue = maLoaiChiPhi;
+
+                        // Kiểm tra xem giá trị đã được tìm thấy hay chưa
+                        if (cbo_loaiChiPhi.SelectedValue == null)
+                        {
+                            MessageBox.Show("Mã loại chi phí không tồn tại trong danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            cbo_loaiChiPhi.SelectedIndex = -1; // Xóa lựa chọn nếu không tìm thấy
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Lỗi khi hiển thị chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -500,6 +571,7 @@ namespace GUI
         {
             try
             {
+                BatDataBindingDataGridViewLoaiChiPhi();
                 // Check if the current row is not null
                 if (dgv_dsLoaiChiPhi.CurrentRow != null)
                 {
@@ -508,13 +580,13 @@ namespace GUI
                     if (cell != null && cell.Value != null)
                     {
                         string loaiChiPhi = cell.Value.ToString();
-                        cbo_loaiChiPhi.Text = loaiChiPhi;
+                        txt_maLoaiChiPhi.Text = loaiChiPhi;
                         txt_tenLoaiChiPhi.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["TenLoaiChiPhi"].Value.ToString();
                         txt_moTaLoaiChiPhi.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["MoTa"].Value.ToString();
                         txt_tongTien.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["TongTien"].Value.ToString();
                         // lấy mã sản phẩm từ dgv_dsLoaiChiPhi
                         string maLoaiChiPhi = loaiChiPhi;
-                        HienThiChiPhi(maLoaiChiPhi, maSanPham);
+                        HienThiChiPhi(maLoaiChiPhi);
                     }
                 }
             }
@@ -523,83 +595,476 @@ namespace GUI
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
-
         //viết hàm xử lý ở đây
-
-        private void LoadLaiDanhSachChiPhi()
+        //xử lý chi phí
+        private void TatBatTextBoxChiPhi(bool trangThai)
         {
             try
             {
-                //Tắt binding + selection changed
-                TatDataBindingDataGridViewSanPham();
-                dgv_dsLoaiChiPhi.SelectionChanged -= Dgv_dsSanPham_SelectionChanged;
-                //Sau khi tắt xong thì lòad lại
-                _lstLoaiChiPhi = spBll.LayDanhSachSanPham();
-                dgv_dsSanPham.DataSource = lstSanPham;
-                dgv_dsSanPham.AllowUserToAddRows = false;
-                dgv_dsSanPham.AutoGenerateColumns = false;
-                dgv_dsSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-                dgv_dsSanPham.MultiSelect = false;
-                dgv_dsSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgv_dsSanPham.Columns[0].HeaderText = "Mã sản phẩm";
-                dgv_dsSanPham.Columns[1].HeaderText = "Tên sản phẩm";
-                dgv_dsSanPham.Columns[2].HeaderText = "Mô tả";
-                dgv_dsSanPham.Columns[3].HeaderText = "Giá";
-                dgv_dsSanPham.Columns[4].HeaderText = "Danh mục";
-                dgv_dsSanPham.Columns[5].HeaderText = "Số lượng tồn";
-                dgv_dsSanPham.Columns[6].HeaderText = "Ngày phát hành";
-                dgv_dsSanPham.Columns[7].HeaderText = "Mức độ ảnh hưởng";
-                dgv_dsSanPham.SelectionChanged += Dgv_dsSanPham_SelectionChanged;
-                TatDataBindingDataGridViewSanPham();
-                BatDataBindingDataGridViewSanPham();
+                txt_maChiPhi.Enabled = trangThai;
+                txt_moTaChiPhi.Enabled = trangThai;
+                txt_soTien.Enabled = trangThai;
+                dtp_thoiGian.Enabled = trangThai;
+                cbo_loaiChiPhi.Enabled = trangThai; // Combobox chọn loại chi phí
+            }
+            catch
+            {
+                // Xử lý lỗi (nếu cần)
+            }
+        }
+
+        private bool KiemTraRongTextBoxChiPhi()
+        {
+            try
+            {
+                return string.IsNullOrEmpty(txt_maChiPhi.Text) ||
+                       string.IsNullOrEmpty(txt_moTaChiPhi.Text) ||
+                       string.IsNullOrEmpty(txt_soTien.Text) ||
+                       string.IsNullOrEmpty(cbo_loaiChiPhi.Text); // Kiểm tra chọn loại chi phí
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                MessageBox.Show($"Lỗi kiểm tra rỗng: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
             }
         }
-        // thêm loại chi phí
-        private void ThemLoaiChiPhiVaoDataGridView()
-        {
-            if(string.IsNullOrEmpty(txt_maLoaiChiPhi.Text) || string.IsNullOrEmpty(txt_tenLoaiChiPhi.Text) || string.IsNullOrEmpty(txt_tongTien.Text))
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if(string.IsNullOrEmpty(txt_maLoaiChiPhi.Text) || string.IsNullOrEmpty(txt_tenLoaiChiPhi.Text) || string.IsNullOrEmpty(txt_tongTien.Text))
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if(string.IsNullOrEmpty(txt_moTa.Text))
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (!decimal.TryParse(txt_tongTien.Text, out decimal tongTien))
-            {
-                MessageBox.Show("Tổng tiền phải là số hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
-            // Kiểm tra nếu mã loại chi phí hoặc tên loại chi phí đã tồn tại
-            foreach (DataGridViewRow row in dgv_dsLoaiChiPhi.Rows)
+        private void XoaTextBoxChiPhi()
+        {
+            try
             {
-                if (row.Cells["MaLoaiChiPhi"].Value?.ToString() == txt_maLoaiChiPhi.Text)
+                txt_maChiPhi.Clear();
+                txt_moTaChiPhi.Clear();
+                txt_soTien.Clear();
+                cbo_loaiChiPhi.SelectedIndex = -1;
+                dtp_thoiGian.Value = DateTime.Now;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xóa TextBox: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private ChiPhi LayChiPhiTuGiaoDien()
+        {
+            try
+            {
+                ChiPhi chiPhi = new ChiPhi();
+
+                chiPhi.MaChiPhi = txt_maChiPhi.Text;
+                chiPhi.MoTa = txt_moTaChiPhi.Text;
+
+                if (decimal.TryParse(txt_soTien.Text, out decimal soTien))
                 {
-                    MessageBox.Show("Mã loại chi phí đã tồn tại! Vui lòng nhập mã khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    chiPhi.SoTien = soTien;
+                }
+                else
+                {
+                    throw new FormatException("Số tiền phải là số hợp lệ!");
+                }
+
+                chiPhi.ThoiGian = dtp_thoiGian.Value;
+
+                // Lấy mã loại chi phí từ combobox
+                if (cbo_loaiChiPhi.SelectedValue != null)
+                {
+                    chiPhi.MaLoaiChiPhi = cbo_loaiChiPhi.SelectedValue.ToString();
+                }
+                else
+                {
+                    throw new Exception("Vui lòng chọn loại chi phí hợp lệ!");
+                }
+
+                return chiPhi;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lấy dữ liệu Chi Phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        private void ThemChiPhiVaoDataGridView()
+        {
+            try
+            {
+                if (!KiemTraRongTextBoxChiPhi())
+                {
+                    // Lấy thông tin chi phí từ giao diện
+                    ChiPhi chiPhi = LayChiPhiTuGiaoDien();
+                    if (chiPhi == null) return;
+
+                    // Kiểm tra mã chi phí đã tồn tại
+                    foreach (DataGridViewRow row in dgv_dsChiPhi.Rows)
+                    {
+                        if (row.Cells["MaChiPhi"].Value?.ToString() == chiPhi.MaChiPhi)
+                        {
+                            MessageBox.Show("Mã chi phí đã tồn tại! Vui lòng nhập mã khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    // Thêm chi phí mới vào BindingList
+                    _bindingListChiPhi.Add(chiPhi);
+
+                    MessageBox.Show("Thêm chi phí thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dgv_dsChiPhi.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-
-            // Thêm dữ liệu vào DataGridView
-            dgv_dsLoaiChiPhi.Rows.Add(txt_maLoaiChiPhi.Text, txt_tenLoaiChiPhi.Text,txt_moTa.Text, tongTien,maSanPham);
-
-            MessageBox.Show("Thêm dòng mới thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            dgv_dsLoaiChiPhi.Refresh();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi thêm: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+        private void XoaChiPhi()
+        {
+            try
+            {
+                if (dgv_dsChiPhi.CurrentRow != null)
+                {
+                    // Lấy mã chi phí hiện tại
+                    var row = dgv_dsChiPhi.CurrentRow;
+                    string maChiPhi = row.Cells["MaChiPhi"].Value?.ToString();
+
+                    // Xóa chi phí khỏi BindingList
+                    _bindingListChiPhi.RemoveAt(row.Index);
+
+                    MessageBox.Show("Xóa chi phí thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dgv_dsChiPhi.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn một chi phí để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xóa: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadDanhSachChiPhi(string maLoaiChiPhi)
+        {
+            try
+            {
+                _lstChiPhi = _chiPhiBLL.LayChiPhiTheoMaLoaiChiPhi(maLoaiChiPhi, maSanPham);
+                dgv_dsChiPhi.DataSource = _lstChiPhi;
+                dgv_dsChiPhi.AllowUserToAddRows = false;
+                dgv_dsChiPhi.AutoGenerateColumns = false;
+                dgv_dsChiPhi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+                dgv_dsChiPhi.MultiSelect = false;
+                dgv_dsChiPhi.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                // Đặt tiêu đề cột
+                dgv_dsChiPhi.Columns[0].HeaderText = "Mã Chi Phí";
+                dgv_dsChiPhi.Columns[1].HeaderText = "Mô Tả";
+                dgv_dsChiPhi.Columns[2].HeaderText = "Số Tiền";
+                dgv_dsChiPhi.Columns[3].HeaderText = "Thời Gian";
+                dgv_dsChiPhi.Columns[4].HeaderText = "Mã Loại Chi Phí";
+
+                TatDataBindingDataGridViewChiPhi();
+                BatDataBindingDataGridViewChiPhi();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải danh sách chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void TatDataBindingDataGridViewChiPhi()
+        {
+            try
+            {
+                txt_maChiPhi.DataBindings.Clear();
+                txt_moTaChiPhi.DataBindings.Clear();
+                txt_soTien.DataBindings.Clear();
+                cbo_loaiChiPhi.DataBindings.Clear();
+                dtp_thoiGian.DataBindings.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tắt ràng buộc: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BatDataBindingDataGridViewChiPhi()
+        {
+            try
+            {
+                TatDataBindingDataGridViewChiPhi();
+
+                // Ràng buộc dữ liệu từ DataGridView vào TextBox
+                if (dgv_dsChiPhi.CurrentRow != null)
+                {
+                    txt_maChiPhi.Text = dgv_dsChiPhi.CurrentRow.Cells["MaChiPhi"].Value?.ToString();
+                    txt_moTaChiPhi.Text = dgv_dsChiPhi.CurrentRow.Cells["MoTa"].Value?.ToString();
+                    txt_soTien.Text = dgv_dsChiPhi.CurrentRow.Cells["SoTien"].Value?.ToString();
+                    cbo_loaiChiPhi.SelectedValue = dgv_dsChiPhi.CurrentRow.Cells["MaLoaiChiPhi"].Value?.ToString();
+                    dtp_thoiGian.Value = Convert.ToDateTime(dgv_dsChiPhi.CurrentRow.Cells["ThoiGian"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi bật ràng buộc: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //xử lý loại chi phí
+        // tắt các textbox
+        private void TatBatTextBox(bool trangThai)
+        {
+            try
+            {
+                // Khôi phục trạng thái ban đầu của giao diện
+                txt_maLoaiChiPhi.Enabled = trangThai;
+                txt_tenLoaiChiPhi.Enabled = trangThai;
+                txt_moTaLoaiChiPhi.Enabled = trangThai;
+                txt_tongTien.Enabled = trangThai;
+            }
+            catch { }
+        }
+
+        private void XoaLoaiChiPhi()
+        {
+            try
+            {
+                if (dgv_dsLoaiChiPhi.CurrentRow != null)
+                {
+                    // Lấy mã loại chi phí hiện tại
+                    var row = dgv_dsLoaiChiPhi.CurrentRow;
+                    string maLoaiChiPhi = row.Cells["MaLoaiChiPhi"].Value?.ToString();
+
+                    // Kiểm tra chi phí liên quan
+                    var danhSachChiPhi = _chiPhiBLL.LayChiPhiTheoMaLoaiChiPhi(maLoaiChiPhi, maSanPham);
+                    if (danhSachChiPhi != null && danhSachChiPhi.Count > 0)
+                    {
+                        MessageBox.Show("Không thể xóa loại chi phí này vì có chi phí liên quan!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Xóa loại chi phí khỏi BindingList
+                    _bindingListLoaiChiPhi.RemoveAt(row.Index);
+
+                    MessageBox.Show("Xóa loại chi phí thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dgv_dsLoaiChiPhi.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn một loại chi phí để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ThemLoaiChiPhiVaoDataGridView()
+        {
+            try
+            {
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(txt_maLoaiChiPhi.Text) || string.IsNullOrEmpty(txt_tenLoaiChiPhi.Text) || string.IsNullOrEmpty(txt_tongTien.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!decimal.TryParse(txt_tongTien.Text, out decimal tongTien))
+                {
+                    MessageBox.Show("Tổng tiền phải là số hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra trùng mã
+                foreach (DataGridViewRow row in dgv_dsLoaiChiPhi.Rows)
+                {
+                    if (row.Cells["MaLoaiChiPhi"].Value?.ToString() == txt_maLoaiChiPhi.Text)
+                    {
+                        MessageBox.Show("Mã loại chi phí đã tồn tại! Vui lòng nhập mã khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                // Thêm vào danh sách
+                _bindingListLoaiChiPhi.Add(new LoaiChiPhi
+                {
+                    MaLoaiChiPhi = txt_maLoaiChiPhi.Text,
+                    TenLoaiChiPhi = txt_tenLoaiChiPhi.Text,
+                    MoTa = txt_moTaLoaiChiPhi.Text,
+                    TongTien = tongTien,
+                    MaSanPham = maSanPham
+                });
+
+                MessageBox.Show("Thêm loại chi phí thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dgv_dsLoaiChiPhi.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi thêm: " + ex.Message, "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private LoaiChiPhi LayLoaiChiPhiTuGiaoDien()
+        {
+            try
+            {
+                // Tạo đối tượng Loại Chi Phí
+                LoaiChiPhi loaiChiPhi = new LoaiChiPhi();
+
+                // Lấy dữ liệu từ các TextBox
+                loaiChiPhi.MaLoaiChiPhi = txt_maLoaiChiPhi.Text;
+                loaiChiPhi.TenLoaiChiPhi = txt_tenLoaiChiPhi.Text;
+                loaiChiPhi.MoTa = txt_moTaLoaiChiPhi.Text;
+
+                // Chuyển đổi Tổng Tiền
+                if (decimal.TryParse(txt_tongTien.Text, out decimal tongTien))
+                {
+                    loaiChiPhi.TongTien = tongTien;
+                }
+                else
+                {
+                    throw new FormatException("Tổng tiền phải là số hợp lệ!");
+                }
+
+                // Gắn mã sản phẩm nếu cần
+                loaiChiPhi.MaSanPham = maSanPham; // `maSanPham` có thể là biến toàn cục
+
+                return loaiChiPhi;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lấy dữ liệu Loại Chi Phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        private bool KiemTraRongTextBoxLoaiChiPhi()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(txt_maLoaiChiPhi.Text) ||
+                    string.IsNullOrEmpty(txt_tenLoaiChiPhi.Text) ||
+                    string.IsNullOrEmpty(txt_tongTien.Text) ||
+                    string.IsNullOrEmpty(txt_moTaLoaiChiPhi.Text))
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi kiểm tra rỗng: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+        }
+
+        private void XoaTextBoxLoaiChiPhi()
+        {
+            try
+            {
+                txt_maLoaiChiPhi.Clear();
+                txt_tenLoaiChiPhi.Clear();
+                txt_moTaLoaiChiPhi.Clear();
+                txt_tongTien.Clear();
+                txt_maLoaiChiPhi.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xóa TextBox: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadDanhSachLoaiChiPhi()
+        {
+            try
+            {
+                _lstLoaiChiPhi = _loaiChiPhiBLL.LayDanhSachLoaiChiPhi(maSanPham);
+                dgv_dsLoaiChiPhi.DataSource = _lstLoaiChiPhi;
+                dgv_dsLoaiChiPhi.AllowUserToAddRows = false;
+                dgv_dsLoaiChiPhi.AutoGenerateColumns = false;
+                dgv_dsLoaiChiPhi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+                dgv_dsLoaiChiPhi.MultiSelect = false;
+                dgv_dsLoaiChiPhi.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                // Đặt tiêu đề cột
+                dgv_dsLoaiChiPhi.Columns[0].HeaderText = "Mã Loại Chi Phí";
+                dgv_dsLoaiChiPhi.Columns[1].HeaderText = "Tên Loại Chi Phí";
+                dgv_dsLoaiChiPhi.Columns[2].HeaderText = "Mô Tả";
+                dgv_dsLoaiChiPhi.Columns[3].HeaderText = "Tổng Tiền";
+
+                dgv_dsLoaiChiPhi.SelectionChanged += Dgv_dsLoaiChiPhi_SelectionChanged;
+
+                TatDataBindingDataGridViewLoaiChiPhi();
+                BatDataBindingDataGridViewLoaiChiPhi();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải danh sách loại chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void TatDataBindingDataGridViewLoaiChiPhi()
+        {
+            try
+            {
+                txt_maLoaiChiPhi.DataBindings.Clear();
+                txt_tenLoaiChiPhi.DataBindings.Clear();
+                txt_moTaLoaiChiPhi.DataBindings.Clear();
+                txt_tongTien.DataBindings.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tắt ràng buộc: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void BatDataBindingDataGridViewLoaiChiPhi()
+        {
+            try
+            {
+                TatDataBindingDataGridViewLoaiChiPhi();
+
+                // Ràng buộc dữ liệu từ DataGridView vào các TextBox
+                if (dgv_dsLoaiChiPhi.CurrentRow != null)
+                {
+                    txt_maLoaiChiPhi.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["MaLoaiChiPhi"].Value.ToString();
+                    txt_tenLoaiChiPhi.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["TenLoaiChiPhi"].Value.ToString();
+                    txt_moTaLoaiChiPhi.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["MoTa"].Value.ToString();
+                    txt_tongTien.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["TongTien"].Value.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi bật ràng buộc: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void LoadLaiDanhSachLoaiChiPhi()
+        {
+            try
+            {
+                TatDataBindingDataGridViewLoaiChiPhi();
+                dgv_dsLoaiChiPhi.SelectionChanged -= Dgv_dsLoaiChiPhi_SelectionChanged;
+
+                // Tải lại danh sách loại chi phí
+                _lstLoaiChiPhi = _loaiChiPhiBLL.LayDanhSachLoaiChiPhi(maSanPham);
+                dgv_dsLoaiChiPhi.DataSource = _lstLoaiChiPhi;
+
+                dgv_dsLoaiChiPhi.SelectionChanged += Dgv_dsLoaiChiPhi_SelectionChanged;
+
+                TatDataBindingDataGridViewLoaiChiPhi();
+                BatDataBindingDataGridViewLoaiChiPhi();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải lại danh sách loại chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         //viết hàm load dữ liệu combobox loai chi phí
         private void LoadDataComboboxLoaiChiPhi()
         {
@@ -685,7 +1150,7 @@ namespace GUI
                 //hiển thị tràn viền
                 dgv_dsChiPhi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -712,34 +1177,50 @@ namespace GUI
                 //hiển thị full bảng
                 dgv_dsLoaiChiPhi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
 
         }
         //load dữ liệu chi phí
-        private void HienThiChiPhi(string maLoaiChiPhi, string maSanPham)
+        private void HienThiChiPhi(string maLoaiChiPhi)
         {
             try
             {
-                _lstChiPhi = _chiPhiBLL.LayChiPhiTheoMaLoaiChiPhi(maLoaiChiPhi, maSanPham);
-                if (_lstChiPhi != null)
+                // Lấy danh sách chi phí từ cơ sở dữ liệu
+                var danhSachChiPhi = _chiPhiBLL.LayChiPhiTheoMaLoaiChiPhi(maLoaiChiPhi, maSanPham);
+
+                // Tạo BindingList và gán làm DataSource
+                if (danhSachChiPhi != null)
                 {
-                    dgv_dsChiPhi.DataSource = _lstChiPhi;
+                    _bindingListChiPhi = new BindingList<ChiPhi>(danhSachChiPhi);
+                    dgv_dsChiPhi.DataSource = _bindingListChiPhi;
+
+                    // Khởi tạo giao diện DataGridView
                     KhoiTaoChiPhi();
                     themCotSoThuTu(dgv_dsChiPhi);
+
+                    // Sự kiện RowPostPaint để hiển thị số thứ tự
                     dgv_dsChiPhi.RowPostPaint -= dgvSanPham_RowPostPaint;
                     dgv_dsChiPhi.RowPostPaint += dgvSanPham_RowPostPaint;
+
                     dgv_dsChiPhi.Invalidate();
                     dgv_dsChiPhi.Refresh();
                 }
+                else
+                {
+                    // Làm sạch DataGridView nếu không có dữ liệu
+                    dgv_dsChiPhi.DataSource = null;
+                    MessageBox.Show("Không có dữ liệu chi phí!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Lỗi load dữ liệu chi phí");
+                MessageBox.Show($"Lỗi khi hiển thị chi phí: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         //load dữ liệu loại chi phí
         private void HienThiLoaiChiPhi()
         {
@@ -761,11 +1242,6 @@ namespace GUI
             {
                 MessageBox.Show("Lỗi load dữ liệu loại chi phí");
             }
-        }
-
-        private void themXoaSua_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
