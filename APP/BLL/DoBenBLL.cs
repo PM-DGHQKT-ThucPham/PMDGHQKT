@@ -156,11 +156,11 @@ namespace BLL
         /// <summary>
         /// Kiểm tra mã độ bền đã tồn tại trong database chưa
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="text">Mã độ bền</param>
         /// <returns>Trả về true nếu chưa tồn tại, false nếu đã tồn tại</returns>
-        public bool KiemTraMaDoBenTonTai(string text)
+        public bool KiemTraMaDoBenTonTai(string maDoBen)
         {
-            DoBen doBen = LayDanhSachDoBen().FirstOrDefault(x => x.MaDoBen == text);
+            DoBen doBen = LayDanhSachDoBen().FirstOrDefault(x => x.MaDoBen == maDoBen);
             if (doBen != null)
             {
                 return true;
