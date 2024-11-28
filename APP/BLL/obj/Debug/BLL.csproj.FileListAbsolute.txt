@@ -1,0 +1,12 @@
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\bin\Debug\BLL.dll
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\bin\Debug\BLL.pdb
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\bin\Debug\DAL.dll
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\bin\Debug\DTO.dll
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\bin\Debug\DAL.pdb
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\bin\Debug\DTO.pdb
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\bin\Debug\DTO.dll.config
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\obj\Debug\BLL.csproj.Up2Date
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\obj\Debug\BLL.dll
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\BLL\obj\Debug\BLL.pdb

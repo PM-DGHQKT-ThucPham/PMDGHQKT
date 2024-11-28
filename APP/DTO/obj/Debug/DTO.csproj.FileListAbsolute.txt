@@ -1,0 +1,7 @@
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\bin\Debug\DTO.dll.config
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\bin\Debug\DTO.dll
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\bin\Debug\DTO.pdb
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\obj\Debug\DTO.csproj.AssemblyReference.cache
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\obj\Debug\DTO.dll
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\obj\Debug\DTO.pdb
