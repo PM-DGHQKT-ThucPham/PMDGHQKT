@@ -10,7 +10,7 @@ namespace BLL
 {
     public class LoaiChiPhiBLL
     {
-        LoaiChiPhiDAL _loaiChiPhiDAL = new LoaiChiPhiDAL();
+        readonly LoaiChiPhiDAL _loaiChiPhiDAL = new LoaiChiPhiDAL();
         public LoaiChiPhiBLL()
         {
         }

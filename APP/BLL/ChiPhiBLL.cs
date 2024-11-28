@@ -10,7 +10,7 @@ namespace BLL
 {
     public class ChiPhiBLL
     {
-        ChiPhiDAL _chiPhiDAL = new ChiPhiDAL();
+        readonly ChiPhiDAL _chiPhiDAL = new ChiPhiDAL();
         public ChiPhiBLL()
         {
         }

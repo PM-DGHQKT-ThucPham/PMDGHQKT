@@ -5,3 +5,10 @@ E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\obj\Debug\DTO.csproj.Asse
 E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
 E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\obj\Debug\DTO.dll
 E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\DTO\obj\Debug\DTO.pdb
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\DTO\bin\Debug\DTO.dll.config
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\DTO\bin\Debug\DTO.dll
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\DTO\bin\Debug\DTO.pdb
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\DTO\obj\Debug\DTO.csproj.AssemblyReference.cache
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\DTO\obj\Debug\DTO.dll
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\DTO\obj\Debug\DTO.pdb

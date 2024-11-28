@@ -307,6 +307,24 @@
     <Compile Include="frm_themChiTietThanhPhanNguyenLieu.Designer.cs">
       <DependentUpon>frm_themChiTietThanhPhanNguyenLieu.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_ThemNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_ThemNhanVien.Designer.cs">
+      <DependentUpon>frm_ThemNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_ThemQuyen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_ThemQuyen.Designer.cs">
+      <DependentUpon>frm_ThemQuyen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_ThemVaiTro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_ThemVaiTro.Designer.cs">
+      <DependentUpon>frm_ThemVaiTro.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_wait.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -399,6 +417,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_themChiTietThanhPhanNguyenLieu.resx">
       <DependentUpon>frm_themChiTietThanhPhanNguyenLieu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_ThemNhanVien.resx">
+      <DependentUpon>frm_ThemNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_ThemQuyen.resx">
+      <DependentUpon>frm_ThemQuyen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_ThemVaiTro.resx">
+      <DependentUpon>frm_ThemVaiTro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_wait.resx">
       <DependentUpon>frm_wait.cs</DependentUpon>

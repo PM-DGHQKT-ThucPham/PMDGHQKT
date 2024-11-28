@@ -9,7 +9,7 @@ namespace DAL
 {
     public class LoiNhuanDAL
     {
-        DoAnTotNghiepDataContext db = new DoAnTotNghiepDataContext();
+        readonly DoAnTotNghiepDataContext db = new DoAnTotNghiepDataContext();
         List<LoiNhuan> _lstLoiNhuan = new List<LoiNhuan>();
         public LoiNhuanDAL() { }
         //lấy tất cả lợi nhuận theo mã sản phẩm
@@ -188,6 +188,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 // Log lỗi nếu có
                 return false; // Trả về false nếu có lỗi
             }

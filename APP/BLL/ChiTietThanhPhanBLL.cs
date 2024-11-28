@@ -10,8 +10,8 @@ namespace BLL
 {
     public class ChiTietThanhPhanBLL
     {
-        ChiTietThanhPhanDAL dal = new  ChiTietThanhPhanDAL();
-        DoAnTotNghiepDataContext db = new DoAnTotNghiepDataContext();
+        readonly ChiTietThanhPhanDAL dal = new  ChiTietThanhPhanDAL();
+        readonly DoAnTotNghiepDataContext db = new DoAnTotNghiepDataContext();
         public bool CapNhatThemXoaSua(List<ChiTietThanhPhan> temp, string maSanPham)
         {
             try
