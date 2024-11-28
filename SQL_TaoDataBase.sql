@@ -72,7 +72,6 @@ CREATE TABLE DichVuKhachHang (
 CREATE TABLE PhanHoiNguoiDung (
     MaPhanHoi Varchar(10) PRIMARY KEY,
     MaSanPham Varchar(10) FOREIGN KEY REFERENCES SanPham(MaSanPham),
-	MoTa NVARCHAR(MAX),
     XepHangNguoiDung INT, -- Xếp hạng người dùng (1-5 sao)
     BinhLuan NVARCHAR(MAX),
     NgayPhanHoi DATETIME
@@ -262,14 +261,44 @@ Mã QR truy xuất nguồn gốc: Mỗi lô sản phẩm đều có mã QR giúp
 ');
 
 -- Insert data into the PhanHoiNguoiDung table
-INSERT INTO PhanHoiNguoiDung (MaPhanHoi, MaSanPham, XepHangNguoiDung, BinhLuan, NgayPhanHoi, MoTa)
-VALUES ('PH001', 'SP001', 5, 'Sản phẩm rất tươi ngon, giữ được hương vị tự nhiên của trái cây.', '2024-11-23', N'Phản hồi:
-Người tiêu dùng đánh giá cao hương vị tự nhiên của sản phẩm, với sự kết hợp hài hòa giữa lựu và táo. Hương vị không quá ngọt và giữ được mùi vị đặc trưng của trái lựu và táo, mang lại cảm giác tươi mát khi uống.
-Các phản hồi thường xuyên khen ngợi sự dễ chịu và thanh mát của nước ép, không gây cảm giác ngán như các loại nước ép khác.
-Xếp hạng:
-Trên các nền tảng thương mại điện tử, sản phẩm đạt trung bình 4.8/5 sao, với hàng ngàn đánh giá tích cực từ người tiêu dùng.
-Sản phẩm rất được ưa chuộng tại các siêu thị, cửa hàng tiện lợi và các kênh bán hàng trực tuyến.
-');
+DECLARE @i INT = 1;
+DECLARE @MaPhanHoi VARCHAR(10);
+DECLARE @MaSanPham VARCHAR(10) = 'SP001';
+DECLARE @XepHangNguoiDung INT;
+DECLARE @BinhLuan NVARCHAR(MAX);
+DECLARE @NgayPhanHoi DATE;
+
+WHILE @i <= 100
+BEGIN
+    -- Tạo mã phản hồi ngẫu nhiên
+    SET @MaPhanHoi = 'PH' + RIGHT('000' + CAST(@i AS VARCHAR(3)), 3);
+    
+    -- Tạo Xếp hạng người dùng ngẫu nhiên từ 1 đến 5
+    SET @XepHangNguoiDung = (RAND() * 5) + 1;
+    SET @XepHangNguoiDung = ROUND(@XepHangNguoiDung, 0);
+
+    -- Tạo bình luận ngẫu nhiên (có thể thay đổi thêm bình luận cho phong phú)
+    IF @XepHangNguoiDung = 5
+        SET @BinhLuan = N'Sản phẩm rất tươi ngon, giữ được hương vị tự nhiên của trái cây.';
+    ELSE IF @XepHangNguoiDung = 4
+        SET @BinhLuan = N'Sản phẩm tốt, nhưng có thể cải thiện một chút về độ ngọt.';
+    ELSE IF @XepHangNguoiDung = 3
+        SET @BinhLuan = N'Chất lượng bình thường, không có gì đặc biệt.';
+    ELSE IF @XepHangNguoiDung = 2
+        SET @BinhLuan = N'Chất lượng kém, không giống mô tả.';
+    ELSE
+        SET @BinhLuan = N'Dịch vụ tệ, sản phẩm không như mong đợi.';
+
+    -- Tạo Ngày phản hồi ngẫu nhiên sau ngày 22/05/2024
+    SET @NgayPhanHoi = DATEADD(DAY, (RAND() * 100) + 1, '2024-05-22');  -- Tạo ngày sau 22/05/2024
+    
+    -- Thực hiện lệnh INSERT
+    INSERT INTO PhanHoiNguoiDung (MaPhanHoi, MaSanPham, XepHangNguoiDung, BinhLuan, NgayPhanHoi)
+    VALUES (@MaPhanHoi, @MaSanPham, @XepHangNguoiDung, @BinhLuan, @NgayPhanHoi);
+
+    -- Tăng biến đếm
+    SET @i = @i + 1;
+END;
 
 -- Insert data into the BenVung table
 INSERT INTO BenVung (MaBenVung, MaSanPham, DanhGiaAnhHuongMoiTruong, DanhGiaAnToan, MucDoAnhHuong, MoTa)
