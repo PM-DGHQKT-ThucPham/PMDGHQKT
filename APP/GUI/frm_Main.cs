@@ -181,7 +181,7 @@ namespace GUI
 
         private void btn_quanLyThiTruong_Click(object sender, EventArgs e)
         {
-
+            loadForm(new frm_quanLyThiTruong());
         }
 
         private void btn_quanLyChiPhi_Click(object sender, EventArgs e)
