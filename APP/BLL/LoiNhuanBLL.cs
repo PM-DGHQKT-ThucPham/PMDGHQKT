@@ -32,5 +32,21 @@ namespace BLL
         {
             return _loiNhuanDAL.LayLoiNhuanTheoKhoangThoiGian(tuNgay, denNgay, maSP);
         }
+        public decimal TinhLoiNhuanGop(string maSP, int thang, int nam)
+        {
+            return _loiNhuanDAL.TinhLoiNhuanGop(maSP, thang, nam);
+        }
+        public decimal TinhLoiNhuanRong(string maSP, int thang, int nam)
+        {
+            return _loiNhuanDAL.TinhLoiNhuanRong(maSP, thang, nam);
+        }
+        public bool CapNhatLoiNhuanTheoThang(int thang, int nam)
+        {
+            return _loiNhuanDAL.CapNhatLoiNhuanTheoThang(thang, nam);
+        }
+        public List<(string MaSanPham, decimal TyLeLoiNhuanGop, decimal TyLeLoiNhuanRong)> TinhTyLeLoiNhuan(int thang, int nam)
+        {
+            return _loiNhuanDAL.TinhTyLeLoiNhuan(thang, nam);
+        }
     }
 }

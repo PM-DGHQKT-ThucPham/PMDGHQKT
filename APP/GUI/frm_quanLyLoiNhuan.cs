@@ -32,25 +32,248 @@ namespace GUI
         {
             HienThiDoanhThu();
             HienThiChiPhi();
+            _lstLoiNhuan = _loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSanPham);
+            HienThiLoiNhuan(_lstLoiNhuan);
+            dgv_dsLoiNhuan.SelectionChanged += Dgv_dsLoiNhuan_SelectionChanged;
+            btn_timKiem.Click += Btn_timKiem_Click;
+            btn_capNhat.Click += Btn_capNhat_Click;
         }
 
+        private void Btn_capNhat_Click(object sender, EventArgs e)
+        {
+            //cập nhập dòng lợi nhuận được chọn
+            if (dgv_dsLoiNhuan.CurrentRow != null)
+            {
+                LoiNhuan ln = (LoiNhuan)dgv_dsLoiNhuan.CurrentRow.DataBoundItem;
+                if (ln != null)
+                {
+                    //tính toán lợi nhuận gộp và ròng
+                    decimal loiNhuanGop = _loiNhuanBLL.TinhLoiNhuanGop(maSanPham, ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year);
+                    decimal loiNhuanRong = _loiNhuanBLL.TinhLoiNhuanRong(maSanPham, ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year);
+                    ln.MoTa = txt_moTaLoiNhuan.Text;
+                    if (_loiNhuanBLL.CapNhatLoiNhuanTheoThang(ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year))
+                    {
+                        MessageBox.Show("Cập nhật lợi nhuận thành công");
+                        _lstLoiNhuan = _loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSanPham);
+                        HienThiLoiNhuan(_lstLoiNhuan);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật lợi nhuận thất bại");
+                    }
+                }
+            }
+        }
+
+        private void Dgv_dsLoiNhuan_SelectionChanged(object sender, EventArgs e)
+        {
+            // Lấy dòng được chọn trong DataGridView danh sách lợi nhuận hiện tại hiện lên các control
+            //lấy current row
+            if(dgv_dsLoiNhuan.CurrentRow != null)
+            {
+                LoiNhuan ln = (LoiNhuan)dgv_dsLoiNhuan.CurrentRow.DataBoundItem;
+                if (ln != null)
+                {
+                    txt_maLoiNhuan.Text = ln.MaLoiNhuan;
+                    dtp_thoiGian.Value = ln.ThoiGian.Value;
+                    txt_loiNhuanGop.Text = ln.LoiNhuanGop.ToString();
+                    txt_loiNhuanRong.Text = ln.LoiNhuanRong.ToString();
+                    txt_moTaLoiNhuan.Text = ln.MoTa;
+                }
+                //tính tỉ lệ lợi nhuận gộp và ròng
+                // Lấy lợi nhuận gộp và ròng từ BLL
+                decimal loiNhuanGop = _loiNhuanBLL.TinhLoiNhuanGop(maSanPham, ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year);
+                decimal loiNhuanRong = _loiNhuanBLL.TinhLoiNhuanRong(maSanPham, ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year);
+                // Lấy doanh thu của sản phẩm trong cùng tháng và năm để tính tỷ lệ
+                List<DoanhThu> doanhThus = _doanhThuBLL.LayDoanhThuTheoThang(ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year, maSanPham);
+                //tính tổng doanh thu
+                decimal? totalDoanhThu = doanhThus?.Sum(dt => dt.SoTien);
+                DoanhThu doanhThu = new DoanhThu { SoTien = totalDoanhThu ?? 0 };
+                Decimal doanhThuThang = doanhThu?.SoTien ?? 0;
+                // Kiểm tra để tránh chia cho 0
+                if (doanhThuThang != 0)
+                {
+                    // Tính tỷ lệ lợi nhuận gộp và lợi nhuận ròng
+                    decimal tyLeLoiNhuanGop = (loiNhuanGop / doanhThuThang) * 100;
+                    decimal tyLeLoiNhuanRong = (loiNhuanRong / doanhThuThang) * 100;
+
+                    // Cập nhật lên giao diện
+                    txt_tyLeLoiNhuanGop.Text = tyLeLoiNhuanGop.ToString("F2") + '%'; // Hiển thị 2 chữ số sau dấu phẩy
+                    txt_tyLeLoiNhuanRong.Text = tyLeLoiNhuanRong.ToString("F2") + '%'; // Hiển thị 2 chữ số sau dấu phẩy
+                }
+                else
+                {
+                    // Nếu doanh thu = 0, tỉ lệ lợi nhuận gộp và ròng sẽ là 0%
+                    txt_tyLeLoiNhuanGop.Text = "0%";
+                    txt_tyLeLoiNhuanRong.Text = "0%";
+                }
+
+                //hiển thị doanh thu theo tháng
+                List<DoanhThu> lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoNgay(ln.ThoiGian.Value, maSanPham);
+                dgv_dsDoanhThu.DataSource = lstDoanhThu;
+                themCotSoThuTu(dgv_dsDoanhThu);
+                KhoiTaoDoanhThu();
+                dgv_dsDoanhThu.RowPostPaint -= Dgv_dsDoanhThu_RowPostPaint;
+                dgv_dsDoanhThu.RowPostPaint += Dgv_dsDoanhThu_RowPostPaint;
+                //hiển thị chi phí theo tháng
+                List<ChiPhi> lstChiPhi = _chiPhiBLL.LayChiPhiTheoThangNam(ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year, maSanPham);
+                dgv_dsChiPhi.DataSource = lstChiPhi;
+                themCotSoThuTu(dgv_dsChiPhi);
+                KhoiTaoChiPhi();
+                dgv_dsChiPhi.RowPostPaint -= Dgv_dsChiPhi_RowPostPaint;
+                dgv_dsChiPhi.RowPostPaint += Dgv_dsChiPhi_RowPostPaint;
+            }
+        }
+
+        private void Btn_timKiem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //lấy ngày tháng năm từ datetimepicker
+                DateTime ngay = dtp_thoiGian.Value;
+                //lấy danh lợi nhuận theo tháng năm
+                _lstLoiNhuan = _loiNhuanBLL.LayLoiNhuanTheoThangNam(ngay.Month, ngay.Year, maSanPham);
+                if (_lstLoiNhuan != null)
+                {
+                    dgv_dsLoiNhuan.DataSource = _lstLoiNhuan;
+                    themCotSoThuTu(dgv_dsLoiNhuan);
+                    KhoiTaoLoiNhuan();
+                    dgv_dsLoiNhuan.RowPostPaint -= Dgv_dsLoiNhuan_RowPostPaint;
+                    dgv_dsLoiNhuan.RowPostPaint += Dgv_dsLoiNhuan_RowPostPaint;
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("Không tìm thấy kết quả nào");
+            }
+        }
+
+
         //viết hàm xử lý
+        private void HienThiLoiNhuan(List<LoiNhuan> _lst)
+        {
+            try
+            {
+                _lstLoiNhuan = _lst;
+                if (_lstLoiNhuan != null)
+                {
+                    dgv_dsLoiNhuan.DataSource = _lstLoiNhuan;
+                    themCotSoThuTu(dgv_dsLoiNhuan);
+                    KhoiTaoLoiNhuan();
+                    dgv_dsLoiNhuan.RowPostPaint -= Dgv_dsLoiNhuan_RowPostPaint;
+                    dgv_dsLoiNhuan.RowPostPaint += Dgv_dsLoiNhuan_RowPostPaint;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không tìm thấy lợi nhuận nào");
+            }
+        }
+        private void Dgv_dsLoiNhuan_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex >= 0 && dgv_dsLoiNhuan.Columns.Contains("SoThuTu"))
+                {
+                    // Cập nhật số thứ tự cho mỗi dòng
+                    dgv_dsLoiNhuan.Rows[e.RowIndex].Cells["SoThuTu"].Value = (e.RowIndex + 1).ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi cập nhật số thứ tự: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void KhoiTaoLoiNhuan()
+        {
+            try
+            {
+                // Kiểm tra xem dgv_dsLoiNhuan có phải là null không
+                if (dgv_dsLoiNhuan == null)
+                {
+                    MessageBox.Show("DataGridView lợi nhuận chưa được khởi tạo.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Đổi tên cột
+                dgv_dsLoiNhuan.Columns["MaLoiNhuan"].HeaderText = "Mã lợi nhuận";
+                dgv_dsLoiNhuan.Columns["ThoiGian"].HeaderText = "Thời gian";
+                dgv_dsLoiNhuan.Columns["LoiNhuanGop"].HeaderText = "Lợi nhuận gộp";
+                dgv_dsLoiNhuan.Columns["LoiNhuanRong"].HeaderText = "Lợi nhuận ròng";
+                dgv_dsLoiNhuan.Columns["MaSanPham"].HeaderText = "Mã sản phẩm";
+                dgv_dsLoiNhuan.Columns["MoTa"].HeaderText = "Mô tả";
+                // In đậm tiêu đề cột
+                dgv_dsLoiNhuan.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12, FontStyle.Bold);
+
+                // Căn giữa tiêu đề cột
+                dgv_dsLoiNhuan.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                //autofill
+                dgv_dsLoiNhuan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                // Ẩn cột không cần thiết (ví dụ như cột "LoaiDoanhThu" nếu không cần thiết)
+                if (dgv_dsLoiNhuan.Columns.Contains("LoaiDoanhThu"))
+                {
+                    dgv_dsLoiNhuan.Columns["LoaiDoanhThu"].Visible = false;
+                }
+
+                // Định dạng cột "SoTien" là tiền
+                if (dgv_dsLoiNhuan.Columns.Contains("LoiNhuanGop"))
+                {
+                    dgv_dsLoiNhuan.Columns["LoiNhuanGop"].DefaultCellStyle.Format = "N0"; // Định dạng tiền với dấu phân cách hàng nghìn
+                    // Căn phải nội dung của cột SoTien
+                    dgv_dsLoiNhuan.Columns["LoiNhuanGop"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+                if (dgv_dsLoiNhuan.Columns.Contains("LoiNhuanRong"))
+                {
+                    dgv_dsLoiNhuan.Columns["LoiNhuanRong"].DefaultCellStyle.Format = "N0"; // Định dạng tiền với dấu phân cách hàng nghìn
+                    // Căn phải nội dung của cột SoTien
+                    dgv_dsLoiNhuan.Columns["LoiNhuanRong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+                //mô tả ở cuối
+                if (dgv_dsLoiNhuan.Columns.Contains("MoTa"))
+                {
+                    //hiển thị cuối 
+                    dgv_dsLoiNhuan.Columns["MoTa"].DisplayIndex = dgv_dsLoiNhuan.Columns.Count - 1;
+                    //tự động xuống dòng
+                    dgv_dsLoiNhuan.Columns["MoTa"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                }
+                //ẩn cột sản phẩm   
+                if (dgv_dsLoiNhuan.Columns.Contains("SanPham"))
+                {
+                    dgv_dsLoiNhuan.Columns["SanPham"].Visible = false;
+                }
+                // FillWeight cho các cột
+                dgv_dsLoiNhuan.Columns["SoThuTu"].FillWeight = 7;  // Cột STT chiếm 5% chiều rộng
+                dgv_dsLoiNhuan.Columns["MaLoiNhuan"].FillWeight = 15;
+                dgv_dsLoiNhuan.Columns["ThoiGian"].FillWeight = 15;
+                dgv_dsLoiNhuan.Columns["LoiNhuanGop"].FillWeight = 20;
+                dgv_dsLoiNhuan.Columns["LoiNhuanRong"].FillWeight = 20;
+                dgv_dsLoiNhuan.Columns["MaSanPham"].FillWeight = 15;
+                dgv_dsLoiNhuan.Columns["MoTa"].FillWeight = 23;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi khởi tạo DataGridView lợi nhuận: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         public void HienThiDoanhThu()
         {
             try
             {
                 _lstDoanhThu = _doanhThuBLL.LayDanhSachDoanhThu(maSanPham);
-                if( _lstDoanhThu != null )
+                if (_lstDoanhThu != null)
                 {
                     dgv_dsDoanhThu.DataSource = _lstDoanhThu;
                     themCotSoThuTu(dgv_dsDoanhThu);
                     KhoiTaoDoanhThu();
                     dgv_dsDoanhThu.RowPostPaint -= Dgv_dsDoanhThu_RowPostPaint;
                     dgv_dsDoanhThu.RowPostPaint += Dgv_dsDoanhThu_RowPostPaint;
-                }    
+                }
             }
-            catch {
+            catch
+            {
                 MessageBox.Show("Không tìm thấy doanh thu nào cả");
             }
         }
@@ -77,7 +300,8 @@ namespace GUI
             try
             {
                 _lstChiPhi = _chiPhiBLL.LayDanhSachChiPhi(maSanPham);
-                if (_lstChiPhi.Count > 0) { 
+                if (_lstChiPhi.Count > 0)
+                {
                     dgv_dsChiPhi.DataSource = _lstChiPhi;
                     themCotSoThuTu(dgv_dsChiPhi);
                     KhoiTaoChiPhi();
