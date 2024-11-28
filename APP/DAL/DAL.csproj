@@ -55,6 +55,7 @@
     <Compile Include="LoaiDoanhThuDAL.cs" />
     <Compile Include="LoiNhuanDAL.cs" />
     <Compile Include="NguyenLieuDAL.cs" />
+    <Compile Include="PhanHoiNguoiDungDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SanPhamDAL.cs" />
     <Compile Include="ThietKeDAL.cs" />

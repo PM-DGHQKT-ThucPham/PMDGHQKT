@@ -28,15 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgv_dsDoanhThu = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cbo_sanPham = new System.Windows.Forms.ComboBox();
             this.cbo_loaiDoanhThu = new System.Windows.Forms.ComboBox();
+            this.btnReport = new System.Windows.Forms.Button();
+            this.btn_timKiem = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,7 +49,6 @@
             this.dtp_ngayBatDau = new System.Windows.Forms.DateTimePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.chart_doanhThu = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.btn_timKiem = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsDoanhThu)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -97,6 +98,7 @@
             // 
             this.groupBox2.Controls.Add(this.cbo_sanPham);
             this.groupBox2.Controls.Add(this.cbo_loaiDoanhThu);
+            this.groupBox2.Controls.Add(this.btnReport);
             this.groupBox2.Controls.Add(this.btn_timKiem);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
@@ -129,6 +131,32 @@
             this.cbo_loaiDoanhThu.Name = "cbo_loaiDoanhThu";
             this.cbo_loaiDoanhThu.Size = new System.Drawing.Size(309, 28);
             this.cbo_loaiDoanhThu.TabIndex = 9;
+            // 
+            // btnReport
+            // 
+            this.btnReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(9)))), ((int)(((byte)(176)))));
+            this.btnReport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReport.ForeColor = System.Drawing.Color.White;
+            this.btnReport.Image = global::GUI.Properties.Resources.icons8_print_32;
+            this.btnReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReport.Location = new System.Drawing.Point(719, 133);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(168, 54);
+            this.btnReport.TabIndex = 8;
+            this.btnReport.Text = "Xuất Báo Cáo";
+            this.btnReport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnReport.UseVisualStyleBackColor = false;
+            // 
+            // btn_timKiem
+            // 
+            this.btn_timKiem.BackgroundImage = global::GUI.Properties.Resources.icons8_find_35;
+            this.btn_timKiem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_timKiem.Location = new System.Drawing.Point(602, 133);
+            this.btn_timKiem.Name = "btn_timKiem";
+            this.btn_timKiem.Size = new System.Drawing.Size(55, 54);
+            this.btn_timKiem.TabIndex = 8;
+            this.btn_timKiem.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -222,34 +250,20 @@
             this.chart_doanhThu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chart_doanhThu.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart_doanhThu.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart_doanhThu.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart_doanhThu.Legends.Add(legend2);
             this.chart_doanhThu.Location = new System.Drawing.Point(6, 42);
             this.chart_doanhThu.Name = "chart_doanhThu";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart_doanhThu.Series.Add(series1);
-            this.chart_doanhThu.Size = new System.Drawing.Size(328, 412);
-            this.chart_doanhThu.TabIndex = 0;
-            this.chart_doanhThu.Text = "chart1";
-            // 
-            // btn_timKiem
-            // 
-            this.btn_timKiem.BackgroundImage = global::GUI.Properties.Resources.icons8_find_35;
-            this.btn_timKiem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btn_timKiem.Location = new System.Drawing.Point(602, 133);
-            this.btn_timKiem.Name = "btn_timKiem";
-            this.btn_timKiem.Size = new System.Drawing.Size(59, 39);
-            this.btn_timKiem.TabIndex = 8;
-            this.btn_timKiem.UseVisualStyleBackColor = true;
-            //
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart_doanhThu.Series.Add(series2);
             this.chart_doanhThu.Size = new System.Drawing.Size(362, 646);
             this.chart_doanhThu.TabIndex = 0;
             this.chart_doanhThu.Text = "chart1";
-            //
+            // 
             // frm_lapThongKeDoanhThu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -291,5 +305,6 @@
         private System.Windows.Forms.ComboBox cbo_loaiDoanhThu;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_doanhThu;
         private System.Windows.Forms.ComboBox cbo_sanPham;
+        private System.Windows.Forms.Button btnReport;
     }
 }

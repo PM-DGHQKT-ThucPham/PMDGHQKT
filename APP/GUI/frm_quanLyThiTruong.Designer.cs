@@ -44,8 +44,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cbbSanPham = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.dateTimePickerThoiGian = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsThiTruong)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -201,6 +201,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.BackColor = System.Drawing.Color.White;
             this.groupBox1.Controls.Add(this.dateTimePickerThoiGian);
             this.groupBox1.Controls.Add(this.themXoaSuaThiTruong);
             this.groupBox1.Controls.Add(this.btnXemThietKe);
@@ -224,6 +225,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin chi tiết";
             // 
+            // dateTimePickerThoiGian
+            // 
+            this.dateTimePickerThoiGian.Location = new System.Drawing.Point(519, 181);
+            this.dateTimePickerThoiGian.Name = "dateTimePickerThoiGian";
+            this.dateTimePickerThoiGian.Size = new System.Drawing.Size(256, 26);
+            this.dateTimePickerThoiGian.TabIndex = 14;
+            // 
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
@@ -236,13 +244,6 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "QUẢN LÝ THỊ TRƯỜNG";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // dateTimePickerThoiGian
-            // 
-            this.dateTimePickerThoiGian.Location = new System.Drawing.Point(519, 181);
-            this.dateTimePickerThoiGian.Name = "dateTimePickerThoiGian";
-            this.dateTimePickerThoiGian.Size = new System.Drawing.Size(256, 26);
-            this.dateTimePickerThoiGian.TabIndex = 14;
             // 
             // frm_quanLyThiTruong
             // 
