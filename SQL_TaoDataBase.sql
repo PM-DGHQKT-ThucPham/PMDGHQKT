@@ -43,6 +43,7 @@ CREATE TABLE ThietKe (
     DanhGiaThamMy DECIMAL(5,2), -- Đánh giá thẩm mỹ (1-10)
     DanhGiaTienDung DECIMAL(5,2), -- Đánh giá tính năng tiện dụng (1-10)
 	MucDoAnhHuong DECIMAL(5,2), -- Đánh giá chất lượng (1-10)
+	HinhAnh nvarchar(max) default N'',
 );
 CREATE TABLE HieuSuat (
     MaHieuSuat Varchar(10) PRIMARY KEY,

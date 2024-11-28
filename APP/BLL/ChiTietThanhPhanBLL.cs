@@ -93,5 +93,9 @@ namespace BLL
         {
             return dal.LayCTTP_CuaSanPham(masp);
         }
+        public List<ChiTietThanhPhan> LayCTTP_CuaNguyenLieu(string maNguyenLieu)
+        {
+            return dal.LayCTTP_CuaNguyenLieu(maNguyenLieu);
+        }
     }
 }

@@ -126,7 +126,7 @@ namespace GUI
         /// <param name="e"></param>
         private void btn_quanLyNguyenLieu_Click(object sender, EventArgs e)
         {
-            loadForm(new frm_quanLyChiPhiNguyenLieu());
+            loadForm(new frm_quanLyNguyenLieu());
         }
 
         private void btn_quanLyChatLuong_Click(object sender, EventArgs e)
@@ -187,6 +187,11 @@ namespace GUI
         private void btn_quanLyChiPhi_Click(object sender, EventArgs e)
         {
             loadForm(new frm_quanLyChiPhi());
+        }
+
+        private void btn_quanLyNguyenLieuKhoHang_Click(object sender, EventArgs e)
+        {
+            loadForm(new frm_quanLyNguyenLieu());
         }
     }
 }

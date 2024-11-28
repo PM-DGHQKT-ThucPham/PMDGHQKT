@@ -34,6 +34,92 @@ namespace GUI
             themXoaSuaCTTP.SuaClicked += ThemXoaSuaChiTietThanhPhan_SuaClicked;
             themXoaSuaCTTP.LuuClicked += ThemXoaSuaChiTietThanhPhan_LuuClicked;
         }
+        private void Frm_quanLyKhoHang_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadDanhSachSanPham();
+                txtMaSanPham.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void LoadDanhSachSanPham()
+        {
+            try
+            {
+                lstSanPham = spBll.LayDanhSachSanPham();
+                dgv_dsSanPham.DataSource = lstSanPham;
+                dgv_dsSanPham.AllowUserToAddRows = false;
+                dgv_dsSanPham.AutoGenerateColumns = false;
+                dgv_dsSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+                dgv_dsSanPham.MultiSelect = false;
+                dgv_dsSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgv_dsSanPham.Columns[0].HeaderText = "Mã sản phẩm";
+                dgv_dsSanPham.Columns[1].HeaderText = "Tên sản phẩm";
+                dgv_dsSanPham.Columns[2].HeaderText = "Mô tả";
+                dgv_dsSanPham.Columns[3].HeaderText = "Giá";
+                dgv_dsSanPham.Columns[4].HeaderText = "Danh mục";
+                dgv_dsSanPham.Columns[5].HeaderText = "Số lượng tồn";
+                dgv_dsSanPham.Columns[6].HeaderText = "Ngày phát hành";
+                dgv_dsSanPham.Columns[7].HeaderText = "Mức độ ảnh hưởng";
+                dgv_dsSanPham.SelectionChanged += Dgv_dsSanPham_SelectionChanged;
+                TatDataBindingDataGridViewSanPham();
+                BatDataBindingDataGridViewSanPham();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void TatDataBindingDataGridViewSanPham()
+        {
+            try
+            {
+                // Xóa các binding cũ (nếu có)
+                txtMaSanPham.DataBindings.Clear();
+                txtTenSanPham.DataBindings.Clear();
+                txtMoTa.DataBindings.Clear();
+                txtGia.DataBindings.Clear();
+                txtDanhMuc.DataBindings.Clear();
+                txtSoLuongTon.DataBindings.Clear();
+                txtMucDoAnhHuongNguyenLieu.DataBindings.Clear();
+                dtpNgayPhatHanh.DataBindings.Clear();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void BatDataBindingDataGridViewSanPham()
+        {
+            try
+            {
+                TatDataBindingDataGridViewSanPham();
+                // Ràng buộc dữ liệu từ DataGridView vào các điều khiển
+                txtMaSanPham.Text = dgv_dsSanPham.CurrentRow.Cells["MaSanPham"].Value.ToString();
+                txtTenSanPham.Text = dgv_dsSanPham.CurrentRow.Cells["TenSanPham"].Value.ToString();
+                txtMoTa.Text = dgv_dsSanPham.CurrentRow.Cells["MoTa"].Value.ToString();
+                txtGia.Text = dgv_dsSanPham.CurrentRow.Cells["Gia"].Value.ToString();
+                txtDanhMuc.Text = dgv_dsSanPham.CurrentRow.Cells["DanhMuc"].Value.ToString();
+                txtSoLuongTon.Text = dgv_dsSanPham.CurrentRow.Cells["SoLuongTon"].Value.ToString();
+                dtpNgayPhatHanh.Text = dgv_dsSanPham.CurrentRow.Cells["NgayPhatHanh"].Value.ToString();
+                txtMucDoAnhHuongNguyenLieu.Text = dgv_dsSanPham.CurrentRow.Cells["MucDoAnhHuongTongNguyenLieu"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         private void ThemXoaSuaSanPham_LuuClicked(object sender, EventArgs e)
         {
@@ -184,6 +270,108 @@ namespace GUI
 
         }
 
+        private void XoaTextBoxSanPham()
+        {
+            try
+            {
+                txtDanhMuc.Clear();
+                txtGia.Clear();
+                txtMaSanPham.Clear();
+                txtMoTa.Clear();
+                txtMucDoAnhHuongNguyenLieu.Clear();
+                txtSoLuongTon.Clear();
+                txtTenSanPham.Clear();
+                dtpNgayPhatHanh.Value = DateTime.Now.Date;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private SanPham LaySanPhamTuGiaoDien()
+        {
+            SanPham sp = new SanPham();
+            sp.MaSanPham = txtMaSanPham.Text;
+            sp.TenSanPham = txtTenSanPham.Text;
+            sp.MoTa = txtMoTa.Text;
+            sp.Gia = decimal.Parse(txtGia.Text);
+            sp.DanhMuc = txtDanhMuc.Text;
+            sp.SoLuongTon = int.Parse(txtSoLuongTon.Text);
+            sp.NgayPhatHanh = dtpNgayPhatHanh.Value.Date;
+            sp.MucDoAnhHuongTongNguyenLieu = decimal.Parse(txtMucDoAnhHuongNguyenLieu.Text);
+            return sp;
+        }
+
+        private bool KiemTraRongTextBoxSanPham()
+        {
+            if (String.IsNullOrEmpty(txtDanhMuc.Text))
+            {
+                return true;
+            }
+            if (String.IsNullOrEmpty(txtMaSanPham.Text))
+            {
+                return true;
+            }
+            if (String.IsNullOrEmpty(txtTenSanPham.Text))
+            {
+                return true;
+            }
+            if (String.IsNullOrEmpty(txtGia.Text))
+            {
+                return true;
+            }
+            if (String.IsNullOrEmpty(txtMoTa.Text))
+            {
+                return true;
+            }
+            if (String.IsNullOrEmpty(txtMucDoAnhHuongNguyenLieu.Text))
+            {
+                return true;
+            }
+            if (String.IsNullOrEmpty(txtSoLuongTon.Text))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void ThemSanPhamVaoDataGridView(SanPham sp)
+        {
+            try
+            {
+                //Thêm vào list Sản phẩm
+                lstSanPham.Add(sp);
+                //Xóa grid view và cập nhật lại list mới cho grid view
+                //Trước khi thêm tắt sự kiện selection Changed để không bị lỗi
+                TatDataBindingDataGridViewSanPham();
+                dgv_dsSanPham.SelectionChanged -= Dgv_dsSanPham_SelectionChanged;
+                dgv_dsSanPham.DataSource = null;
+                dgv_dsSanPham.Invalidate();
+                dgv_dsSanPham.Refresh();
+                dgv_dsSanPham.DataSource = lstSanPham;
+                //Đã xêm sản phẩm xong
+                //Ẩn đi txtMaSanPham
+                txtMaSanPham.Enabled = false;
+                //Trả lại các nút như ban đầu
+                themXoaSuaSanPham.BtnXoa.Enabled = true;
+                themXoaSuaSanPham.BtnSua.Enabled = true;
+                themXoaSuaSanPham.BtnLuu.Enabled = true;
+                themXoaSuaSanPham.BtnHuyThem.Enabled = false;
+                themXoaSuaSanPham.BtnThem.Image = Properties.Resources.icons8_add_35;
+                //Bật data binding cho sản phẩm
+                BatDataBindingDataGridViewSanPham();
+                //Bật lại selection changed
+                dgv_dsSanPham.SelectionChanged += Dgv_dsSanPham_SelectionChanged;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void ThemXoaSuaSanPham_SuaClicked(object sender, EventArgs e)
         {
             try
@@ -274,6 +462,18 @@ namespace GUI
             }
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
         private void Dgv_dsSanPham_SelectionChanged(object sender, EventArgs e)
         {
             try
@@ -348,194 +548,11 @@ namespace GUI
             }
         }       
 
-        private void ThemSanPhamVaoDataGridView(SanPham sp)
-        {
-            try
-            {
-                //Thêm vào list Sản phẩm
-                lstSanPham.Add(sp);
-                //Xóa grid view và cập nhật lại list mới cho grid view
-                //Trước khi thêm tắt sự kiện selection Changed để không bị lỗi
-                TatDataBindingDataGridViewSanPham();
-                dgv_dsSanPham.SelectionChanged -= Dgv_dsSanPham_SelectionChanged;
-                dgv_dsSanPham.DataSource = null;
-                dgv_dsSanPham.Invalidate();
-                dgv_dsSanPham.Refresh();
-                dgv_dsSanPham.DataSource = lstSanPham;
-                //Đã xêm sản phẩm xong
-                //Ẩn đi txtMaSanPham
-                txtMaSanPham.Enabled = false;
-                //Trả lại các nút như ban đầu
-                themXoaSuaSanPham.BtnXoa.Enabled = true;
-                themXoaSuaSanPham.BtnSua.Enabled = true;
-                themXoaSuaSanPham.BtnLuu.Enabled = true;
-                themXoaSuaSanPham.BtnHuyThem.Enabled = false;
-                themXoaSuaSanPham.BtnThem.Image = Properties.Resources.icons8_add_35;
-                //Bật data binding cho sản phẩm
-                BatDataBindingDataGridViewSanPham();
-                //Bật lại selection changed
-                dgv_dsSanPham.SelectionChanged += Dgv_dsSanPham_SelectionChanged;
-            }
-            catch (Exception ex)
-            {
+        
 
-                MessageBox.Show(ex.Message);
-            }
-        }
+        
 
-        private SanPham LaySanPhamTuGiaoDien()
-        {
-            SanPham sp = new SanPham();
-            sp.MaSanPham = txtMaSanPham.Text;
-            sp.TenSanPham = txtTenSanPham.Text;
-            sp.MoTa = txtMoTa.Text;
-            sp.Gia = decimal.Parse(txtGia.Text);
-            sp.DanhMuc = txtDanhMuc.Text;
-            sp.SoLuongTon = int.Parse(txtSoLuongTon.Text);
-            sp.NgayPhatHanh = dtpNgayPhatHanh.Value.Date;
-            sp.MucDoAnhHuongTongNguyenLieu = decimal.Parse(txtMucDoAnhHuongNguyenLieu.Text);
-            return sp;
-        }
-
-        private bool KiemTraRongTextBoxSanPham()
-        {
-            if (String.IsNullOrEmpty(txtDanhMuc.Text))
-            {
-                return true;
-            }
-            if (String.IsNullOrEmpty(txtMaSanPham.Text))
-            {
-                return true;
-            }
-            if (String.IsNullOrEmpty(txtTenSanPham.Text))
-            {
-                return true;
-            }
-            if (String.IsNullOrEmpty(txtGia.Text))
-            {
-                return true;
-            }
-            if (String.IsNullOrEmpty(txtMoTa.Text))
-            {
-                return true;
-            }
-            if (String.IsNullOrEmpty(txtMucDoAnhHuongNguyenLieu.Text))
-            {
-                return true;
-            }
-            if (String.IsNullOrEmpty(txtSoLuongTon.Text))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private void XoaTextBoxSanPham()
-        {
-            try
-            {
-                txtDanhMuc.Clear();
-                txtGia.Clear();
-                txtMaSanPham.Clear();
-                txtMoTa.Clear();
-                txtMucDoAnhHuongNguyenLieu.Clear();
-                txtSoLuongTon.Clear();
-                txtTenSanPham.Clear();
-                dtpNgayPhatHanh.Value = DateTime.Now.Date;
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void Frm_quanLyKhoHang_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                LoadDanhSachSanPham();
-                txtMaSanPham.Enabled = false;
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void LoadDanhSachSanPham()
-        {
-            try
-            {
-                lstSanPham = spBll.LayDanhSachSanPham();
-                dgv_dsSanPham.DataSource = lstSanPham;
-                dgv_dsSanPham.AllowUserToAddRows = false;
-                dgv_dsSanPham.AutoGenerateColumns = false;
-                dgv_dsSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-                dgv_dsSanPham.MultiSelect = false;
-                dgv_dsSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgv_dsSanPham.Columns[0].HeaderText = "Mã sản phẩm";
-                dgv_dsSanPham.Columns[1].HeaderText = "Tên sản phẩm";
-                dgv_dsSanPham.Columns[2].HeaderText = "Mô tả";
-                dgv_dsSanPham.Columns[3].HeaderText = "Giá";
-                dgv_dsSanPham.Columns[4].HeaderText = "Danh mục";
-                dgv_dsSanPham.Columns[5].HeaderText = "Số lượng tồn";
-                dgv_dsSanPham.Columns[6].HeaderText = "Ngày phát hành";
-                dgv_dsSanPham.Columns[7].HeaderText = "Mức độ ảnh hưởng";
-                dgv_dsSanPham.SelectionChanged += Dgv_dsSanPham_SelectionChanged;
-                TatDataBindingDataGridViewSanPham();
-                BatDataBindingDataGridViewSanPham();
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void TatDataBindingDataGridViewSanPham()
-        {
-            try
-            {
-                // Xóa các binding cũ (nếu có)
-                txtMaSanPham.DataBindings.Clear();
-                txtTenSanPham.DataBindings.Clear();
-                txtMoTa.DataBindings.Clear();
-                txtGia.DataBindings.Clear();
-                txtDanhMuc.DataBindings.Clear();
-                txtSoLuongTon.DataBindings.Clear();
-                txtMucDoAnhHuongNguyenLieu.DataBindings.Clear();
-                dtpNgayPhatHanh.DataBindings.Clear();
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public void BatDataBindingDataGridViewSanPham()
-        {
-            try
-            {
-                TatDataBindingDataGridViewSanPham();
-                // Ràng buộc dữ liệu từ DataGridView vào các điều khiển
-                txtMaSanPham.Text = dgv_dsSanPham.CurrentRow.Cells["MaSanPham"].Value.ToString();
-                txtTenSanPham.Text = dgv_dsSanPham.CurrentRow.Cells["TenSanPham"].Value.ToString();
-                txtMoTa.Text = dgv_dsSanPham.CurrentRow.Cells["MoTa"].Value.ToString();
-                txtGia.Text = dgv_dsSanPham.CurrentRow.Cells["Gia"].Value.ToString();
-                txtDanhMuc.Text = dgv_dsSanPham.CurrentRow.Cells["DanhMuc"].Value.ToString();
-                txtSoLuongTon.Text = dgv_dsSanPham.CurrentRow.Cells["SoLuongTon"].Value.ToString();
-                dtpNgayPhatHanh.Text = dgv_dsSanPham.CurrentRow.Cells["NgayPhatHanh"].Value.ToString();
-                txtMucDoAnhHuongNguyenLieu.Text = dgv_dsSanPham.CurrentRow.Cells["MucDoAnhHuongTongNguyenLieu"].Value.ToString();
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message);
-            }
-        }
+        
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
