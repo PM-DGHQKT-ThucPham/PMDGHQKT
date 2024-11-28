@@ -23,7 +23,6 @@ namespace DAL
             catch (Exception ex)
             {
                 throw ex;
-                return null;
             }
         }
         // lấy tất cả lợi nhuận theo mã và mã sản phẩm
