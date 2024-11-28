@@ -10,6 +10,11 @@ using System.Windows.Forms;
 using BLL;
 using DTO;
 using System.Windows.Forms.DataVisualization.Charting;
+using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.SpreadsheetSource;
+using DevExpress.XtraReports.Parameters.Native;
+using System.IO;
+using Syncfusion.XlsIO;
 
 namespace GUI
 {
@@ -45,6 +50,113 @@ namespace GUI
             //sự kiện click cho button tìm kiếm
             btn_timKiem.Click += Btn_timKiem_Click;
             PlaceHolder.SetPlaceholder(txt_timKiem, "Nhập từ khóa tìm kiếm");
+            btnReport.Click += BtnReport_Click;
+        }
+
+        private void BtnReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Lấy danh sách PHIEUBAOCAO từ DataGridView
+                List<PHIEUBAOCAO> dsPBC = new List<PHIEUBAOCAO>();
+                if (dgv_dsDoanhThu.Rows.Count > 0)
+                {
+                    foreach (DataGridViewRow row in dgv_dsDoanhThu.Rows)
+                    {
+                        PHIEUBAOCAO pbc = new PHIEUBAOCAO();
+                        pbc.STT = row.Cells["SoThuTu"].Value.ToString();
+                        pbc.MADOANHTHU = row.Cells["MaDoanhThu"].Value.ToString();
+                        pbc.MALOAIDOANHTHU = row.Cells["MaLoaiDoanhThu"].Value.ToString();
+                        pbc.MOTA = row.Cells["MoTa"].Value.ToString();
+                        pbc.SOTIEN = decimal.Parse(row.Cells["SoTien"].Value.ToString());
+                        pbc.NGAY = DateTime.Parse(row.Cells["ThoiGian"].Value.ToString());
+                        dsPBC.Add(pbc);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không có dữ liệu để xuất báo cáo");
+                    return;
+                }
+                //Create replacer
+                Dictionary<string, string> replacer = new Dictionary<string, string>();
+                string ngay = "Ngày" + DateTime.Now.Day + " tháng " + DateTime.Now.Month + " năm " + DateTime.Now.Year;
+                //Lấy ngày bắt đầu bằng giá trị ngày nhỏ nhát của dsPBC
+                DateTime ngayBatDau = dsPBC.Min(x => x.NGAY);
+                //Lấy ngày bắt đầu bằng giá trị lớn nhất của dsPBC
+                DateTime ngayKetThuc = dsPBC.Max(x => x.NGAY);
+                replacer.Add("%NgayBatDau", ngayBatDau.ToString());
+                replacer.Add("%NgayKetThuc", ngayKetThuc.ToString());
+                replacer.Add("%NgayThangNam", ngay);
+                decimal tongTien = 0;
+                foreach (PHIEUBAOCAO item in dsPBC)
+                {
+                    tongTien += item.SOTIEN;
+                }
+                replacer.Add("%TongTien", String.Format("{0:0,0} VNĐ", tongTien));
+
+                MemoryStream stream = null;
+                byte[] arrByte = new byte[0];
+                arrByte = File.ReadAllBytes("PhieuBaoCao.xlsx").ToArray();
+                //Get stream
+                if (arrByte.Count() > 0)
+                {
+                    stream = new MemoryStream(arrByte);
+                }
+                //Create Excel Engine
+                ExcelEngine engine = new ExcelEngine();
+                IWorkbook workBook = engine.Excel.Workbooks.Open(stream);
+                Syncfusion.XlsIO.IWorksheet workSheet = workBook.Worksheets[0];
+                ITemplateMarkersProcessor markProcessor = workSheet.CreateTemplateMarkersProcessor();
+                //Replace value
+                if (replacer != null && replacer.Count > 0)
+                {
+                    foreach (KeyValuePair<string, string> repl in replacer)
+                    {
+                        Replace(workSheet, repl.Key, repl.Value);
+                    }
+                }
+                string viewName = "PhieuBaoCao";
+                markProcessor.AddVariable(viewName, dsPBC);
+                markProcessor.ApplyMarkers(UnknownVariableAction.ReplaceBlank);
+                ////Xóa bỏ dòng đánh dấu [TMP]
+                Syncfusion.XlsIO.IRange range = workSheet.FindFirst("[TMP]", ExcelFindType.Text);
+                if (range != null)
+                {
+                    workSheet.DeleteRow(range.Row);
+                }
+                string fileName = "PhieuBaoCao_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+                //workBook.SaveAs(fileName);
+                //Thay vì lưu fileName mặc định thì mở file Dialog lưu vào vị trí mong muốn
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx";
+                saveFileDialog.FileName = fileName;
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    workBook.SaveAs(saveFileDialog.FileName);
+                }
+
+
+                //Close
+                workBook.Close();
+                engine.Dispose();
+                MessageBox.Show("Xuất xong");
+                if (!string.IsNullOrEmpty(fileName) && MessageBox.Show("Bạn có muốn mở file không  ?", "Thông tin", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    //Mở fileName bằng đường mà workBook.SaveAs(saveFileDialog.FileName) đã lưu
+                    System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+        private void Replace(Syncfusion.XlsIO.IWorksheet workSheet, string p1, string p2)
+        {
+            workSheet.Replace(p1, p2);
         }
 
         private void Cbo_loaiDoanhThu_SelectedIndexChanged(object sender, EventArgs e)
