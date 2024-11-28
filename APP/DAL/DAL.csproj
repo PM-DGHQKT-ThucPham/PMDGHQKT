@@ -49,6 +49,7 @@
     <Compile Include="ChiPhiDAL.cs" />
     <Compile Include="DoanhThuDAL.cs" />
     <Compile Include="DoBenDAL.cs" />
+    <Compile Include="GiaCaDAL.cs" />
     <Compile Include="HieuSuatDAL.cs" />
     <Compile Include="LoaiChiPhiDAL.cs" />
     <Compile Include="LoaiDoanhThuDAL.cs" />
