@@ -22,3 +22,15 @@ D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\BLL\obj\Debug\BLL.csproj.CoreCompileInp
 D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\BLL\obj\Debug\BLL.csproj.Up2Date
 D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\BLL\obj\Debug\BLL.dll
 D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\BLL\obj\Debug\BLL.pdb
+D:\Github\PMDGHQKT\APP\BLL\bin\Debug\BLL.dll
+D:\Github\PMDGHQKT\APP\BLL\bin\Debug\BLL.pdb
+D:\Github\PMDGHQKT\APP\BLL\bin\Debug\DAL.dll
+D:\Github\PMDGHQKT\APP\BLL\bin\Debug\DTO.dll
+D:\Github\PMDGHQKT\APP\BLL\bin\Debug\DAL.pdb
+D:\Github\PMDGHQKT\APP\BLL\bin\Debug\DTO.pdb
+D:\Github\PMDGHQKT\APP\BLL\bin\Debug\DTO.dll.config
+D:\Github\PMDGHQKT\APP\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
+D:\Github\PMDGHQKT\APP\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+D:\Github\PMDGHQKT\APP\BLL\obj\Debug\BLL.csproj.Up2Date
+D:\Github\PMDGHQKT\APP\BLL\obj\Debug\BLL.dll
+D:\Github\PMDGHQKT\APP\BLL\obj\Debug\BLL.pdb
