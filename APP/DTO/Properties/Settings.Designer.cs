@@ -66,5 +66,16 @@ namespace DTO.Properties {
                 return ((string)(this["DoAnTotNghiepConnectionString3"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ADMIN-PC;Initial Catalog=DoAnTotNghiep;Integrated Security=True;Encry" +
+            "pt=True;TrustServerCertificate=True")]
+        public string DoAnTotNghiepConnectionString4 {
+            get {
+                return ((string)(this["DoAnTotNghiepConnectionString4"]));
+            }
+        }
     }
 }

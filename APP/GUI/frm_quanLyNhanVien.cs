@@ -368,9 +368,9 @@ namespace GUI
 
         private void btnTaoNhanVien_Click(object sender, EventArgs e)
         {
-            //frm_ThemNhanVien frm = new frm_ThemNhanVien();
-            //frm.ShowDialog();
-            //frm.Tao += Frm_Tao;
+            frm_ThemNhanVien frm = new frm_ThemNhanVien();
+            frm.ShowDialog();
+            frm.Tao += Frm_Tao;
         }
 
         private void Frm_Tao(object sender, EventArgs e)
