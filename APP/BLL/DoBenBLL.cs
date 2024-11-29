@@ -88,12 +88,12 @@ namespace BLL
         /// </summary>
         /// <param name="dtDoBen">DataTable gồm các cột MaDoBen, MaSanPham, TuoiThoNgay, DanhGiaDoBen, MucDoAnhHuong, MoTa</param>
         /// <returns>Trả về true nếu dữ liệu trong database đã được cập nhật, false nếu quá trình cập nhật bị lỗi</returns>
-        public bool CapNhatDoBenDuaTrenDanhSach(List<DoBen> lstDoBen)
+        public bool CapNhatDoBenDuaTrenDanhSach(List<DoBen> lstDoBen, string maSanPham)
         {
             try
             {
                 // Lấy danh sách độ bền hiện tại từ DB
-                List<DoBen> currentDoBens = doBenDAL.LayDanhSachDoBen();
+                List<DoBen> currentDoBens = doBenDAL.LayDanhSachDoBen().Where(x=>x.MaSanPham == maSanPham).ToList();
 
                 // Duyệt qua từng đối tượng trong danh sách mới
                 foreach (var newDoBen in lstDoBen)
