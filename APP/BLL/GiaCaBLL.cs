@@ -57,12 +57,12 @@ namespace BLL
         /// </summary>
         /// <param name="lstGiaCa"></param>
         /// <returns>true nếu hoàn thành cập nhật, false nếu thất bại và có lỗi nghiêm trọng</returns>
-        public bool CapNhatGiaCaDuaTrenDanhSachGiaCa(List<GiaCa> lstGiaCa)
+        public bool CapNhatGiaCaDuaTrenDanhSachGiaCa(List<GiaCa> lstGiaCa, string maSanPham)
         {
             try
             {
                 // Lấy danh sách giá cả từ database
-                List<GiaCa> lstGiaCaDB = giaCaDAL.LayDanhSachGiaCa();
+                List<GiaCa> lstGiaCaDB = giaCaDAL.LayDanhSachGiaCa().Where(x => x.MaSanPham == maSanPham).ToList() ;
 
                 // Mã giá trong lstGiaCa và lstGiaCaDB giống nhau thì cập nhật thông tin giá cả
                 foreach (GiaCa gc in lstGiaCa)

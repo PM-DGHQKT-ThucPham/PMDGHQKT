@@ -14,7 +14,7 @@ namespace GUI
 {
     public partial class frm_quanLyThietKe : Form
     {
-        private List<ThietKe> danhSachThietKe = new List<ThietKe>();
+        private List<ThietKe> danhSachThietKeCuaSanPham = new List<ThietKe>();
         public frm_quanLyThietKe()
         {
             InitializeComponent();
@@ -176,15 +176,15 @@ namespace GUI
             }
 
             // Nếu không trùng, thêm thiết kế vào danh sách
-            danhSachThietKe.Add(thietKe);
+            danhSachThietKeCuaSanPham.Add(thietKe);
 
             // Cập nhật lại DataGridView
             dgvThietKe.DataSource = null; // Reset lại nguồn dữ liệu
-            dgvThietKe.DataSource = danhSachThietKe;
+            dgvThietKe.DataSource = danhSachThietKeCuaSanPham;
             DinhDangDGVThietKe();
 
             MessageBox.Show("Thêm thiết kế thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            return danhSachThietKe;
+            return danhSachThietKeCuaSanPham;
         }
 
         /// <summary>
@@ -206,11 +206,18 @@ namespace GUI
         private void HienDuLieuTextBox(string maThietKe)
         {
             ThietKe thietKe = LayThietKeTheoMa(maThietKe);
-            txtMaThietKe.Text = thietKe.MaThietKe;
-            txtDanhGiaThamMy.Text = thietKe.DanhGiaThamMy.ToString();
-            txtDanhGiaTienDung.Text = thietKe.DanhGiaTienDung.ToString();
-            txtMucDoAnhHuong.Text = thietKe.MucDoAnhHuong.ToString();
-            txtMoTa.Text = thietKe.MoTa;
+            if (thietKe != null)
+            {
+                txtMaThietKe.Text = thietKe.MaThietKe;
+                txtDanhGiaThamMy.Text = thietKe.DanhGiaThamMy.ToString();
+                txtDanhGiaTienDung.Text = thietKe.DanhGiaTienDung.ToString();
+                txtMucDoAnhHuong.Text = thietKe.MucDoAnhHuong.ToString();
+                txtMoTa.Text = thietKe.MoTa;
+            }
+            else
+            {
+                return;
+            }
         }
 
         /// <summary>
@@ -274,8 +281,8 @@ namespace GUI
                 string maSanPham = cboSanPham.SelectedValue.ToString();
                 LoadDGVThietKe(maSanPham);
             }
-            danhSachThietKe = null;
-            danhSachThietKe = DanhSachThietKe(cboSanPham.SelectedValue.ToString());
+            danhSachThietKeCuaSanPham = null;
+            danhSachThietKeCuaSanPham = DanhSachThietKe(cboSanPham.SelectedValue.ToString());
         }
 
         /// <summary>
@@ -403,14 +410,14 @@ namespace GUI
             if (result == DialogResult.Yes)
             {
                 // Xóa thiết kế khỏi danh sách
-                ThietKe thietKeCanXoa = danhSachThietKe.FirstOrDefault(tk => tk.MaThietKe == maThietKe);
+                ThietKe thietKeCanXoa = danhSachThietKeCuaSanPham.FirstOrDefault(tk => tk.MaThietKe == maThietKe);
                 if (thietKeCanXoa != null)
                 {
-                    danhSachThietKe.Remove(thietKeCanXoa);
+                    danhSachThietKeCuaSanPham.Remove(thietKeCanXoa);
 
                     // Cập nhật lại DataGridView
                     dgvThietKe.DataSource = null;
-                    dgvThietKe.DataSource = danhSachThietKe;
+                    dgvThietKe.DataSource = danhSachThietKeCuaSanPham;
                     DinhDangDGVThietKe();
 
                     MessageBox.Show("Xóa thiết kế thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -452,8 +459,9 @@ namespace GUI
             }
 
             // Gọi phương thức cập nhật danh sách thiết kế vào cơ sở dữ liệu
+            string maSanPham = cboSanPham.SelectedValue.ToString();
             ThietKeBLL thietKeBLL = new ThietKeBLL();
-            bool ketQua = thietKeBLL.CapNhatThietKeDuaTrenDanhSachThietKe(danhSachThietKe);
+            bool ketQua = thietKeBLL.CapNhatThietKeDuaTrenDanhSachThietKe(danhSachThietKe, maSanPham);
 
             // Nếu cập nhật thành công
             if (ketQua)
@@ -503,7 +511,7 @@ namespace GUI
                 selectedRow.Cells["MucDoAnhHuong"].Value = mucDoAnhHuong;
 
                 // Cập nhật lại danh sách thiết kế (danhSachThietKe) nếu cần thiết
-                var thietKeToUpdate = danhSachThietKe.FirstOrDefault(tk => tk.MaThietKe == maThietKe);
+                var thietKeToUpdate = danhSachThietKeCuaSanPham.FirstOrDefault(tk => tk.MaThietKe == maThietKe);
                 if (thietKeToUpdate != null)
                 {
                     thietKeToUpdate.MaThietKe = maThietKe;

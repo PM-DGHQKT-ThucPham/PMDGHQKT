@@ -14,7 +14,7 @@ namespace GUI
 {
     public partial class frm_quanLyGiaCa : Form
     {
-        List<GiaCa> danhSachGiaCa = new List<GiaCa>();
+        List<GiaCa> danhSachGiaCaCuaSanPham = new List<GiaCa>();
         public frm_quanLyGiaCa()
         {
             InitializeComponent();
@@ -116,11 +116,18 @@ namespace GUI
         private void HienDuLieuTextBox(string maGiaCa)
         {
             GiaCa gc = LayGiaCaTheoMa(maGiaCa);
-            txtMaGiaCa.Text = gc.MaGiaCa;
-            txtDanhGiaGiaTri.Text = Convert.ToString(gc.DanhGiaGiaTri);
-            txtChiPhiBaoTri.Text = Convert.ToString(gc.ChiPhiBaoTri);
-            txtMucDoAnhHuong.Text = Convert.ToString(gc.MucDoAnhHuong);
-            txtMoTa.Text = gc.MoTa;
+            if (gc != null)
+            {
+                txtMaGiaCa.Text = gc.MaGiaCa;
+                txtDanhGiaGiaTri.Text = Convert.ToString(gc.DanhGiaGiaTri);
+                txtChiPhiBaoTri.Text = Convert.ToString(gc.ChiPhiBaoTri);
+                txtMucDoAnhHuong.Text = Convert.ToString(gc.MucDoAnhHuong);
+                txtMoTa.Text = gc.MoTa;
+            }
+            else
+            {
+                return;
+            }
         }
 
         /// <summary>
@@ -154,15 +161,15 @@ namespace GUI
             }
 
             // Nếu không trùng, thêm giá cả vào danh sách
-            danhSachGiaCa.Add(gc);
+            danhSachGiaCaCuaSanPham.Add(gc);
 
             // Cập nhật lại DataGridView
             dgvGiaCa.DataSource = null; // Reset lại nguồn dữ liệu
-            dgvGiaCa.DataSource = danhSachGiaCa;
+            dgvGiaCa.DataSource = danhSachGiaCaCuaSanPham;
             DinhDangDGVGiaCa();
 
             MessageBox.Show("Thêm giá cả thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            return danhSachGiaCa;
+            return danhSachGiaCaCuaSanPham;
         }
 
         /// <summary>
@@ -288,8 +295,8 @@ namespace GUI
                 string maSanPham = ((SanPham)cboSanPham.SelectedItem).MaSanPham;
                 LoadDGVGiaCa(maSanPham);
             }
-            danhSachGiaCa = null;
-            danhSachGiaCa = DanhSachGiaCa(cboSanPham.SelectedValue.ToString());
+            danhSachGiaCaCuaSanPham = null;
+            danhSachGiaCaCuaSanPham = DanhSachGiaCa(cboSanPham.SelectedValue.ToString());
         }
 
         /// <summary>
@@ -309,9 +316,9 @@ namespace GUI
         /// <param name="maSanPham"></param>
         private void LoadDGVGiaCa(string maSanPham)
         {
-            danhSachGiaCa = DanhSachGiaCa(maSanPham);
+            danhSachGiaCaCuaSanPham = DanhSachGiaCa(maSanPham);
             dgvGiaCa.DataSource = null;
-            dgvGiaCa.DataSource = danhSachGiaCa;
+            dgvGiaCa.DataSource = danhSachGiaCaCuaSanPham;
             DinhDangDGVGiaCa();
         }
 
@@ -373,15 +380,15 @@ namespace GUI
             if (result == DialogResult.Yes)
             {
                 // Xóa giá cả khỏi danh sách
-                GiaCa giaCaCanXoa = danhSachGiaCa.FirstOrDefault(gc => gc.MaGiaCa == maGiaCa);  
+                GiaCa giaCaCanXoa = danhSachGiaCaCuaSanPham.FirstOrDefault(gc => gc.MaGiaCa == maGiaCa);  
                 
                 if (giaCaCanXoa != null)
                 {
-                    danhSachGiaCa.Remove(giaCaCanXoa);
+                    danhSachGiaCaCuaSanPham.Remove(giaCaCanXoa);
 
                     // Cập nhật lại DataGridView
                     dgvGiaCa.DataSource = null;
-                    dgvGiaCa.DataSource = danhSachGiaCa;
+                    dgvGiaCa.DataSource = danhSachGiaCaCuaSanPham;
                     DinhDangDGVGiaCa();
 
                     MessageBox.Show("Xóa giá cả thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -421,9 +428,10 @@ namespace GUI
                 }
             }
 
-            // Gọi phương thức cập nhật danh sách giá cả vào cơ sở dữ liệu         
+            // Gọi phương thức cập nhật danh sách giá cả vào cơ sở dữ liệu
+            string maSanPham = dgvGiaCa.CurrentRow.Cells["MaSanPham"].Value.ToString();
             GiaCaBLL giaCaBLL = new GiaCaBLL();
-            bool ketQuaGiaCa = giaCaBLL.CapNhatGiaCaDuaTrenDanhSachGiaCa(danhSachGiaCa);
+            bool ketQuaGiaCa = giaCaBLL.CapNhatGiaCaDuaTrenDanhSachGiaCa(danhSachGiaCa, maSanPham);
 
             // Nếu cập nhật thành công
             if (ketQuaGiaCa)
@@ -471,7 +479,7 @@ namespace GUI
                 selectedRow.Cells["MucDoAnhHuong"].Value = mucDoAnhHuong;
 
                 // Cập nhật lại danh sách giá cả (danhSachGiaCa) nếu cần thiết
-                var giaCaToUpdate = danhSachGiaCa.FirstOrDefault(gc => gc.MaGiaCa == maGiaCa);
+                var giaCaToUpdate = danhSachGiaCaCuaSanPham.FirstOrDefault(gc => gc.MaGiaCa == maGiaCa);
                 if (giaCaToUpdate != null)
                 {
                     giaCaToUpdate.MaGiaCa = maGiaCa;
