@@ -16,7 +16,9 @@ namespace GUI
         ChiPhiBLL _chiPhiBLL = new ChiPhiBLL();
         List<LoaiChiPhi> _lstLoaiChiPhi = new List<LoaiChiPhi>();
         List<ChiPhi> _lstChiPhi = new List<ChiPhi>();
-        string maSanPham = "SP001";
+        private SanPhamBLL _sanPhamBLL = new SanPhamBLL();
+        List<SanPham> _lstSanPham = new List<SanPham>();
+        string maSanPham = string.Empty;
         ThemXoaSua t = new ThemXoaSua();
         private BindingList<LoaiChiPhi> _bindingListLoaiChiPhi;
         private BindingList<ChiPhi> _bindingListChiPhi;
@@ -28,6 +30,7 @@ namespace GUI
 
         private void Frm_quanLyChiPhi_Load(object sender, EventArgs e)
         {
+            LoadComboBoxSanPham();
             HienThiLoaiChiPhi();
             dgv_dsLoaiChiPhi.SelectionChanged += Dgv_dsLoaiChiPhi_SelectionChanged;
             dgv_dsChiPhi.SelectionChanged += Dgv_dsChiPhi_SelectionChanged;
@@ -596,6 +599,51 @@ namespace GUI
             }
         }
         //viết hàm xử lý ở đây
+        private void Cbo_sanPham_SelectedValueChanged(object sender, EventArgs e)
+        {
+            maSanPham = cbo_sanPham.SelectedValue.ToString();
+            LoadLaiTrang();
+        }
+
+
+        // viết hàm xử lý ở đây
+        //load lại trang
+        private void LoadLaiTrang()
+        {
+            HienThiLoaiChiPhi();
+
+        }
+        private void LoadComboBoxSanPham()
+        {
+            try
+            {
+                _lstSanPham = _sanPhamBLL.LayDanhSachSanPham();  // Lấy danh sách sản phẩm từ BLL
+
+                if (_lstSanPham != null && _lstSanPham.Count > 0)
+                {
+                    cbo_sanPham.DataSource = _lstSanPham;
+                    cbo_sanPham.DisplayMember = "TenSanPham";  // Hiển thị tên sản phẩm
+                    cbo_sanPham.ValueMember = "MaSanPham";  // Gán giá trị mã sản phẩm
+
+                    // Gán giá trị đầu tiên vào maSP
+                    maSanPham = _lstSanPham.FirstOrDefault()?.MaSanPham.ToString();
+
+                    // Chọn mục đầu tiên của ComboBox nếu có ít nhất một phần tử
+                    cbo_sanPham.SelectedIndex = 0;
+
+                    // Đăng ký sự kiện SelectedValueChanged
+                    cbo_sanPham.SelectedValueChanged += Cbo_sanPham_SelectedValueChanged;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy sản phẩm nào");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu sản phẩm: " + ex.Message);
+            }
+        }
         //xử lý chi phí
         private void TatBatTextBoxChiPhi(bool trangThai)
         {

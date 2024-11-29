@@ -24,7 +24,6 @@ namespace GUI
         private void Frm_dangNhap_Load(object sender, EventArgs e)
         {
             PlaceHolder.SetPlaceholder(txt_tentaikhoan, "Nhập tên tài khoản");
-            PlaceHolder.SetPlaceholder(txt_matkhau, "Nhập mật khẩu");
         }
 
         private void Btn_hienmatkhau_Click(object sender, EventArgs e)

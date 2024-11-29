@@ -16,11 +16,13 @@ namespace GUI
 {
     public partial class frm_lapThongKeLoiNhuan : Form
     {
+
         LoiNhuanBLL _loiNhuanBLL = new LoiNhuanBLL();
-        SanPhamBLL _sanPhamBLL = new SanPhamBLL();
         List<LoiNhuan> _lstLoiNhuan = new List<LoiNhuan>();
 
-        string maSP = "SP001";
+        SanPhamBLL _sanPhamBLL = new SanPhamBLL();
+        List<SanPham> _lstSanPham = new List<SanPham>();
+        string maSP = string.Empty;
         public frm_lapThongKeLoiNhuan()
         {
             InitializeComponent();
@@ -29,12 +31,14 @@ namespace GUI
 
         private void frm_lapThongKeLoiNhuan_Load(object sender, EventArgs e)
         {
-            _lstLoiNhuan = _loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSP);
+            LoadComboBoxSanPham();
+            LoadComboBoxChucNang();
+            _lstLoiNhuan=_loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSP);
             HienThiTatCaLoiNhuanTheoMaSanPham(_lstLoiNhuan);
             HienThiLoiNhuanLenBieuDo(_lstLoiNhuan);
-            LoadComboBoxChucNang();
             cbo_chucNang.SelectedIndexChanged += Cbo_chucNang_SelectedIndexChanged;
             btn_timKiem.Click += Btn_timKiem_Click;
+            
         }
 
         private void Btn_timKiem_Click(object sender, EventArgs e)
@@ -113,8 +117,53 @@ namespace GUI
                 HienThiLoiNhuanLenBieuDo(_lstLoiNhuan);
             }
         }
+        private void Cbo_sanPham_SelectedValueChanged(object sender, EventArgs e)
+        {
+            maSP = cbo_sanPham.SelectedValue.ToString();
+            LoadLaiTrang();
+        }
+
 
         // viết hàm xử lý ở đây
+        //load lại trang
+        private void LoadLaiTrang()
+        {
+            _lstLoiNhuan = _loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSP);
+            HienThiTatCaLoiNhuanTheoMaSanPham(_lstLoiNhuan);
+            HienThiLoiNhuanLenBieuDo(_lstLoiNhuan);
+        }
+        private void LoadComboBoxSanPham()
+        {
+            try
+            {
+                _lstSanPham = _sanPhamBLL.LayDanhSachSanPham();  // Lấy danh sách sản phẩm từ BLL
+
+                if (_lstSanPham != null && _lstSanPham.Count > 0)
+                {
+                    cbo_sanPham.DataSource = _lstSanPham;
+                    cbo_sanPham.DisplayMember = "TenSanPham";  // Hiển thị tên sản phẩm
+                    cbo_sanPham.ValueMember = "MaSanPham";  // Gán giá trị mã sản phẩm
+
+                    // Gán giá trị đầu tiên vào maSP
+                    maSP = _lstSanPham.FirstOrDefault()?.MaSanPham.ToString();
+
+                    // Chọn mục đầu tiên của ComboBox nếu có ít nhất một phần tử
+                    cbo_sanPham.SelectedIndex = 0;
+
+                    // Đăng ký sự kiện SelectedValueChanged
+                    cbo_sanPham.SelectedValueChanged += Cbo_sanPham_SelectedValueChanged;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy sản phẩm nào");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu sản phẩm: " + ex.Message);
+            }
+        }
+
         private void HienThiLoiNhuanLenBieuDo(List<LoiNhuan> lstLoiNhuan)
         {
             if (lstLoiNhuan == null || lstLoiNhuan.Count == 0)

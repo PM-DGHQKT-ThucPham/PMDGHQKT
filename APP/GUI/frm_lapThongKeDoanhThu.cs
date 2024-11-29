@@ -21,11 +21,14 @@ namespace GUI
     public partial class frm_lapThongKeDoanhThu : Form
     {
         // Khai báo biến toàn cục
+
         private LoaiDoanhThuBLL _loaiDoanhThuBLL = new LoaiDoanhThuBLL();
         private DoanhThuBLL _doanhThuBLL = new DoanhThuBLL();
         private List<LoaiDoanhThu> _lstLoaiDoanhThu = null;
         private List<DoanhThu> _lstDoanhThu = null;
-        private string maSanPham = "SP001";
+        private SanPhamBLL _sanPhamBLL = new SanPhamBLL();
+        List<SanPham> _lstSanPham = new List<SanPham>();
+        string maSanPham = string.Empty;
         public frm_lapThongKeDoanhThu()
         {
             InitializeComponent();
@@ -34,6 +37,7 @@ namespace GUI
 
         private void Frm_lapThongKeDoanhThu_Load(object sender, EventArgs e)
         {
+            LoadComboBoxSanPham();
             _lstDoanhThu = new List<DoanhThu>();
             _lstDoanhThu = _doanhThuBLL.LayDanhSachDoanhThu(maSanPham);
             HienThiDanhSachDoanhThu(_lstDoanhThu);
@@ -297,6 +301,53 @@ namespace GUI
         }
 
         //viết hàm xử lý 
+        private void Cbo_sanPham_SelectedValueChanged(object sender, EventArgs e)
+        {
+            maSanPham = cbo_sanPham.SelectedValue.ToString();
+            LoadLaiTrang();
+        }
+
+
+        // viết hàm xử lý ở đây
+        //load lại trang
+        private void LoadLaiTrang()
+        {
+            _lstDoanhThu = new List<DoanhThu>();
+            _lstDoanhThu = _doanhThuBLL.LayDanhSachDoanhThu(maSanPham);
+            HienThiDanhSachDoanhThu(_lstDoanhThu);
+            HienThiDoanhThuTheoLoaiDoanhThu(_lstDoanhThu);
+        }
+        private void LoadComboBoxSanPham()
+        {
+            try
+            {
+                _lstSanPham = _sanPhamBLL.LayDanhSachSanPham();  // Lấy danh sách sản phẩm từ BLL
+
+                if (_lstSanPham != null && _lstSanPham.Count > 0)
+                {
+                    cbo_sanPham.DataSource = _lstSanPham;
+                    cbo_sanPham.DisplayMember = "TenSanPham";  // Hiển thị tên sản phẩm
+                    cbo_sanPham.ValueMember = "MaSanPham";  // Gán giá trị mã sản phẩm
+
+                    // Gán giá trị đầu tiên vào maSP
+                    maSanPham = _lstSanPham.FirstOrDefault()?.MaSanPham.ToString();
+
+                    // Chọn mục đầu tiên của ComboBox nếu có ít nhất một phần tử
+                    cbo_sanPham.SelectedIndex = 0;
+
+                    // Đăng ký sự kiện SelectedValueChanged
+                    cbo_sanPham.SelectedValueChanged += Cbo_sanPham_SelectedValueChanged;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy sản phẩm nào");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu sản phẩm: " + ex.Message);
+            }
+        }
         // Hiển thị doanh thu theo loại doanh thu lên biểu đồ Pie
         private void HienThiDoanhThuTheoLoaiDoanhThu(List<DoanhThu> _lstDoanhThu)
         {

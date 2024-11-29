@@ -31,8 +31,8 @@ namespace GUI
             pnMain.Width = this.ClientSize.Width - pnLeft.Width;
             this.MaximizeBox = false;
             loadForm(new frm_formHome());
-            //label_tenNV.Caption = _nhanVien.TenNhanVien.ToString();
-            //PhanQuyen();
+            label_tenNV.Caption = "Nhân viên: "+ _nhanVien.TenNhanVien.ToString();
+            PhanQuyen();
         }
 
         void loadForm(Form form)

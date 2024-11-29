@@ -14,14 +14,16 @@ namespace GUI
 {
     public partial class frm_quanLyLoiNhuan : Form
     {
+        SanPhamBLL _sanPhamBLL = new SanPhamBLL();
         LoiNhuanBLL _loiNhuanBLL = new LoiNhuanBLL();
         DoanhThuBLL _doanhThuBLL = new DoanhThuBLL();
         ChiPhiBLL _chiPhiBLL = new ChiPhiBLL();
 
+        List<SanPham> _lstSanPham= new List<SanPham>();
         List<LoiNhuan> _lstLoiNhuan = new List<LoiNhuan>();
         List<DoanhThu> _lstDoanhThu = new List<DoanhThu>();
         List<ChiPhi> _lstChiPhi = new List<ChiPhi>();
-        private string maSanPham = "SP001";
+        private string maSanPham = string.Empty;
         public frm_quanLyLoiNhuan()
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace GUI
 
         private void Frm_quanLyLoiNhuan_Load(object sender, EventArgs e)
         {
+            LoadComboBoxSanPham();
             HienThiDoanhThu();
             HienThiChiPhi();
             _lstLoiNhuan = _loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSanPham);
@@ -148,9 +151,43 @@ namespace GUI
                 MessageBox.Show("Không tìm thấy kết quả nào");
             }
         }
+        private void Cbo_sanPham_SelectedValueChanged(object sender, EventArgs e)
+        {
+            maSanPham = cbo_sanPham.SelectedValue.ToString();
+            LoadLaiTrang();
+        }
 
 
         //viết hàm xử lý
+        //load lại trang
+        private void LoadLaiTrang()
+        {
+            HienThiDoanhThu();
+            HienThiChiPhi();
+            _lstLoiNhuan = _loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSanPham);
+            HienThiLoiNhuan(_lstLoiNhuan);
+        }
+        //load combo box sản phẩm
+        private void LoadComboBoxSanPham()
+        {
+            try
+            {
+                _lstSanPham = _sanPhamBLL.LayDanhSachSanPham();
+                if (_lstSanPham != null)
+                {
+                    cbo_sanPham.DataSource = _lstSanPham;
+                    cbo_sanPham.DisplayMember = "TenSanPham";
+                    cbo_sanPham.ValueMember = "MaSanPham";
+                    cbo_sanPham.SelectedValueChanged += Cbo_sanPham_SelectedValueChanged;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không tìm thấy sản phẩm nào");
+            }
+        }
+
+
         private void HienThiLoiNhuan(List<LoiNhuan> _lst)
         {
             try
