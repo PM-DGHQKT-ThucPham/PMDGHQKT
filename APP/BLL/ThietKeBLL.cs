@@ -58,12 +58,12 @@ namespace BLL
         /// </summary>
         /// <param name="lstThietKe">Danh sách thiết kế</param>
         /// <returns>Trả về true nếu quá trình cập nhật thành công, false nếu quá trình cập nhật thất bại</returns>
-        public bool CapNhatThietKeDuaTrenDanhSachThietKe(List<ThietKe> lstThietKe)
+        public bool CapNhatThietKeDuaTrenDanhSachThietKe(List<ThietKe> lstThietKe, string maSanPham)
         {
             try
             {
                 // Lấy danh sách thiết kế từ database
-                List<ThietKe> lstThietKeDB = ThietKeDAL.LayDanhSachThietKe();
+                List<ThietKe> lstThietKeDB = ThietKeDAL.LayDanhSachThietKe().Where(x=>x.MaSanPham == maSanPham).ToList();
 
                 // Mã thiết kế trong lstThietKe và lstThietKeDB giống nhau thì cập nhật thông tin thiết kế
                 foreach (ThietKe tk in lstThietKe)
