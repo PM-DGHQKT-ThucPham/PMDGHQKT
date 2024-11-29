@@ -173,7 +173,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1574, 61);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Quản lý Nguyên liệu";
+            this.label1.Text = "Quản lý nguyên liệu";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frm_quanLyNguyenLieu

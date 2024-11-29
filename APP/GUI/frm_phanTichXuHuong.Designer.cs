@@ -41,7 +41,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1226, 53);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Tiêu đề";
+            this.label1.Text = "Phân tích xu hướng";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frm_phanTichXuHuong

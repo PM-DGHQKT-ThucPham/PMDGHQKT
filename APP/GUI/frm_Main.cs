@@ -1,4 +1,7 @@
-﻿using DevExpress.XtraBars;
+﻿using BLL;
+using DevExpress.XtraBars;
+using DevExpress.XtraBars.Navigation;
+using DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,10 +15,14 @@ namespace GUI
 {
     public partial class frm_main : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
     {
-        public frm_main()
+        private DichVuPhanQuyenBLL _phanQuyenBLL = new DichVuPhanQuyenBLL();
+        public NhanVien _nhanVien { get; set; }
+        private frm_dangNhap _frmDangNhap;
+        public frm_main(frm_dangNhap frmDangNhap)
         {
             InitializeComponent();
             this.Load += Frm_main1_Load;
+            _frmDangNhap = frmDangNhap;
         }
 
         private void Frm_main1_Load(object sender, EventArgs e)
@@ -24,6 +31,8 @@ namespace GUI
             pnMain.Width = this.ClientSize.Width - pnLeft.Width;
             this.MaximizeBox = false;
             loadForm(new frm_formHome());
+            //label_tenNV.Caption = _nhanVien.TenNhanVien.ToString();
+            //PhanQuyen();
         }
 
         void loadForm(Form form)
@@ -39,6 +48,32 @@ namespace GUI
             form.BringToFront();
             form.Show();
 
+        }
+        private void PhanQuyen()
+        {
+            List<string> danhSachQuyen = _phanQuyenBLL.LayDanhSachQuyen(_nhanVien.MaNhanVien);
+
+            // Lặp qua tất cả các control trong form
+            foreach (AccordionControlElement control in accordionControl1.Elements)
+            {
+                foreach (AccordionControlElement element in control.Elements)
+                {
+                    if (element.Tag != null)
+                    {
+                        List<string> requiredPermissions = element.Tag.ToString().Split(',').ToList();
+                        if (requiredPermissions.Any(permission => danhSachQuyen.Contains(permission)))
+                        {
+                            element.Visible = true;
+                            element.Enabled = true;
+                        }
+                        else
+                        {
+                            element.Visible = false;
+                            element.Enabled = false;
+                        }
+                    }
+                }
+            }
         }
 
         // lập thống kê báo cáo

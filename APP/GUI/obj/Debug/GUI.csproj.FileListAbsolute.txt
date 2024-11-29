@@ -210,3 +210,4 @@ D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\GUI\obj\Debug\GUI.pdb
 D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_ThemNhanVien.resources
 D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_ThemQuyen.resources
 D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_ThemVaiTro.resources
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_dangNhap.resources

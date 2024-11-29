@@ -334,6 +334,9 @@
     <Compile Include="PlaceHoder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frm_dangNhap.resx">
+      <DependentUpon>frm_dangNhap.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_danhGiaTongThe.resx">
       <DependentUpon>frm_danhGiaTongThe.cs</DependentUpon>
     </EmbeddedResource>
@@ -491,6 +494,10 @@
     <None Include="Resources\icons8-save-as-32.png" />
     <None Include="Resources\icons8-update-32.png" />
     <None Include="Resources\icons8-tick-351.png" />
+    <None Include="Resources\icons8-account-35.png" />
+    <None Include="Resources\icons8-eye-32.png" />
+    <None Include="Resources\icons8-login-35.png" />
+    <None Include="Resources\icons8-password-35.png" />
     <Content Include="Resources\logo1.jpg" />
     <Content Include="Resources\logo2.jpg" />
     <Content Include="Resources\logo3.jpg" />
