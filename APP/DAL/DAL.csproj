@@ -66,6 +66,7 @@
     <Compile Include="SanPhamDAL.cs" />
     <Compile Include="ThietKeDAL.cs" />
     <Compile Include="ThiTruongDAL.cs" />
+    <Compile Include="TinhNangBoSungDAL.cs" />
     <Compile Include="TongCacNguyenLieuDAL.cs" />
     <Compile Include="VaiTroDAL.cs" />
     <Compile Include="VaiTro_QuyenDAL.cs" />
