@@ -30,13 +30,12 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.themXoaSua = new UC.ThemXoaSua();
-            this.btnXemThietKe = new System.Windows.Forms.Button();
             this.txtMucDoAnhHuong = new System.Windows.Forms.TextBox();
             this.txtDanhGiaDoBen = new System.Windows.Forms.TextBox();
             this.txtTuoiThoNgay = new System.Windows.Forms.TextBox();
             this.txtMoTa = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dgvDichVuKhachHang = new System.Windows.Forms.DataGridView();
+            this.dgvChatLuong = new System.Windows.Forms.DataGridView();
             this.txtMaDoBen = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -47,7 +46,7 @@
             this.cboSanPham = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDichVuKhachHang)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChatLuong)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,17 +72,6 @@
             this.themXoaSua.Name = "themXoaSua";
             this.themXoaSua.Size = new System.Drawing.Size(518, 112);
             this.themXoaSua.TabIndex = 11;
-            // 
-            // btnXemThietKe
-            // 
-            this.btnXemThietKe.AutoSize = true;
-            this.btnXemThietKe.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXemThietKe.Location = new System.Drawing.Point(113, 90);
-            this.btnXemThietKe.Name = "btnXemThietKe";
-            this.btnXemThietKe.Size = new System.Drawing.Size(120, 30);
-            this.btnXemThietKe.TabIndex = 12;
-            this.btnXemThietKe.Text = "Xem thiết kế";
-            this.btnXemThietKe.UseVisualStyleBackColor = true;
             // 
             // txtMucDoAnhHuong
             // 
@@ -121,7 +109,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.dgvDichVuKhachHang);
+            this.groupBox2.Controls.Add(this.dgvChatLuong);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Navy;
             this.groupBox2.Location = new System.Drawing.Point(12, 456);
@@ -129,17 +117,17 @@
             this.groupBox2.Size = new System.Drawing.Size(1267, 349);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Danh sách tiêu chí đánh giá thiết kế";
+            this.groupBox2.Text = "Danh sách tiêu chí chất lượng của sản phẩm";
             // 
-            // dgvDichVuKhachHang
+            // dgvChatLuong
             // 
-            this.dgvDichVuKhachHang.BackgroundColor = System.Drawing.Color.White;
-            this.dgvDichVuKhachHang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDichVuKhachHang.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvDichVuKhachHang.Location = new System.Drawing.Point(3, 22);
-            this.dgvDichVuKhachHang.Name = "dgvDichVuKhachHang";
-            this.dgvDichVuKhachHang.Size = new System.Drawing.Size(1261, 324);
-            this.dgvDichVuKhachHang.TabIndex = 0;
+            this.dgvChatLuong.BackgroundColor = System.Drawing.Color.White;
+            this.dgvChatLuong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvChatLuong.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvChatLuong.Location = new System.Drawing.Point(3, 22);
+            this.dgvChatLuong.Name = "dgvChatLuong";
+            this.dgvChatLuong.Size = new System.Drawing.Size(1261, 324);
+            this.dgvChatLuong.TabIndex = 0;
             // 
             // txtMaDoBen
             // 
@@ -222,7 +210,6 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.themXoaSua);
-            this.groupBox1.Controls.Add(this.btnXemThietKe);
             this.groupBox1.Controls.Add(this.txtMucDoAnhHuong);
             this.groupBox1.Controls.Add(this.txtDanhGiaDoBen);
             this.groupBox1.Controls.Add(this.txtTuoiThoNgay);
@@ -256,7 +243,7 @@
             this.Name = "frm_quanLyChatLuong";
             this.Text = "frm_quanLyChatLuong";
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDichVuKhachHang)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChatLuong)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -267,13 +254,12 @@
 
         private System.Windows.Forms.Label label1;
         private UC.ThemXoaSua themXoaSua;
-        private System.Windows.Forms.Button btnXemThietKe;
         private System.Windows.Forms.TextBox txtMucDoAnhHuong;
         private System.Windows.Forms.TextBox txtDanhGiaDoBen;
         private System.Windows.Forms.TextBox txtTuoiThoNgay;
         private System.Windows.Forms.TextBox txtMoTa;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dgvDichVuKhachHang;
+        private System.Windows.Forms.DataGridView dgvChatLuong;
         private System.Windows.Forms.TextBox txtMaDoBen;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;

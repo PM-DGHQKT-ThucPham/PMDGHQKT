@@ -131,6 +131,11 @@ namespace GUI
         private void HienDuLieuTextBox(string maHieuSuat)
         {
             HieuSuat hs = LayHieuSuatTheoMa(maHieuSuat);
+            if (hs == null)
+            {
+                MessageBox.Show("HieuSuat not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             txtMaHieuSuat.Text = hs.MaHieuSuat;
             txtDanhGiaChucNang.Text = hs.DanhGiaChucNang.ToString();
             txtDanhGiaTocDo.Text = hs.DanhGiaTocDo.ToString();

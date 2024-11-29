@@ -20,13 +20,15 @@ namespace GUI
             InitializeComponent();
             this.Load += Frm_quanLyDichVuKhachHang_Load;
             this.cboSanPham.SelectedIndexChanged += CboSanPham_SelectedIndexChanged;
-            this.dgvDichVuKhachHang.SelectionChanged += DgvDichVuKhachHang_SelectionChanged;
+            this.dgvChatLuong.SelectionChanged += DgvDichVuKhachHang_SelectionChanged;
             themXoaSua.ThemClicked += ThemXoaSua_ThemClicked;
             themXoaSua.XoaClicked += ThemXoaSua_XoaClicked;
             themXoaSua.SuaClicked += ThemXoaSua_SuaClicked;
             themXoaSua.LuuClicked += ThemXoaSua_LuuClicked;
             themXoaSua.HuyThemClicked += ThemXoaSua_HuyThemClicked;
+            this.dgvChatLuong.CellValidating += DgvDichVuKhachHang_CellValidating;
         }
+
         /// <summary>
         /// Lấy danh sách sản phẩm từ database
         /// </summary>
@@ -71,7 +73,7 @@ namespace GUI
         {
             DoBenBLL dichVuKhachHangBLL = new DoBenBLL();
             List<DoBen> lstDichVuKhachHang = dichVuKhachHangBLL.LayDanhSachDoBen();
-            dgvDichVuKhachHang.DataSource = lstDichVuKhachHang.Where(p => p.MaSanPham == maSP).ToList();
+            dgvChatLuong.DataSource = lstDichVuKhachHang.Where(p => p.MaSanPham == maSP).ToList();
             danhSachDichVuCuaSanPham = lstDichVuKhachHang.Where(p => p.MaSanPham == maSP).ToList();
 
             // Định dạng các cột của dgvDichVuKhachHang
@@ -81,45 +83,45 @@ namespace GUI
         private void DinhDangDGV()
         {
             // Đặt chế độ cho datagridview là fill
-            dgvDichVuKhachHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvChatLuong.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             // Tiêu đề các cột sẽ căn giữa
-            foreach (DataGridViewColumn column in dgvDichVuKhachHang.Columns)
+            foreach (DataGridViewColumn column in dgvChatLuong.Columns)
             {
                 column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             // Ẩn các cột không cần thiết
-            dgvDichVuKhachHang.Columns["SanPham"].Visible = false;
-            dgvDichVuKhachHang.Columns["MaSanPham"].Visible = false;
+            dgvChatLuong.Columns["SanPham"].Visible = false;
+            dgvChatLuong.Columns["MaSanPham"].Visible = false;
 
             // Đặt tên tiêu đề các cột
-            dgvDichVuKhachHang.Columns["MaDoBen"].HeaderText = "Mã độ bền";
-            dgvDichVuKhachHang.Columns["MoTa"].HeaderText = "Mô tả";
-            dgvDichVuKhachHang.Columns["TuoiThoNgay"].HeaderText = "Tuổi thọ ngày";
-            dgvDichVuKhachHang.Columns["DanhGiaDoBen"].HeaderText = "Đánh giá độ bền";
-            dgvDichVuKhachHang.Columns["MucDoAnhHuong"].HeaderText = "Mức độ ảnh hưởng";
+            dgvChatLuong.Columns["MaDoBen"].HeaderText = "Mã độ bền";
+            dgvChatLuong.Columns["MoTa"].HeaderText = "Mô tả";
+            dgvChatLuong.Columns["TuoiThoNgay"].HeaderText = "Tuổi thọ ngày";
+            dgvChatLuong.Columns["DanhGiaDoBen"].HeaderText = "Đánh giá độ bền";
+            dgvChatLuong.Columns["MucDoAnhHuong"].HeaderText = "Mức độ ảnh hưởng";
 
             // Cột đánh giá hỗ trợ, thời gian bảo hành, mức độ ảnh hưởng căn lề phải
-            dgvDichVuKhachHang.Columns["TuoiThoNgay"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvDichVuKhachHang.Columns["DanhGiaDoBen"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvDichVuKhachHang.Columns["MucDoAnhHuong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvChatLuong.Columns["TuoiThoNgay"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvChatLuong.Columns["DanhGiaDoBen"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvChatLuong.Columns["MucDoAnhHuong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             // Đặt chiều cao hàng tự động điều chỉnh theo nội dung
-            dgvDichVuKhachHang.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dgvChatLuong.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
 
             // Cột mô tả là cột cuối cùng
-            dgvDichVuKhachHang.Columns["MoTa"].DisplayIndex = dgvDichVuKhachHang.Columns.Count - 1;
+            dgvChatLuong.Columns["MoTa"].DisplayIndex = dgvChatLuong.Columns.Count - 1;
 
             // Cột mô tả tự động xuống dòng khi nội dung quá dài
-            dgvDichVuKhachHang.Columns["MoTa"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgvChatLuong.Columns["MoTa"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
             // Thiết lập tỉ lệ chiều rộng cho các cột
-            dgvDichVuKhachHang.Columns["MaDoBen"].FillWeight = 8;
-            dgvDichVuKhachHang.Columns["TuoiThoNgay"].FillWeight = 8;
-            dgvDichVuKhachHang.Columns["DanhGiaDoBen"].FillWeight = 8;
-            dgvDichVuKhachHang.Columns["MucDoAnhHuong"].FillWeight = 8;
-            dgvDichVuKhachHang.Columns["MoTa"].FillWeight = 78;
+            dgvChatLuong.Columns["MaDoBen"].FillWeight = 8;
+            dgvChatLuong.Columns["TuoiThoNgay"].FillWeight = 8;
+            dgvChatLuong.Columns["DanhGiaDoBen"].FillWeight = 8;
+            dgvChatLuong.Columns["MucDoAnhHuong"].FillWeight = 8;
+            dgvChatLuong.Columns["MoTa"].FillWeight = 78;
         }
 
         /// <summary>
@@ -165,14 +167,14 @@ namespace GUI
         {
             try
             {
-                if (dgvDichVuKhachHang.CurrentRow != null && dgvDichVuKhachHang.CurrentRow.Cells["MaDoBen"].Value != null)
+                if (dgvChatLuong.CurrentRow != null && dgvChatLuong.CurrentRow.Cells["MaDoBen"].Value != null)
                 {
                     // Lấy dữ liệu từ dòng được chọn
-                    string maDichVu = dgvDichVuKhachHang.CurrentRow.Cells["MaDoBen"].Value.ToString();
-                    string moTa = dgvDichVuKhachHang.CurrentRow.Cells["MoTa"].Value.ToString();
-                    string danhGiaHoTro = dgvDichVuKhachHang.CurrentRow.Cells["TuoiThoNgay"].Value.ToString();
-                    string thoiGianBaoHanh = dgvDichVuKhachHang.CurrentRow.Cells["DanhGiaDoBen"].Value.ToString();
-                    string mucDoAnhHuong = dgvDichVuKhachHang.CurrentRow.Cells["MucDoAnhHuong"].Value.ToString();
+                    string maDichVu = dgvChatLuong.CurrentRow.Cells["MaDoBen"].Value.ToString();
+                    string moTa = dgvChatLuong.CurrentRow.Cells["MoTa"].Value.ToString();
+                    string danhGiaHoTro = dgvChatLuong.CurrentRow.Cells["TuoiThoNgay"].Value.ToString();
+                    string thoiGianBaoHanh = dgvChatLuong.CurrentRow.Cells["DanhGiaDoBen"].Value.ToString();
+                    string mucDoAnhHuong = dgvChatLuong.CurrentRow.Cells["MucDoAnhHuong"].Value.ToString();
 
                     // Hiển thị dữ liệu lên các textbox
                     txtMaDoBen.Text = maDichVu;
@@ -213,7 +215,7 @@ namespace GUI
             try
             {
                 // Kiểm tra mã đã tồn tại trong datagridview chưa
-                foreach (DataGridViewRow row in dgvDichVuKhachHang.Rows)
+                foreach (DataGridViewRow row in dgvChatLuong.Rows)
                 {
                     if (row.Cells["MaDoBen"].Value != null &&
                         row.Cells["MaDoBen"].Value.ToString().ToLower() == dvkh.MaDoBen.ToLower())
@@ -237,9 +239,9 @@ namespace GUI
 
                 // Thêm vào danh sách dịch vụ của sản phẩm
                 danhSachDichVuCuaSanPham.Add(dvkh);
-                dgvDichVuKhachHang.DataSource = null;
-                dgvDichVuKhachHang.DataSource = danhSachDichVuCuaSanPham;
-                dgvDichVuKhachHang.Refresh();
+                dgvChatLuong.DataSource = null;
+                dgvChatLuong.DataSource = danhSachDichVuCuaSanPham;
+                dgvChatLuong.Refresh();
                 DinhDangDGV();
                 // Hiển thị thông báo thêm thành công
                 MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -288,7 +290,7 @@ namespace GUI
                 txtDanhGiaDoBen.Focus();
                 return false;
             }
-            if (!KiemTraTextBoxLaSo(txtDanhGiaDoBen) || Convert.ToInt32(txtDanhGiaDoBen.Text) <= 0 || Convert.ToInt32(txtDanhGiaDoBen.Text) > 10)
+            if (!KiemTraTextBoxLaSo(txtDanhGiaDoBen) || Convert.ToDecimal(txtDanhGiaDoBen.Text) <= 0 || Convert.ToDecimal(txtDanhGiaDoBen.Text) > 10)
             {
                 MessageBox.Show("Thời gian bảo hành phải lớn hơn 0 và nhỏ hơn 10");
                 txtDanhGiaDoBen.Focus();
@@ -315,7 +317,7 @@ namespace GUI
             string maSanPham = cboSanPham.SelectedValue.ToString();
             string moTa = txtMoTa.Text;
             decimal danhGiaHoTro = Convert.ToDecimal(txtTuoiThoNgay.Text);
-            int thoiGianBaoHanh = Convert.ToInt32(txtDanhGiaDoBen.Text);
+            decimal thoiGianBaoHanh = Convert.ToDecimal(txtDanhGiaDoBen.Text);
             decimal mucDoAnhHuong = Convert.ToDecimal(txtMucDoAnhHuong.Text);
             // Thực hiện thêm vào datagridview ở đây
             DoBen dvkh = new DoBen();
@@ -369,7 +371,7 @@ namespace GUI
                     themXoaSua.BtnLuu.Enabled = true;
                     themXoaSua.BtnHuyThem.Enabled = false;
                     txtMaDoBen.Enabled = true;
-                    dgvDichVuKhachHang.Refresh();
+                    dgvChatLuong.Refresh();
                 }
                 else
                 {
@@ -399,17 +401,17 @@ namespace GUI
             if (result == DialogResult.Yes)
             {
                 string maSanPham = cboSanPham.SelectedValue.ToString();
-                if (dgvDichVuKhachHang.CurrentRow != null && dgvDichVuKhachHang.CurrentRow.Cells["MaDoBen"].Value != null)
+                if (dgvChatLuong.CurrentRow != null && dgvChatLuong.CurrentRow.Cells["MaDoBen"].Value != null)
                 {
-                    string maDichVu = dgvDichVuKhachHang.CurrentRow.Cells["MaDoBen"].Value.ToString();
+                    string maDichVu = dgvChatLuong.CurrentRow.Cells["MaDoBen"].Value.ToString();
                     // Xoá dịch vụ đang chọn trong dgv ra khỏi danhSachDichVuCuaSanPham
                     DoBen dichVuKhachHang = danhSachDichVuCuaSanPham.Where(p => p.MaDoBen == maDichVu).FirstOrDefault();
                     if (dichVuKhachHang != null)
                     {
                         danhSachDichVuCuaSanPham.Remove(dichVuKhachHang);
-                        dgvDichVuKhachHang.DataSource = null;
-                        dgvDichVuKhachHang.DataSource = danhSachDichVuCuaSanPham;
-                        dgvDichVuKhachHang.Refresh();
+                        dgvChatLuong.DataSource = null;
+                        dgvChatLuong.DataSource = danhSachDichVuCuaSanPham;
+                        dgvChatLuong.Refresh();
                         DinhDangDGV();
                         MessageBox.Show("Xoá thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -443,9 +445,9 @@ namespace GUI
             int thoiGianBaoHanh = Convert.ToInt32(txtDanhGiaDoBen.Text);
             decimal mucDoAnhHuong = Convert.ToDecimal(txtMucDoAnhHuong.Text);
             // Cập nhật dữ liệu từ textbox xuống dgv
-            if (dgvDichVuKhachHang.CurrentRow != null && dgvDichVuKhachHang.CurrentRow.Cells["MaDichVu"].Value != null)
+            if (dgvChatLuong.CurrentRow != null && dgvChatLuong.CurrentRow.Cells["MaDoBen"].Value != null)
             {
-                string maDichVuDangChon = dgvDichVuKhachHang.CurrentRow.Cells["MaDoBen"].Value.ToString();
+                string maDichVuDangChon = dgvChatLuong.CurrentRow.Cells["MaDoBen"].Value.ToString();
                 DoBen dichVuKhachHang = danhSachDichVuCuaSanPham.Where(p => p.MaDoBen == maDichVuDangChon).FirstOrDefault();
                 if (dichVuKhachHang != null)
                 {
@@ -455,9 +457,9 @@ namespace GUI
                     dichVuKhachHang.TuoiThoNgay = danhGiaHoTro;
                     dichVuKhachHang.DanhGiaDoBen = thoiGianBaoHanh;
                     dichVuKhachHang.MucDoAnhHuong = mucDoAnhHuong;
-                    dgvDichVuKhachHang.DataSource = null;
-                    dgvDichVuKhachHang.DataSource = danhSachDichVuCuaSanPham;
-                    dgvDichVuKhachHang.Refresh();
+                    dgvChatLuong.DataSource = null;
+                    dgvChatLuong.DataSource = danhSachDichVuCuaSanPham;
+                    dgvChatLuong.Refresh();
                     DinhDangDGV();
                     MessageBox.Show("Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -495,6 +497,61 @@ namespace GUI
         private void ThemXoaSua_HuyThemClicked(object sender, EventArgs e)
         {
             txtMaDoBen.Enabled = false;
+        }
+
+
+        private void DgvDichVuKhachHang_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            // Kiểm tra cột hiện tại có phải là cột "TuoiThoNgay" không
+            if (dgvChatLuong.Columns[e.ColumnIndex].Name == "TuoiThoNgay")
+            {
+                // Kiểm tra dữ liệu nhập vào có phải là số không
+                decimal so;
+                if (!decimal.TryParse(e.FormattedValue.ToString(), out so))
+                {
+                    // Hiển thị thông báo lỗi
+                    MessageBox.Show("Dữ liệu phải là số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Hủy thao tác chỉnh sửa
+                    e.Cancel = true;
+                }
+                // Số phải lớn hơn 0
+                else if (so <= 0)
+                {
+                    // Hiển thị thông báo lỗi
+                    MessageBox.Show("Dữ liệu phải lớn hơn 0", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Hủy thao tác chỉnh sửa
+                    e.Cancel = true;
+                }
+            }
+            // Kiểm tra cột hiện tại có phải là cột "DanhGiaDoBen" hoặc "MucDoAnhHuong" không
+            else if (dgvChatLuong.Columns[e.ColumnIndex].Name == "DanhGiaDoBen" || dgvChatLuong.Columns[e.ColumnIndex].Name == "MucDoAnhHuong")
+            {
+                // Kiểm tra dữ liệu nhập vào có phải là số không
+                decimal so;
+                if (!decimal.TryParse(e.FormattedValue.ToString(), out so))
+                {
+                    // Hiển thị thông báo lỗi
+                    MessageBox.Show("Dữ liệu phải là số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Hủy thao tác chỉnh sửa
+                    e.Cancel = true;
+                }
+                // Số phải lớn hơn 0
+                else if (so <= 0)
+                {
+                    // Hiển thị thông báo lỗi
+                    MessageBox.Show("Dữ liệu phải lớn hơn 0", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Hủy thao tác chỉnh sửa
+                    e.Cancel = true;
+                }
+                // Số phải <= 10
+                else if (so > 10)
+                {
+                    // Hiển thị thông báo lỗi
+                    MessageBox.Show("Dữ liệu phải nhỏ hơn hoặc bằng 10", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Hủy thao tác chỉnh sửa
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }
