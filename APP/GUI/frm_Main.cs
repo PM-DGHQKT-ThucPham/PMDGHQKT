@@ -23,6 +23,36 @@ namespace GUI
             InitializeComponent();
             this.Load += Frm_main1_Load;
             _frmDangNhap = frmDangNhap;
+            btn_dangXuat.ItemClick += Btn_dangXuat_ItemClick;
+            btn_thietLapTaiKhoan.ItemClick += Btn_thietLapTaiKhoan_ItemClick;
+        }
+
+        private void Btn_thietLapTaiKhoan_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            frm_thietLapTaiKhoan frm = new frm_thietLapTaiKhoan();
+
+            // Truyền nhân viên vào form trước khi hiển thị
+            frm._nhanVien = _nhanVien;
+
+            // Đăng ký sự kiện CapNhat
+            frm.CapNhat += Frm_CapNhat;
+
+            // Hiển thị form dưới dạng dialog
+            frm.ShowDialog();
+        }
+
+        // Cập nhật thông
+        private void Frm_CapNhat(object sender, EventArgs e)
+        {
+            label_tenNV.Caption = "Nhân viên: " + _nhanVien.TenNhanVien.ToString();
+        }
+
+        private void Btn_dangXuat_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            // Đóng form chính và hiển thị lại form đăng nhập
+            frm_dangNhap loginForm = new frm_dangNhap();
+            loginForm.Show();
+            this.Close(); // Đóng form chính
         }
 
         private void Frm_main1_Load(object sender, EventArgs e)
@@ -51,30 +81,47 @@ namespace GUI
         }
         private void PhanQuyen()
         {
+            // Lấy danh sách quyền của nhân viên từ PhanQuyenBLL
             List<string> danhSachQuyen = _phanQuyenBLL.LayDanhSachQuyen(_nhanVien.MaNhanVien);
 
-            // Lặp qua tất cả các control trong form
+            // Lặp qua tất cả các control trong accordionControl1
             foreach (AccordionControlElement control in accordionControl1.Elements)
             {
-                foreach (AccordionControlElement element in control.Elements)
-                {
-                    if (element.Tag != null)
-                    {
-                        List<string> requiredPermissions = element.Tag.ToString().Split(',').ToList();
-                        if (requiredPermissions.Any(permission => danhSachQuyen.Contains(permission)))
-                        {
-                            element.Visible = true;
-                            element.Enabled = true;
-                        }
-                        else
-                        {
-                            element.Visible = false;
-                            element.Enabled = false;
-                        }
-                    }
-                }
+                // Gọi phương thức phân quyền đệ quy cho các phần tử cha và phần tử con
+                PhanQuyenChoElement(control, danhSachQuyen);
             }
         }
+
+        private void PhanQuyenChoElement(AccordionControlElement element, List<string> danhSachQuyen)
+        {
+            // Kiểm tra nếu element có Tag (có thể là danh sách quyền yêu cầu)
+            if (element.Tag != null)
+            {
+                // Lấy danh sách quyền yêu cầu từ Tag, tách bằng dấu phẩy
+                List<string> requiredPermissions = element.Tag.ToString().Split(',').ToList();
+
+                // Kiểm tra nếu nhân viên có ít nhất một quyền trong danh sách quyền yêu cầu
+                if (requiredPermissions.Any(permission => danhSachQuyen.Contains(permission)))
+                {
+                    // Nếu có quyền, hiển thị và cho phép tương tác với element
+                    element.Visible = true;
+                    element.Enabled = true;
+                }
+                else
+                {
+                    // Nếu không có quyền, ẩn element và vô hiệu hóa
+                    element.Visible = false;
+                    element.Enabled = false;
+                }
+            }
+
+            // Tiếp tục phân quyền cho các phần tử con của element (nếu có)
+            foreach (AccordionControlElement childElement in element.Elements)
+            {
+                PhanQuyenChoElement(childElement, danhSachQuyen);
+            }
+        }
+
 
         // lập thống kê báo cáo
         private void btn_lapThongKeChiPhiSanXuat_Click(object sender, EventArgs e)

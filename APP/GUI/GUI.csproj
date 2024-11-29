@@ -325,6 +325,12 @@
     <Compile Include="frm_ThemVaiTro.Designer.cs">
       <DependentUpon>frm_ThemVaiTro.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_thietLapTaiKhoan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_thietLapTaiKhoan.Designer.cs">
+      <DependentUpon>frm_thietLapTaiKhoan.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_wait.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -429,6 +435,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_ThemVaiTro.resx">
       <DependentUpon>frm_ThemVaiTro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_thietLapTaiKhoan.resx">
+      <DependentUpon>frm_thietLapTaiKhoan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_wait.resx">
       <DependentUpon>frm_wait.cs</DependentUpon>
