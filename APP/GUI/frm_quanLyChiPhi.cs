@@ -554,13 +554,6 @@ namespace GUI
                     {
                         // Gán giá trị SelectedValue cho ComboBox
                         cbo_loaiChiPhi.SelectedValue = maLoaiChiPhi;
-
-                        // Kiểm tra xem giá trị đã được tìm thấy hay chưa
-                        if (cbo_loaiChiPhi.SelectedValue == null)
-                        {
-                            MessageBox.Show("Mã loại chi phí không tồn tại trong danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            cbo_loaiChiPhi.SelectedIndex = -1; // Xóa lựa chọn nếu không tìm thấy
-                        }
                     }
                 }
             }
