@@ -316,6 +316,7 @@ namespace GUI
             _lstDoanhThu = _doanhThuBLL.LayDanhSachDoanhThu(maSanPham);
             HienThiDanhSachDoanhThu(_lstDoanhThu);
             HienThiDoanhThuTheoLoaiDoanhThu(_lstDoanhThu);
+            LoadComboboxLoaiDoanhThu();
         }
         private void LoadComboBoxSanPham()
         {

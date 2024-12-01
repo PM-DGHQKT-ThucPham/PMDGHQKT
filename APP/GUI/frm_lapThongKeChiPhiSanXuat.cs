@@ -163,6 +163,7 @@ namespace GUI
             _lstChiPhi = _chiPhiBLL.LayDanhSachChiPhi(maSanPham);
             HienThiDuLieu(_lstChiPhi);
             HienThiChiPhiTheoLoaiChiPhi(_lstChiPhi);
+            LoadComBoBoxLoaiChiPhi();
 
         }
         private void LoadComboBoxSanPham()
@@ -298,8 +299,6 @@ namespace GUI
         {
             try
             {
-                //xoá item cũ
-                cbo_loaiChiPhi.Items.Clear();
                 //tạo item mới
                 _lstLoaiChiPhi = _loaiChiPhiBLL.LayDanhSachLoaiChiPhi(maSanPham);
                 cbo_loaiChiPhi.DataSource = _lstLoaiChiPhi;
