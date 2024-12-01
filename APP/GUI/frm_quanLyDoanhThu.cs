@@ -434,13 +434,6 @@ namespace GUI
                     {
                         // Gán giá trị SelectedValue cho ComboBox
                         cbo_loaiDoanhThu.SelectedValue = maLoaiDoanhThu;
-
-                        // Kiểm tra xem giá trị đã được tìm thấy hay chưa
-                        if (cbo_loaiDoanhThu.SelectedValue == null)
-                        {
-                            MessageBox.Show("Mã loại doanh thu không tồn tại trong danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            cbo_loaiDoanhThu.SelectedIndex = -1; // Xóa lựa chọn nếu không tìm thấy
-                        }
                     }
                 }
             }
@@ -558,16 +551,10 @@ namespace GUI
                         return;
                     }
 
-                    if (cbo_loaiDoanhThu.SelectedValue == null)
-                    {
-                        MessageBox.Show("Vui lòng chọn một loại doanh thu hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
 
                     row.Cells["MoTa"].Value = txt_moTaDoanhThu.Text;
                     row.Cells["SoTien"].Value = soTien;
                     row.Cells["ThoiGian"].Value = dtp_thoiGianDoanhThu.Value;
-                    row.Cells["MaLoaiDoanhThu"].Value = cbo_loaiDoanhThu.SelectedValue.ToString();
 
                     dgv_dsDoanhThu.Refresh();
 

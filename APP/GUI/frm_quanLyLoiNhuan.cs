@@ -54,7 +54,7 @@ namespace GUI
                     decimal loiNhuanGop = _loiNhuanBLL.TinhLoiNhuanGop(maSanPham, ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year);
                     decimal loiNhuanRong = _loiNhuanBLL.TinhLoiNhuanRong(maSanPham, ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year);
                     ln.MoTa = txt_moTaLoiNhuan.Text;
-                    if (_loiNhuanBLL.CapNhatLoiNhuanTheoThang(ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year))
+                    if (_loiNhuanBLL.CapNhatLoiNhuanTheoThang(ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year,maSanPham))
                     {
                         MessageBox.Show("Cập nhật lợi nhuận thành công");
                         _lstLoiNhuan = _loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSanPham);
@@ -112,7 +112,7 @@ namespace GUI
                 }
 
                 //hiển thị doanh thu theo tháng
-                List<DoanhThu> lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoNgay(ln.ThoiGian.Value, maSanPham);
+                List<DoanhThu> lstDoanhThu = _doanhThuBLL.LayDoanhThuTheoThang(ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year, maSanPham);
                 dgv_dsDoanhThu.DataSource = lstDoanhThu;
                 themCotSoThuTu(dgv_dsDoanhThu);
                 KhoiTaoDoanhThu();

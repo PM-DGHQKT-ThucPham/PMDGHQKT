@@ -40,9 +40,9 @@ namespace BLL
         {
             return _loiNhuanDAL.TinhLoiNhuanRong(maSP, thang, nam);
         }
-        public bool CapNhatLoiNhuanTheoThang(int thang, int nam)
+        public bool CapNhatLoiNhuanTheoThang(int thang, int nam,string maSP)
         {
-            return _loiNhuanDAL.CapNhatLoiNhuanTheoThang(thang, nam);
+            return _loiNhuanDAL.CapNhatLoiNhuanTheoThang(thang, nam,maSP);
         }
         public List<(string MaSanPham, decimal TyLeLoiNhuanGop, decimal TyLeLoiNhuanRong)> TinhTyLeLoiNhuan(int thang, int nam)
         {

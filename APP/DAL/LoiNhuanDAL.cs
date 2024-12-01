@@ -74,6 +74,15 @@ namespace DAL
         // Tính lợi nhuận gộp
         public decimal TinhLoiNhuanGop(string maSP, int thang, int nam)
         {
+            string maLoaiChiPhiBD = "";
+            if (maSP == "SP001")
+            {
+                maLoaiChiPhiBD = "CPBD";
+            }
+            else
+            {
+                maLoaiChiPhiBD = "CPBDSP002";
+            }
             try
             {
                 // Lấy doanh thu của tháng và sản phẩm
@@ -83,7 +92,7 @@ namespace DAL
 
                 // Lấy chi phí biến đổi của tháng và sản phẩm
                 var chiPhiBienDoi = db.ChiPhis
-                    .Where(x => x.LoaiChiPhi.MaSanPham == maSP && x.MaLoaiChiPhi == "CPBD" && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
+                    .Where(x => x.LoaiChiPhi.MaSanPham == maSP && x.MaLoaiChiPhi == maLoaiChiPhiBD && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
                     .Sum(x => x.SoTien) ?? 0; // Tính tổng chi phí biến đổi, trả về 0 nếu không có dữ liệu
 
                 // Tính lợi nhuận gộp
@@ -98,6 +107,19 @@ namespace DAL
         // Tính lợi nhuận ròng
         public decimal TinhLoiNhuanRong(string maSP, int thang, int nam)
         {
+            string maLoaiChiPhiCD = "";
+            string maLoaiChiPhiGT = "";
+            if (maSP =="SP001")
+            {
+                maLoaiChiPhiCD = "CPCD";
+                maLoaiChiPhiGT = "CPGT";
+            }
+            else
+            {
+                maLoaiChiPhiCD = "CPCDSP002";
+                maLoaiChiPhiGT = "CPGTSP002";
+            }    
+            
             try
             {
                 // Lợi nhuận gộp
@@ -105,11 +127,11 @@ namespace DAL
 
                 // Lấy chi phí cố định và chi phí gián tiếp của tháng và sản phẩm
                 var chiPhiCoDinh = db.ChiPhis
-                    .Where(x => x.LoaiChiPhi.MaSanPham == maSP && x.MaLoaiChiPhi == "CPCD" && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
+                    .Where(x => x.LoaiChiPhi.MaSanPham == maSP && x.MaLoaiChiPhi == maLoaiChiPhiCD && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
                     .Sum(x => x.SoTien) ?? 0; // Tính tổng chi phí cố định, trả về 0 nếu không có dữ liệu
 
                 var chiPhiGianTiep = db.ChiPhis
-                    .Where(x => x.LoaiChiPhi.MaSanPham == maSP && x.MaLoaiChiPhi == "CPGT" && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
+                    .Where(x => x.LoaiChiPhi.MaSanPham == maSP && x.MaLoaiChiPhi == maLoaiChiPhiGT && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
                     .Sum(x => x.SoTien) ?? 0; // Tính tổng chi phí gián tiếp, trả về 0 nếu không có dữ liệu
 
                 // Tính lợi nhuận ròng
@@ -122,8 +144,23 @@ namespace DAL
         }
 
         // Hàm cập nhật lợi nhuận gộp và lợi nhuận ròng theo tháng
-        public bool CapNhatLoiNhuanTheoThang(int thang, int nam)
+        public bool CapNhatLoiNhuanTheoThang(int thang, int nam,string maSP)
         {
+            string maLoaiChiPhiBD = "";
+            string maLoaiChiPhiCD = "";
+            string maLoaiChiPhiGT = "";
+            if (maSP == "SP001")
+            {
+                maLoaiChiPhiBD = "CPBD";
+                maLoaiChiPhiCD = "CPCD";
+                maLoaiChiPhiGT = "CPGT";
+            }
+            else
+            {
+                maLoaiChiPhiBD = "CPBDSP002";
+                maLoaiChiPhiCD = "CPCDSP002";
+                maLoaiChiPhiGT = "CPGTSP002";
+            }
             try
             {
                 // Lấy danh sách tất cả các sản phẩm
@@ -138,17 +175,17 @@ namespace DAL
 
                     // Tính chi phí biến đổi của sản phẩm theo tháng và năm
                     decimal chiPhiBienDoi = db.ChiPhis
-                        .Where(x => x.LoaiChiPhi.MaSanPham == sanPham.MaSanPham && x.MaLoaiChiPhi == "CPBD" && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
+                        .Where(x => x.LoaiChiPhi.MaSanPham == sanPham.MaSanPham && x.MaLoaiChiPhi == maLoaiChiPhiBD && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
                         .Sum(x => x.SoTien) ?? 0;  // Trả về 0 nếu không có dữ liệu
 
                     // Tính chi phí cố định của sản phẩm theo tháng và năm
                     decimal chiPhiCoDinh = db.ChiPhis
-                        .Where(x => x.LoaiChiPhi.MaSanPham == sanPham.MaSanPham && x.MaLoaiChiPhi == "CPCD" && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
+                        .Where(x => x.LoaiChiPhi.MaSanPham == sanPham.MaSanPham && x.MaLoaiChiPhi == maLoaiChiPhiCD && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
                         .Sum(x => x.SoTien) ?? 0;  // Trả về 0 nếu không có dữ liệu
 
                     // Tính chi phí gián tiếp của sản phẩm theo tháng và năm
                     decimal chiPhiGianTiep = db.ChiPhis
-                        .Where(x => x.LoaiChiPhi.MaSanPham == sanPham.MaSanPham && x.MaLoaiChiPhi == "CPGT" && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
+                        .Where(x => x.LoaiChiPhi.MaSanPham == sanPham.MaSanPham && x.MaLoaiChiPhi == maLoaiChiPhiGT && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam)
                         .Sum(x => x.SoTien) ?? 0;  // Trả về 0 nếu không có dữ liệu
 
                     // Tính lợi nhuận gộp
