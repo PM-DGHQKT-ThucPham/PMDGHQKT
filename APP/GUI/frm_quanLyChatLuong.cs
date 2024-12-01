@@ -442,7 +442,7 @@ namespace GUI
             string maSanPham = cboSanPham.SelectedValue.ToString();
             string moTa = txtMoTa.Text;
             decimal danhGiaHoTro = Convert.ToDecimal(txtTuoiThoNgay.Text);
-            int thoiGianBaoHanh = Convert.ToInt32(txtDanhGiaDoBen.Text);
+            decimal thoiGianBaoHanh = Convert.ToDecimal(txtDanhGiaDoBen.Text);
             decimal mucDoAnhHuong = Convert.ToDecimal(txtMucDoAnhHuong.Text);
             // Cập nhật dữ liệu từ textbox xuống dgv
             if (dgvChatLuong.CurrentRow != null && dgvChatLuong.CurrentRow.Cells["MaDoBen"].Value != null)

@@ -323,3 +323,4 @@ E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_ThemNha
 E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_ThemQuyen.resources
 E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_ThemVaiTro.resources
 D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_thietLapTaiKhoan.resources
+D:\Github\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_thietLapTaiKhoan.resources
