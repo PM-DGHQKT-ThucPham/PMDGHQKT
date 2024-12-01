@@ -132,6 +132,11 @@ namespace GUI
                     dgv_DsPhanHoiKhachHang.BackgroundColor = Color.White;
                     dgv_DsPhanHoiKhachHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     dgv_DsPhanHoiKhachHang.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                    //Load điểm xếp hạng trung bình gắn cho lblXepHangTrungBinh
+                    decimal diemTB = (decimal)lstPhanHoiNguoiDung.Average(x => x.XepHangNguoiDung);
+                    lblDiemXepHangTrungBinh.Text = diemTB.ToString();
+                    lblSoLuongDanhGia.Text = lstPhanHoiNguoiDung.Count.ToString();
+
                 }
                 else
                 {

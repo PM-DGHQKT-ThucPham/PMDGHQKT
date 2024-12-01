@@ -48,16 +48,16 @@
             this.btn_danhGiaTongThe = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_phanTichXuHuong = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlElement2 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlElement7 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.btn_quanLyKhoHang = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.btn_quanLyNguyenLieuKhoHang = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_quanLyDoanhThu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_quanLyChiPhi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_tinhToanLoiNhuan = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_quanLyThiTruong = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlElement8 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_quanLyNhanVien = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_quanLyPhanQuyenNhanVien = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.btn_quanLyChiPhi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.btn_quanLyDoanhThu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.btn_tinhToanLoiNhuan = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.btn_quanLyThiTruong = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.accordionControlElement7 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_quanLyKhoHang = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btn_quanLyNguyenLieuKhoHang = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlElement5 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_quanLyNguyenLieu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_quanLyChatLuong = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -68,6 +68,9 @@
             this.btn_quanLyPhanHoiKhachHang = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_quanLyBenVung = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_tinhNangBoSung = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.accordionControlElement4 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btnLoaiTieuChi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.btnSanPham_TieuChi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlElement3 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_quanLyChiPhiNhanCong = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.btn_quanLyChiPhiThietKeBaoBi = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -185,7 +188,8 @@
             this.accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.accordionControlElement1,
             this.accordionControlElement14,
-            this.accordionControlElement2});
+            this.accordionControlElement2,
+            this.accordionControlElement4});
             this.accordionControl1.Location = new System.Drawing.Point(0, 59);
             this.accordionControl1.Margin = new System.Windows.Forms.Padding(9, 2, 9, 2);
             this.accordionControl1.Name = "accordionControl1";
@@ -276,32 +280,41 @@
             this.accordionControlElement2.Name = "accordionControlElement2";
             this.accordionControlElement2.Text = "Hệ Thống";
             // 
-            // accordionControlElement7
+            // btn_quanLyDoanhThu
             // 
-            this.accordionControlElement7.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.btn_quanLyKhoHang,
-            this.btn_quanLyNguyenLieuKhoHang});
-            this.accordionControlElement7.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement7.ImageOptions.Image")));
-            this.accordionControlElement7.Name = "accordionControlElement7";
-            this.accordionControlElement7.Text = "Kho hàng";
+            this.btn_quanLyDoanhThu.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyDoanhThu.ImageOptions.Image")));
+            this.btn_quanLyDoanhThu.Name = "btn_quanLyDoanhThu";
+            this.btn_quanLyDoanhThu.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_quanLyDoanhThu.Tag = "Q011";
+            this.btn_quanLyDoanhThu.Text = "Doanh thu";
+            this.btn_quanLyDoanhThu.Click += new System.EventHandler(this.btn_quanLyDoanhThu_Click);
             // 
-            // btn_quanLyKhoHang
+            // btn_quanLyChiPhi
             // 
-            this.btn_quanLyKhoHang.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyKhoHang.ImageOptions.Image")));
-            this.btn_quanLyKhoHang.Name = "btn_quanLyKhoHang";
-            this.btn_quanLyKhoHang.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.btn_quanLyKhoHang.Tag = "Q006";
-            this.btn_quanLyKhoHang.Text = "Quản lý kho hàng";
-            this.btn_quanLyKhoHang.Click += new System.EventHandler(this.btn_quanLyKhoHang_Click);
+            this.btn_quanLyChiPhi.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyChiPhi.ImageOptions.Image")));
+            this.btn_quanLyChiPhi.Name = "btn_quanLyChiPhi";
+            this.btn_quanLyChiPhi.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_quanLyChiPhi.Tag = "Q010";
+            this.btn_quanLyChiPhi.Text = "Chi Phí";
+            this.btn_quanLyChiPhi.Click += new System.EventHandler(this.btn_quanLyChiPhi_Click);
             // 
-            // btn_quanLyNguyenLieuKhoHang
+            // btn_tinhToanLoiNhuan
             // 
-            this.btn_quanLyNguyenLieuKhoHang.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyNguyenLieuKhoHang.ImageOptions.Image")));
-            this.btn_quanLyNguyenLieuKhoHang.Name = "btn_quanLyNguyenLieuKhoHang";
-            this.btn_quanLyNguyenLieuKhoHang.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.btn_quanLyNguyenLieuKhoHang.Tag = "Q007";
-            this.btn_quanLyNguyenLieuKhoHang.Text = "Quản lý nguyên liệu";
-            this.btn_quanLyNguyenLieuKhoHang.Click += new System.EventHandler(this.btn_quanLyNguyenLieuKhoHang_Click);
+            this.btn_tinhToanLoiNhuan.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_tinhToanLoiNhuan.ImageOptions.Image")));
+            this.btn_tinhToanLoiNhuan.Name = "btn_tinhToanLoiNhuan";
+            this.btn_tinhToanLoiNhuan.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_tinhToanLoiNhuan.Tag = "Q012";
+            this.btn_tinhToanLoiNhuan.Text = "Tính toán lợi nhuận";
+            this.btn_tinhToanLoiNhuan.Click += new System.EventHandler(this.btn_tinhToanLoiNhuan_Click);
+            // 
+            // btn_quanLyThiTruong
+            // 
+            this.btn_quanLyThiTruong.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyThiTruong.ImageOptions.Image")));
+            this.btn_quanLyThiTruong.Name = "btn_quanLyThiTruong";
+            this.btn_quanLyThiTruong.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_quanLyThiTruong.Tag = "Q013";
+            this.btn_quanLyThiTruong.Text = "Thị trường";
+            this.btn_quanLyThiTruong.Click += new System.EventHandler(this.btn_quanLyThiTruong_Click);
             // 
             // accordionControlElement8
             // 
@@ -330,41 +343,32 @@
             this.btn_quanLyPhanQuyenNhanVien.Text = "Phân quyền nhân viên";
             this.btn_quanLyPhanQuyenNhanVien.Click += new System.EventHandler(this.btn_quanLyPhanQuyenNhanVien_Click);
             // 
-            // btn_quanLyChiPhi
+            // accordionControlElement7
             // 
-            this.btn_quanLyChiPhi.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyChiPhi.ImageOptions.Image")));
-            this.btn_quanLyChiPhi.Name = "btn_quanLyChiPhi";
-            this.btn_quanLyChiPhi.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.btn_quanLyChiPhi.Tag = "Q010";
-            this.btn_quanLyChiPhi.Text = "Chi Phí";
-            this.btn_quanLyChiPhi.Click += new System.EventHandler(this.btn_quanLyChiPhi_Click);
+            this.accordionControlElement7.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.btn_quanLyKhoHang,
+            this.btn_quanLyNguyenLieuKhoHang});
+            this.accordionControlElement7.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement7.ImageOptions.Image")));
+            this.accordionControlElement7.Name = "accordionControlElement7";
+            this.accordionControlElement7.Text = "Kho hàng";
             // 
-            // btn_quanLyDoanhThu
+            // btn_quanLyKhoHang
             // 
-            this.btn_quanLyDoanhThu.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyDoanhThu.ImageOptions.Image")));
-            this.btn_quanLyDoanhThu.Name = "btn_quanLyDoanhThu";
-            this.btn_quanLyDoanhThu.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.btn_quanLyDoanhThu.Tag = "Q011";
-            this.btn_quanLyDoanhThu.Text = "Doanh thu";
-            this.btn_quanLyDoanhThu.Click += new System.EventHandler(this.btn_quanLyDoanhThu_Click);
+            this.btn_quanLyKhoHang.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyKhoHang.ImageOptions.Image")));
+            this.btn_quanLyKhoHang.Name = "btn_quanLyKhoHang";
+            this.btn_quanLyKhoHang.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_quanLyKhoHang.Tag = "Q006";
+            this.btn_quanLyKhoHang.Text = "Quản lý kho hàng";
+            this.btn_quanLyKhoHang.Click += new System.EventHandler(this.btn_quanLyKhoHang_Click);
             // 
-            // btn_tinhToanLoiNhuan
+            // btn_quanLyNguyenLieuKhoHang
             // 
-            this.btn_tinhToanLoiNhuan.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_tinhToanLoiNhuan.ImageOptions.Image")));
-            this.btn_tinhToanLoiNhuan.Name = "btn_tinhToanLoiNhuan";
-            this.btn_tinhToanLoiNhuan.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.btn_tinhToanLoiNhuan.Tag = "Q012";
-            this.btn_tinhToanLoiNhuan.Text = "Tính toán lợi nhuận";
-            this.btn_tinhToanLoiNhuan.Click += new System.EventHandler(this.btn_tinhToanLoiNhuan_Click);
-            // 
-            // btn_quanLyThiTruong
-            // 
-            this.btn_quanLyThiTruong.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyThiTruong.ImageOptions.Image")));
-            this.btn_quanLyThiTruong.Name = "btn_quanLyThiTruong";
-            this.btn_quanLyThiTruong.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.btn_quanLyThiTruong.Tag = "Q013";
-            this.btn_quanLyThiTruong.Text = "Thị trường";
-            this.btn_quanLyThiTruong.Click += new System.EventHandler(this.btn_quanLyThiTruong_Click);
+            this.btn_quanLyNguyenLieuKhoHang.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_quanLyNguyenLieuKhoHang.ImageOptions.Image")));
+            this.btn_quanLyNguyenLieuKhoHang.Name = "btn_quanLyNguyenLieuKhoHang";
+            this.btn_quanLyNguyenLieuKhoHang.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btn_quanLyNguyenLieuKhoHang.Tag = "Q007";
+            this.btn_quanLyNguyenLieuKhoHang.Text = "Quản lý nguyên liệu";
+            this.btn_quanLyNguyenLieuKhoHang.Click += new System.EventHandler(this.btn_quanLyNguyenLieuKhoHang_Click);
             // 
             // accordionControlElement5
             // 
@@ -455,6 +459,32 @@
             this.btn_tinhNangBoSung.Text = "Tính năng bổ sung";
             this.btn_tinhNangBoSung.Click += new System.EventHandler(this.btn_tinhNangBoSung_Click);
             // 
+            // accordionControlElement4
+            // 
+            this.accordionControlElement4.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.btnLoaiTieuChi,
+            this.btnSanPham_TieuChi});
+            this.accordionControlElement4.Expanded = true;
+            this.accordionControlElement4.ImageOptions.Image = global::GUI.Properties.Resources.bubble_32x32;
+            this.accordionControlElement4.Name = "accordionControlElement4";
+            this.accordionControlElement4.Text = "Tiêu chí sản phẩm";
+            // 
+            // btnLoaiTieuChi
+            // 
+            this.btnLoaiTieuChi.ImageOptions.Image = global::GUI.Properties.Resources.scripts_32x32;
+            this.btnLoaiTieuChi.Name = "btnLoaiTieuChi";
+            this.btnLoaiTieuChi.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btnLoaiTieuChi.Text = "Loại tiêu chí";
+            this.btnLoaiTieuChi.Click += new System.EventHandler(this.btnLoaiTieuChi_Click);
+            // 
+            // btnSanPham_TieuChi
+            // 
+            this.btnSanPham_TieuChi.ImageOptions.Image = global::GUI.Properties.Resources.insert_32x32;
+            this.btnSanPham_TieuChi.Name = "btnSanPham_TieuChi";
+            this.btnSanPham_TieuChi.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.btnSanPham_TieuChi.Text = "Sản phẩm - Tiêu Chí";
+            this.btnSanPham_TieuChi.Click += new System.EventHandler(this.btnSanPham_TieuChi_Click);
+            // 
             // accordionControlElement3
             // 
             this.accordionControlElement3.Name = "accordionControlElement3";
@@ -535,5 +565,8 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyThiTruong;
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyChiPhiNhanCong;
         private DevExpress.XtraBars.Navigation.AccordionControlElement btn_quanLyChiPhiThietKeBaoBi;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement4;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement btnLoaiTieuChi;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement btnSanPham_TieuChi;
     }
 }

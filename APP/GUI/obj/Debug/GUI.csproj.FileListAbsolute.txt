@@ -323,3 +323,7 @@ E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_ThemNha
 E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_ThemQuyen.resources
 E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_ThemVaiTro.resources
 D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_thietLapTaiKhoan.resources
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_thietLapTaiKhoan.resources
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_LoaiTieuChi.resources
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_SanPham_TieuChi.resources
+E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_themTieuChi_SanPhamTieuChi.resources

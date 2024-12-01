@@ -961,3 +961,43 @@ USE [master]
 GO
 ALTER DATABASE [DoAnTotNghiep] SET  READ_WRITE 
 GO
+--Thêm bảng tiêu chí để lưu trọng số
+CREATE TABLE TieuChi(
+	MaTieuChi varchar(10) PRIMARY KEY,
+	TenTieuChi nvarchar(255),
+)
+CREATE TABLE TieuChi_SanPham
+(
+	MaTieuChi varchar(10),
+	MaSanPham varchar(10),
+	TrongSo decimal(5,2),
+	constraint PK_TC_SP Primary key (MaTieuChi,MaSanPham),
+	constraint FK_TCSP_TC Foreign key (MaTieuChi) References TieuChi(MaTieuChi),
+	constraint FK_TCSP_SP Foreign Key (MaSanPham) References SanPham(MaSanPham)
+)
+INSERT INTO TieuChi (MaTieuChi, TenTieuChi)
+VALUES 
+    ('TC001', N'Chất lượng'),
+    ('TC002', N'Thiết kế'),
+    ('TC003', N'Hiệu suất'),
+    ('TC004', N'Giá cả'),
+    ('TC005', N'Phản hồi khách hàng'),
+    ('TC006', N'Dịch vụ khách hàng'),
+    ('TC007', N'Tính bền vững'),
+    ('TC008', N'Nguyên liệu');
+INSERT INTO TieuChi_SanPham (MaTieuChi, MaSanPham, TrongSo)
+VALUES 
+    ('TC001', 'SP001', 0.25), -- Chất lượng
+    ('TC002', 'SP001', 0.20), -- Thiết kế
+    ('TC003', 'SP001', 0.15), -- Hiệu suất
+    ('TC004', 'SP001', 0.10), -- Giá cả
+    ('TC005', 'SP001', 0.05), -- Phản hồi khách hàng
+    ('TC006', 'SP001', 0.05), -- Dịch vụ khách hàng
+    ('TC007', 'SP001', 0.05), -- Tính bền vững
+    ('TC008', 'SP001', 0.15); -- Nguyên liệu
+
+select * from TieuChi_SanPham
+select * from DoBen
+select * from HieuSuat
+
+select * from PhanHoiNguoiDung

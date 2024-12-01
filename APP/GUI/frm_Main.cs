@@ -275,6 +275,16 @@ namespace GUI
         {
             loadForm(new frm_quanLyNguyenLieu());
         }
+
+        private void btnLoaiTieuChi_Click(object sender, EventArgs e)
+        {
+            loadForm(new frm_LoaiTieuChi());
+        }
+
+        private void btnSanPham_TieuChi_Click(object sender, EventArgs e)
+        {
+            loadForm(new frm_SanPham_TieuChi());
+        }
     }
 }
     
