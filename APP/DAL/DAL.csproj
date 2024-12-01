@@ -50,6 +50,7 @@
     <Compile Include="ChiPhiDAL.cs" />
     <Compile Include="DichVuKhachHangDAL.cs" />
     <Compile Include="DichVuPhanQuyenDAL.cs" />
+    <Compile Include="DiemSanPhamTheoTungTieuChiDAL.cs" />
     <Compile Include="DoanhThuDAL.cs" />
     <Compile Include="DoBenDAL.cs" />
     <Compile Include="GiaCaDAL.cs" />
@@ -64,8 +65,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuyenDAL.cs" />
     <Compile Include="SanPhamDAL.cs" />
+    <Compile Include="SanPham_TieuChiDAL.cs" />
     <Compile Include="ThietKeDAL.cs" />
     <Compile Include="ThiTruongDAL.cs" />
+    <Compile Include="TieuChiDAL.cs" />
     <Compile Include="TinhNangBoSungDAL.cs" />
     <Compile Include="TongCacNguyenLieuDAL.cs" />
     <Compile Include="VaiTroDAL.cs" />

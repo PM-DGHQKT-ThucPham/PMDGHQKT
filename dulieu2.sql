@@ -88,29 +88,46 @@ DECLARE @XepHangNguoiDung INT;
 DECLARE @BinhLuan NVARCHAR(MAX);
 DECLARE @NgayPhanHoi DATE;
 
+-- Các bình luận mẫu cho từng mức xếp hạng
+DECLARE @BinhLuan5 NVARCHAR(MAX) = N'';
+DECLARE @BinhLuan4 NVARCHAR(MAX) = N'';
+DECLARE @BinhLuan3 NVARCHAR(MAX) = N'';
+DECLARE @BinhLuan2 NVARCHAR(MAX) = N'';
+DECLARE @BinhLuan1 NVARCHAR(MAX) = N'';
+
+-- Tạo các câu bình luận mẫu cho mỗi mức xếp hạng
+SET @BinhLuan5 = N'Sản phẩm rất tươi ngon, giữ được hương vị tự nhiên của trái cây.|Chất lượng tuyệt vời, giá cả hợp lý, tôi rất hài lòng.|Đây là sản phẩm tốt nhất mà tôi từng mua, sẽ quay lại mua thêm.|Sản phẩm hoàn hảo, hương vị tươi ngon, giữ lâu mà không bị hỏng.|Chất lượng cao, trái cây rất tươi và ngon miệng.|Mình rất hài lòng với sản phẩm này, sẽ mua lại.|Tôi rất thích sản phẩm này, rất đáng đồng tiền bát gạo.|Đây là sản phẩm tuyệt vời, sẽ giới thiệu cho bạn bè.|Sản phẩm tốt, độ tươi rất cao, giá lại hợp lý.|Rất ấn tượng với chất lượng sản phẩm và dịch vụ.';  
+SET @BinhLuan4 = N'Sản phẩm tốt, nhưng có thể cải thiện một chút về độ ngọt.|Chất lượng tốt nhưng tôi nghĩ có thể cải thiện thêm về hương vị.|Sản phẩm khá ngon, nhưng cần cải thiện về độ tươi.|Sản phẩm ổn, tuy nhiên hương vị có thể tốt hơn.|Chất lượng khá tốt, nhưng cần thay đổi chút về độ ngọt.|Tốt nhưng không phải xuất sắc, giá hợp lý.|Đây là sản phẩm khá ổn, tuy nhiên vẫn có thể làm tốt hơn.|Mua sản phẩm này khá ok, nhưng chưa hoàn hảo.|Chất lượng tốt nhưng chưa đạt đến mức tuyệt vời.|Sản phẩm ổn, nhưng tôi mong đợi một chút sự cải thiện.';  
+SET @BinhLuan3 = N'Chất lượng bình thường, không có gì đặc biệt.|Sản phẩm bình thường, không có gì nổi bật.|Mình không thấy gì đặc biệt về sản phẩm này.|Chất lượng không có gì đặc biệt, giá khá hợp lý.|Sản phẩm khá bình thường, không gây ấn tượng.|Tôi cảm thấy sản phẩm này bình thường, không quá xuất sắc.|Sản phẩm ổn nhưng không có gì đặc biệt.|Chất lượng ở mức bình thường, không gây ấn tượng mạnh.|Sản phẩm không xấu nhưng không có gì đặc biệt.|Chất lượng bình thường, có thể tìm được những sản phẩm tương tự với giá rẻ hơn.';  
+SET @BinhLuan2 = N'Chất lượng kém, không giống mô tả.|Sản phẩm không như mong đợi, chất lượng kém.|Không hài lòng với chất lượng của sản phẩm.|Sản phẩm không giống mô tả, rất thất vọng.|Chất lượng kém, không đáng tiền.|Sản phẩm không đạt yêu cầu, tôi sẽ không mua lại.|Sản phẩm không giống với mô tả, rất kém.|Không như tôi kỳ vọng, chất lượng không tốt.|Mình không hài lòng với sản phẩm này, sẽ không mua nữa.|Sản phẩm này chất lượng rất kém, tôi rất thất vọng.';  
+SET @BinhLuan1 = N'Dịch vụ tệ, sản phẩm không như mong đợi.|Sản phẩm rất tệ, tôi không muốn mua nữa.|Chất lượng dịch vụ tệ, sản phẩm không tốt.|Tôi không hài lòng với sản phẩm, sẽ không quay lại.|Chất lượng sản phẩm quá tệ, dịch vụ cũng không tốt.|Sản phẩm không giống quảng cáo, rất thất vọng.|Chất lượng kém, dịch vụ không hỗ trợ tốt.|Sản phẩm này quá tệ, không đáng tiền.|Dịch vụ và sản phẩm đều rất tệ, tôi không hài lòng.|Quá thất vọng với sản phẩm, sẽ không mua nữa.';
+
 WHILE @i <= 100
 BEGIN
     -- Tạo mã phản hồi ngẫu nhiên
-    SET @MaPhanHoi = 'PH' + RIGHT('000' + CAST(@i AS VARCHAR(3)) +'SP002', 3);
+    SET @MaPhanHoi = 'PH' + RIGHT('000' + CAST(@i AS VARCHAR(3)), 3)+'SP002';
     
     -- Tạo Xếp hạng người dùng ngẫu nhiên từ 1 đến 5
     SET @XepHangNguoiDung = (RAND() * 5) + 1;
     SET @XepHangNguoiDung = ROUND(@XepHangNguoiDung, 0);
 
-    -- Tạo bình luận ngẫu nhiên (có thể thay đổi thêm bình luận cho phong phú)
+    -- Chọn bình luận ngẫu nhiên dựa trên XepHangNguoiDung
     IF @XepHangNguoiDung = 5
-        SET @BinhLuan = N'Sản phẩm rất tươi ngon, giữ được hương vị tự nhiên của trái cây.';
+        SET @BinhLuan = (SELECT TOP 1 value FROM STRING_SPLIT(@BinhLuan5, '|') ORDER BY NEWID());
     ELSE IF @XepHangNguoiDung = 4
-        SET @BinhLuan = N'Sản phẩm tốt, nhưng có thể cải thiện một chút về độ ngọt.';
+        SET @BinhLuan = (SELECT TOP 1 value FROM STRING_SPLIT(@BinhLuan4, '|') ORDER BY NEWID());
     ELSE IF @XepHangNguoiDung = 3
-        SET @BinhLuan = N'Chất lượng bình thường, không có gì đặc biệt.';
+        SET @BinhLuan = (SELECT TOP 1 value FROM STRING_SPLIT(@BinhLuan3, '|') ORDER BY NEWID());
     ELSE IF @XepHangNguoiDung = 2
-        SET @BinhLuan = N'Chất lượng kém, không giống mô tả.';
+        SET @BinhLuan = (SELECT TOP 1 value FROM STRING_SPLIT(@BinhLuan2, '|') ORDER BY NEWID());
     ELSE
-        SET @BinhLuan = N'Dịch vụ tệ, sản phẩm không như mong đợi.';
+        SET @BinhLuan = (SELECT TOP 1 value FROM STRING_SPLIT(@BinhLuan1, '|') ORDER BY NEWID());
+
+    -- Chuyển đổi kết quả về NVARCHAR để giữ dấu
+    SET @BinhLuan = CAST(@BinhLuan AS NVARCHAR(MAX));
 
     -- Tạo Ngày phản hồi ngẫu nhiên sau ngày 22/05/2024
-    SET @NgayPhanHoi = DATEADD(DAY, (RAND() * 100) + 1, '2024-05-22');  -- Tạo ngày sau 22/05/2024
+    SET @NgayPhanHoi = DATEADD(DAY, (RAND() * 100) + 1, '2024-05-23');  -- Tạo ngày sau 23/05/2024
     
     -- Thực hiện lệnh INSERT
     INSERT INTO PhanHoiNguoiDung (MaPhanHoi, MaSanPham, XepHangNguoiDung, BinhLuan, NgayPhanHoi)
@@ -280,6 +297,3 @@ VALUES
 ('DT021SP002', 'DT3SP002', N'Doanh thu bán qua đối tác phân phối tháng 9', 1600000000, '2024-09-01'),
 ('DT022SP002', 'DT3SP002', N'Doanh thu bán qua đối tác phân phối tháng 10', 1700000000, '2024-10-01'),
 ('DT023SP002', 'DT3SP002', N'Doanh thu bán qua đối tác phân phối tháng 11', 1800000000, '2024-11-01');
-
-
-

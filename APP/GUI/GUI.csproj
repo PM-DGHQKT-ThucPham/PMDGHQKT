@@ -157,6 +157,12 @@
     <Compile Include="frm_lapThongKeBaoCao.Designer.cs">
       <DependentUpon>frm_lapThongKeBaoCao.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_LoaiTieuChi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_LoaiTieuChi.Designer.cs">
+      <DependentUpon>frm_LoaiTieuChi.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_phanTichXuHuong.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -301,6 +307,12 @@
     <Compile Include="frm_quanLyTinhNang.Designer.cs">
       <DependentUpon>frm_quanLyTinhNang.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_SanPham_TieuChi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_SanPham_TieuChi.Designer.cs">
+      <DependentUpon>frm_SanPham_TieuChi.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_themChiTietThanhPhanNguyenLieu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -318,6 +330,12 @@
     </Compile>
     <Compile Include="frm_ThemQuyen.Designer.cs">
       <DependentUpon>frm_ThemQuyen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_themTieuChi_SanPhamTieuChi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_themTieuChi_SanPhamTieuChi.Designer.cs">
+      <DependentUpon>frm_themTieuChi_SanPhamTieuChi.cs</DependentUpon>
     </Compile>
     <Compile Include="frm_ThemVaiTro.cs">
       <SubType>Form</SubType>
@@ -360,6 +378,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_lapThongKeLoiNhuan.resx">
       <DependentUpon>frm_lapThongKeLoiNhuan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_LoaiTieuChi.resx">
+      <DependentUpon>frm_LoaiTieuChi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_main.resx">
       <DependentUpon>frm_main.cs</DependentUpon>
@@ -424,6 +445,9 @@
     <EmbeddedResource Include="frm_quanLyTinhNang.resx">
       <DependentUpon>frm_quanLyTinhNang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frm_SanPham_TieuChi.resx">
+      <DependentUpon>frm_SanPham_TieuChi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_themChiTietThanhPhanNguyenLieu.resx">
       <DependentUpon>frm_themChiTietThanhPhanNguyenLieu.cs</DependentUpon>
     </EmbeddedResource>
@@ -432,6 +456,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_ThemQuyen.resx">
       <DependentUpon>frm_ThemQuyen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_themTieuChi_SanPhamTieuChi.resx">
+      <DependentUpon>frm_themTieuChi_SanPhamTieuChi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_ThemVaiTro.resx">
       <DependentUpon>frm_ThemVaiTro.cs</DependentUpon>
@@ -475,6 +502,7 @@
   <ItemGroup>
     <Content Include="Resources\bg1.jpg" />
     <Content Include="Resources\bg5.jpg" />
+    <None Include="Resources\scripts_32x32.png" />
     <None Include="Resources\bg61.jpg" />
     <None Include="Resources\bg51.jpg" />
     <Content Include="Resources\bg6.jpg" />
@@ -507,6 +535,9 @@
     <None Include="Resources\icons8-eye-32.png" />
     <None Include="Resources\icons8-login-35.png" />
     <None Include="Resources\icons8-password-35.png" />
+    <None Include="Resources\bubble_32x32.png" />
+    <None Include="Resources\insert_32x32.png" />
+    <None Include="Resources\congThuc.jpg" />
     <Content Include="Resources\logo1.jpg" />
     <Content Include="Resources\logo2.jpg" />
     <Content Include="Resources\logo3.jpg" />
