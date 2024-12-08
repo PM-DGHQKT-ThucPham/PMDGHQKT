@@ -327,3 +327,6 @@ E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_thietLa
 E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_LoaiTieuChi.resources
 E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_SanPham_TieuChi.resources
 E:\Code Sinh Vien Nam 4\DoAnTotNghiep\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_themTieuChi_SanPhamTieuChi.resources
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_LoaiTieuChi.resources
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_SanPham_TieuChi.resources
+D:\Hoc\IT\HOCKY_7\PTPM\DoAn\PMDGHQKT\APP\GUI\obj\Debug\GUI.frm_themTieuChi_SanPhamTieuChi.resources

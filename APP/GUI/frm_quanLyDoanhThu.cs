@@ -178,7 +178,6 @@ namespace GUI
             }
         }
 
-
         private void Btn_clear_Click(object sender, EventArgs e)
         {
             XoaTextBoxLoaiDoanhThu();

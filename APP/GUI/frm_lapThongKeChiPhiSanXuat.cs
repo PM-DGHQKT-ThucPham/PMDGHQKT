@@ -46,6 +46,23 @@ namespace GUI
             cbo_loaiChiPhi.SelectedIndexChanged += Cbo_loaiChiPhi_SelectedIndexChanged;
             btn_timKiem.Click += Btn_timKiem_Click;
             PlaceHolder.SetPlaceholder(txt_timKiem, "Nhập thông tin tìm kiếm");
+            //chỉnh sửa dtp hiển thị ngày tháng năm
+            dtp_ngayBatDau.Format = DateTimePickerFormat.Custom;
+            dtp_ngayBatDau.CustomFormat = "dd/MM/yyyy";
+            dtp_ngayKetThuc.Format = DateTimePickerFormat.Custom;
+            dtp_ngayKetThuc.CustomFormat = "dd/MM/yyyy";
+            dgv_dsChiPhi.SelectionChanged += Dgv_dsChiPhi_SelectionChanged;
+        }
+
+        private void Dgv_dsChiPhi_SelectionChanged(object sender, EventArgs e)
+        {
+            //tính tổng chi phí trên datagridview
+            decimal tongChiPhi = 0;
+            foreach (DataGridViewRow row in dgv_dsChiPhi.SelectedRows)
+            {
+                tongChiPhi += Convert.ToDecimal(row.Cells["SoTien"].Value);
+            }
+            txt_tongTien.Text = $"Tổng chi phí: {tongChiPhi:N0} VND";
         }
 
         private void Btn_timKiem_Click(object sender, EventArgs e)
@@ -197,7 +214,6 @@ namespace GUI
                 MessageBox.Show("Lỗi khi tải dữ liệu sản phẩm: " + ex.Message);
             }
         }
-        //hiển thị chi phí theo loại chi phí
         private void HienThiChiPhiTheoLoaiChiPhi(List<ChiPhi> _lstChiPhi)
         {
             // Xóa dữ liệu cũ
@@ -207,6 +223,7 @@ namespace GUI
 
             // Gắn nhãn cho biểu đồ
             chart_chiPhi.Titles.Add("Chi phí theo loại chi phí");
+            chart_chiPhi.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold);
 
             // Tính toán tổng chi phí theo loại
             var chiPhiTheoLoai = _lstChiPhi
@@ -247,8 +264,78 @@ namespace GUI
                 Docking = Docking.Right
             };
             chart_chiPhi.Legends.Add(legend);
-        }
 
+            List<ChiPhi> chiPhiCoDinh = _lstChiPhi.Where(x => x.LoaiChiPhi.TenLoaiChiPhi == "Chi phí cố định").ToList();
+            List<ChiPhi> chiPhiGianTiep = _lstChiPhi.Where(x => x.LoaiChiPhi.TenLoaiChiPhi == "Chi phí gián tiếp").ToList();
+            List<ChiPhi> chiPhiBienDoi = _lstChiPhi.Where(x => x.LoaiChiPhi.TenLoaiChiPhi == "Chi phí biến đổi").ToList();
+            HienThiChiPhiChiTietTheoLoai(chiPhiCoDinh,chart_codinh);
+            HienThiChiPhiChiTietTheoLoai(chiPhiGianTiep,chart_giantiep);
+            HienThiChiPhiChiTietTheoLoai(chiPhiCoDinh,chart_biendoi);
+
+        }
+        private void HienThiChiPhiChiTietTheoLoai(List<ChiPhi> _lstChiPhi, Chart chart)
+        {
+            if (_lstChiPhi == null || !_lstChiPhi.Any())
+            {
+                MessageBox.Show("Không có dữ liệu chi phí để hiển thị.");
+                return;
+            }
+
+            // Tính tổng tất cả các chi phí trong danh sách
+            var tongTatCaChiPhi = _lstChiPhi.Sum(x => x.SoTien ?? 0);
+
+            if (tongTatCaChiPhi == 0)
+            {
+                MessageBox.Show("Tổng chi phí bằng 0, không thể hiển thị biểu đồ.");
+                return;
+            }
+
+            // Xóa dữ liệu cũ trên biểu đồ
+            chart.Series.Clear();
+            chart.Titles.Clear();
+
+            // Tạo Series mới cho biểu đồ
+            var series = new Series("Chi phí chi tiết")
+            {
+                ChartType = SeriesChartType.Pie
+            };
+
+            // Thêm dữ liệu vào biểu đồ
+            foreach (var chiPhi in _lstChiPhi)
+            {
+                // Lấy số tiền và mô tả của chi phí
+                var soTien = chiPhi.SoTien ?? 0;
+                var moTa = chiPhi.MoTa ?? "Không xác định";
+
+                // Tính phần trăm
+                double phanTram = (double)soTien / (double)tongTatCaChiPhi * 100;
+
+                // Thêm điểm vào biểu đồ
+                int index = series.Points.AddXY(moTa, soTien); // Thêm điểm và lấy index
+                var point = series.Points[index]; // Lấy đối tượng DataPoint từ index
+
+                // Hiển thị % trên biểu đồ
+                point.Label = $"{phanTram:F2}%";
+
+                // Hiển thị tên + số tiền trong chú thích
+                point.LegendText = $"{moTa} - {soTien:N0}";
+
+                // Thay đổi font chữ của Label (nhãn của từng DataPoint) để làm chữ lớn hơn
+                point.Font = new Font("Arial", 8); // Font cho các nhãn (Label)
+            }
+
+            // Cấu hình font cho chú thích của biểu đồ
+            chart.Legends[0].Font = new Font("Arial", 8); // Font cho LegendText
+
+            // Cấu hình biểu đồ
+            chart.Series.Add(series);
+
+            // Thay đổi kích thước biểu đồ tròn để to lên
+            chart.ChartAreas[0].InnerPlotPosition = new ElementPosition(5, 5, 90, 90); // Tăng phần không gian biểu đồ tròn
+
+            // Cấu hình Legend để hiển thị tên và số tiền trong chú thích
+            chart.Legends[0].Enabled = true;
+        }
 
         private void HienThiChiPhiSanXuatTheoThang(List<ChiPhi> _lstChiPhi, string title)
         {
@@ -259,6 +346,7 @@ namespace GUI
 
             // Gắn nhãn cho biểu đồ
             chart_chiPhi.Titles.Add(title);
+            chart_chiPhi.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold);
 
             // Tính toán tổng chi phí theo tháng
             var chiPhiTheoThang = _lstChiPhi
@@ -267,6 +355,13 @@ namespace GUI
                 .Select(group => new { Thang = group.Key, TongChiPhi = group.Sum(x => x.SoTien ?? 0) })
                 .OrderBy(x => x.Thang)
                 .ToList();
+
+            // Kiểm tra xem có dữ liệu không
+            if (chiPhiTheoThang.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu chi phí để hiển thị.");
+                return;
+            }
 
             // Khởi tạo Series cho biểu đồ cột
             Series series = new Series("Chi phí")
@@ -284,16 +379,22 @@ namespace GUI
             // Thêm Series vào biểu đồ
             chart_chiPhi.Series.Add(series);
 
-            // Cấu hình trục
+            // Cấu hình trục X
             chart_chiPhi.ChartAreas[0].AxisX.Title = "Tháng";
             chart_chiPhi.ChartAreas[0].AxisX.Interval = 1;
 
+            // Cấu hình trục Y
             chart_chiPhi.ChartAreas[0].AxisY.Title = "Chi phí (VND)";
             chart_chiPhi.ChartAreas[0].AxisY.Interval = 1000000000; // Từng 1 tỷ
             chart_chiPhi.ChartAreas[0].AxisY.Minimum = 0;
-            chart_chiPhi.ChartAreas[0].AxisY.Maximum = (double)(chiPhiTheoThang.Max(x => x.TongChiPhi) + 500000000); // Giới hạn dựa trên dữ liệu
-        }
 
+            // Cập nhật giá trị tối đa của trục Y dựa trên dữ liệu
+            var maxValue = chiPhiTheoThang.Max(x => x.TongChiPhi);
+            chart_chiPhi.ChartAreas[0].AxisY.Maximum = (double)(maxValue + 500000000); // Thêm 500 triệu cho không gian hiển thị
+
+            // Đảm bảo biểu đồ được vẽ lại
+            chart_chiPhi.Invalidate();
+        }
         //viết hàm load combobox loại chi phí
         private void LoadComBoBoxLoaiChiPhi()
         {
@@ -388,6 +489,8 @@ namespace GUI
 
             //ẩn cột loai chi phí
             dgv_dsChiPhi.Columns["LoaiChiPhi"].Visible = false;
+            //tên chi phí có thể xuống dòng tăng chiều cao của dòng
+            dgv_dsChiPhi.Columns["MoTa"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
         }
         //hiển thị dữ liệu lên datagridview

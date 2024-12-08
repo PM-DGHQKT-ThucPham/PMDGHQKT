@@ -359,6 +359,8 @@ namespace GUI
 
             // Gắn nhãn cho biểu đồ
             chart_doanhThu.Titles.Add("Doanh thu theo loại doanh thu");
+            // tăng kích thước chữ
+            chart_doanhThu.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold);
 
             // Tính toán tổng doanh thu theo loại
             var doanhThuTheoLoai = _lstDoanhThu

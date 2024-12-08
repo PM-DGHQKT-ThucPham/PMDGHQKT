@@ -178,6 +178,7 @@ namespace GUI
                     cbo_sanPham.DataSource = _lstSanPham;
                     cbo_sanPham.DisplayMember = "TenSanPham";
                     cbo_sanPham.ValueMember = "MaSanPham";
+                    cbo_sanPham.SelectedIndex = 0;
                     cbo_sanPham.SelectedValueChanged += Cbo_sanPham_SelectedValueChanged;
                 }
             }
