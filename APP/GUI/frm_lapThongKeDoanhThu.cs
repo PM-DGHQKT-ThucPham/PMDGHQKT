@@ -55,6 +55,11 @@ namespace GUI
             btn_timKiem.Click += Btn_timKiem_Click;
             PlaceHolder.SetPlaceholder(txt_timKiem, "Nhập từ khóa tìm kiếm");
             btnReport.Click += BtnReport_Click;
+            //hiển thị dtp ngày tháng năm
+            dtp_ngayBatDau.Format = DateTimePickerFormat.Custom;
+            dtp_ngayBatDau.CustomFormat = "MM/yyyy";
+            dtp_ngayKetThuc.Format = DateTimePickerFormat.Custom;
+            dtp_ngayKetThuc.CustomFormat = "MM/yyyy";
         }
 
         private void BtnReport_Click(object sender, EventArgs e)
@@ -367,7 +372,8 @@ namespace GUI
                 .GroupBy(x => x.LoaiDoanhThu.TenLoaiDoanhThu)
                 .Select(group => new { Loai = group.Key, TongDoanhThu = group.Sum(x => x.SoTien ?? 0) })
                 .ToList();
-
+            decimal tongTien = _lstDoanhThu.Sum(x => x.SoTien ?? 0);
+            txt_tongTien.Text = $"Tổng tiền: {tongTien:N0} VNĐ";
             // Tính tổng doanh thu để tính phần trăm
             decimal tongDoanhThuTatCa = doanhThuTheoLoai.Sum(x => x.TongDoanhThu);
 
@@ -401,6 +407,7 @@ namespace GUI
                 Docking = Docking.Right
             };
             chart_doanhThu.Legends.Add(legend);
+
         }
 
         // Hiển thị doanh thu từng tháng lên biểu đồ
@@ -420,6 +427,9 @@ namespace GUI
                 .Select(group => new { Thang = group.Key, TongDoanhThu = group.Sum(x => x.SoTien ?? 0) })
                 .OrderBy(x => x.Thang)
                 .ToList();
+
+            decimal tongTien = _lstDoanhThu.Sum(x => x.SoTien ?? 0);
+            txt_tongTien.Text = $"Tổng tiền: {tongTien:N0} VNĐ";
 
             // Khởi tạo Series cho biểu đồ cột
             Series series = new Series("Doanh thu")
@@ -537,7 +547,10 @@ namespace GUI
                     dgv_dsDoanhThu.RowPostPaint += dgvSanPham_RowPostPaint;
                     dgv_dsDoanhThu.Invalidate();
                     dgv_dsDoanhThu.Refresh();
-                }  
+                    // Tính tổng số tiền
+                    decimal tongTien = _lstDoanhThu.Sum(x => x.SoTien ?? 0);
+                    txt_tongTien.Text = $"Tổng tiền: {tongTien:N0} VNĐ";
+                }
             }
             catch (Exception ex)
             {

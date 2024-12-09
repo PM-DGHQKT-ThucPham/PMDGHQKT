@@ -107,7 +107,7 @@
             this.groupBox3.Size = new System.Drawing.Size(832, 516);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Danh sách chi phí";
+            this.groupBox3.Text = "Danh sách doanh thu";
             // 
             // dgv_dsDoanhThu
             // 
@@ -303,7 +303,7 @@
             this.groupBox4.Size = new System.Drawing.Size(826, 243);
             this.groupBox4.TabIndex = 20;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Thông tin chi phí";
+            this.groupBox4.Text = "Thông tin  doanh thu";
             // 
             // cbo_loaiDoanhThu
             // 
@@ -436,7 +436,7 @@
             this.groupBox1.Size = new System.Drawing.Size(806, 516);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Danh sách loại chi phí";
+            this.groupBox1.Text = "Danh sách loại doanh thu";
             // 
             // frm_quanLyDoanhThu
             // 

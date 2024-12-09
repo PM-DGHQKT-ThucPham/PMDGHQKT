@@ -48,9 +48,9 @@ namespace GUI
             PlaceHolder.SetPlaceholder(txt_timKiem, "Nhập thông tin tìm kiếm");
             //chỉnh sửa dtp hiển thị ngày tháng năm
             dtp_ngayBatDau.Format = DateTimePickerFormat.Custom;
-            dtp_ngayBatDau.CustomFormat = "dd/MM/yyyy";
+            dtp_ngayBatDau.CustomFormat = "MM/yyyy";
             dtp_ngayKetThuc.Format = DateTimePickerFormat.Custom;
-            dtp_ngayKetThuc.CustomFormat = "dd/MM/yyyy";
+            dtp_ngayKetThuc.CustomFormat = "MM/yyyy";
             dgv_dsChiPhi.SelectionChanged += Dgv_dsChiPhi_SelectionChanged;
         }
 

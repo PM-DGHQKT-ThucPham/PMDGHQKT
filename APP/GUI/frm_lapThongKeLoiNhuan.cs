@@ -18,6 +18,7 @@ namespace GUI
     {
 
         LoiNhuanBLL _loiNhuanBLL = new LoiNhuanBLL();
+        DoanhThuBLL _doanhThuBLL = new DoanhThuBLL();
         List<LoiNhuan> _lstLoiNhuan = new List<LoiNhuan>();
 
         SanPhamBLL _sanPhamBLL = new SanPhamBLL();
@@ -36,9 +37,58 @@ namespace GUI
             _lstLoiNhuan=_loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSP);
             HienThiTatCaLoiNhuanTheoMaSanPham(_lstLoiNhuan);
             HienThiLoiNhuanLenBieuDo(_lstLoiNhuan);
+            HienThiTiLeLoiNhuanLenBieuDo(_lstLoiNhuan, _doanhThuBLL.LayDanhSachDoanhThu(maSP));
             cbo_chucNang.SelectedIndexChanged += Cbo_chucNang_SelectedIndexChanged;
             btn_timKiem.Click += Btn_timKiem_Click;
-            
+            //chỉnh sửa dtp hiển thị ngày tháng năm
+            dtp_ngayBatDau.Format = DateTimePickerFormat.Custom;
+            dtp_ngayBatDau.CustomFormat = "MM/yyyy";
+            dtp_ngayKetThuc.Format = DateTimePickerFormat.Custom;
+            dtp_ngayKetThuc.CustomFormat = "MM/yyyy";
+            dgv_dsLoiNhuan.SelectionChanged += Dgv_dsLoiNhuan_SelectionChanged;
+        }
+
+        private void Dgv_dsLoiNhuan_SelectionChanged(object sender, EventArgs e)
+        {
+            //lấy current row
+            if (dgv_dsLoiNhuan.CurrentRow != null)
+            {
+                LoiNhuan ln = (LoiNhuan)dgv_dsLoiNhuan.CurrentRow.DataBoundItem;
+                if (ln != null)
+                {
+
+                    //hiển thị tiền việt nam
+                    txt_loiNhuanGop.Text = $"{ln.LoiNhuanGop:N0} VND";
+                    txt_loiNhuanRong.Text = $"{ln.LoiNhuanRong:N0} VND"; ;
+                }
+                //tính tỉ lệ lợi nhuận gộp và ròng
+                // Lấy lợi nhuận gộp và ròng từ BLL
+                decimal loiNhuanGop = _loiNhuanBLL.TinhLoiNhuanGop(maSP, ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year);
+                decimal loiNhuanRong = _loiNhuanBLL.TinhLoiNhuanRong(maSP, ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year);
+                // Lấy doanh thu của sản phẩm trong cùng tháng và năm để tính tỷ lệ
+                List<DoanhThu> doanhThus = _doanhThuBLL.LayDoanhThuTheoThang(ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year, maSP);
+                //tính tổng doanh thu
+                decimal? totalDoanhThu = doanhThus?.Sum(dt => dt.SoTien);
+                DoanhThu doanhThu = new DoanhThu { SoTien = totalDoanhThu ?? 0 };
+                Decimal doanhThuThang = doanhThu?.SoTien ?? 0;
+                // Kiểm tra để tránh chia cho 0
+                if (doanhThuThang != 0)
+                {
+                    // Tính tỷ lệ lợi nhuận gộp và lợi nhuận ròng
+                    decimal tyLeLoiNhuanGop = (loiNhuanGop / doanhThuThang) * 100;
+                    decimal tyLeLoiNhuanRong = (loiNhuanRong / doanhThuThang) * 100;
+
+                    // Cập nhật lên giao diện
+                    txt_tyLeLoiNhuanGop.Text = tyLeLoiNhuanGop.ToString("F2") + '%'; // Hiển thị 2 chữ số sau dấu phẩy
+                    txt_tyLeLoiNhuanRong.Text = tyLeLoiNhuanRong.ToString("F2") + '%'; // Hiển thị 2 chữ số sau dấu phẩy
+                }
+                else
+                {
+                    // Nếu doanh thu = 0, tỉ lệ lợi nhuận gộp và ròng sẽ là 0%
+                    txt_tyLeLoiNhuanGop.Text = "0%";
+                    txt_tyLeLoiNhuanRong.Text = "0%";
+                }
+            }
         }
 
         private void Btn_timKiem_Click(object sender, EventArgs e)
@@ -115,6 +165,7 @@ namespace GUI
                 _lstLoiNhuan = _loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSP);
                 HienThiTatCaLoiNhuanTheoMaSanPham(_lstLoiNhuan);
                 HienThiLoiNhuanLenBieuDo(_lstLoiNhuan);
+                HienThiTiLeLoiNhuanLenBieuDo(_lstLoiNhuan, _doanhThuBLL.LayDanhSachDoanhThu(maSP));
             }
         }
         private void Cbo_sanPham_SelectedValueChanged(object sender, EventArgs e)
@@ -131,6 +182,7 @@ namespace GUI
             _lstLoiNhuan = _loiNhuanBLL.LayTatCaLoiNhuanTheoMaSanPham(maSP);
             HienThiTatCaLoiNhuanTheoMaSanPham(_lstLoiNhuan);
             HienThiLoiNhuanLenBieuDo(_lstLoiNhuan);
+            HienThiTiLeLoiNhuanLenBieuDo(_lstLoiNhuan, _doanhThuBLL.LayDanhSachDoanhThu(maSP));
         }
         private void LoadComboBoxSanPham()
         {
@@ -238,6 +290,96 @@ namespace GUI
             // Cập nhật biểu đồ
             chart_loiNhuan.Invalidate();
         }
+        private void HienThiTiLeLoiNhuanLenBieuDo(List<LoiNhuan> lstLoiNhuan, List<DoanhThu> lstDoanhThu)
+        {
+            if (lstLoiNhuan == null || lstLoiNhuan.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để hiển thị", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Xóa dữ liệu cũ trên biểu đồ
+            chart_tile.Series.Clear();
+            chart_tile.ChartAreas.Clear();
+            chart_tile.Titles.Clear();
+            chart_tile.Legends.Clear();
+
+            // Thêm tiêu đề biểu đồ
+            Title title = new Title("Biểu đồ tỷ lệ lợi nhuận")
+            {
+                Font = new Font("Arial", 12, FontStyle.Bold)
+            };
+            chart_tile.Titles.Add(title);
+
+            // Thêm khu vực biểu đồ
+            ChartArea chartArea = new ChartArea("TiLeLoiNhuanArea");
+            chartArea.AxisX.Title = "Thời gian";
+            chartArea.AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
+            chartArea.AxisY.Title = "Tỷ lệ (%)";
+            chartArea.AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
+            chartArea.AxisX.LabelStyle.Font = new Font("Arial", 12);
+            chartArea.AxisY.LabelStyle.Font = new Font("Arial", 12);
+            chartArea.AxisX.Interval = 1;
+            chart_tile.ChartAreas.Add(chartArea);
+
+            // Thêm series cho tỷ lệ lợi nhuận gộp
+            Series seriesGop = new Series("Tỷ lệ lợi nhuận gộp")
+            {
+                ChartType = SeriesChartType.Line,
+                BorderWidth = 2
+            };
+            chart_tile.Series.Add(seriesGop);
+
+            // Thêm series cho tỷ lệ lợi nhuận ròng
+            Series seriesRong = new Series("Tỷ lệ lợi nhuận ròng")
+            {
+                ChartType = SeriesChartType.Line,
+                BorderWidth = 2
+            };
+            chart_tile.Series.Add(seriesRong);
+
+            // Tính toán và thêm dữ liệu vào series
+            // Tính toán và thêm dữ liệu vào series
+            foreach (var loiNhuan in lstLoiNhuan)
+            {
+                // Tính tổng doanh thu cho tháng đó
+                var doanhThu = lstDoanhThu
+                .Where(dt => dt.ThoiGian.HasValue && dt.ThoiGian.Value.Month == loiNhuan.ThoiGian.Value.Month && dt.ThoiGian.Value.Year == loiNhuan.ThoiGian.Value.Year)  // Lọc doanh thu theo tháng và năm của lợi nhuận
+                .Sum(dt => dt.SoTien);  // Tính tổng doanh thu cho tháng đó
+
+                // Kiểm tra nếu doanh thu có giá trị
+                if (doanhThu > 0)
+                {
+                    // Tính tỷ lệ lợi nhuận
+                    decimal tyLeLoiNhuanGop = (loiNhuan.LoiNhuanGop.GetValueOrDefault() / doanhThu.GetValueOrDefault()) * 100;
+                    decimal tyLeLoiNhuanRong = (loiNhuan.LoiNhuanRong.GetValueOrDefault() / doanhThu.GetValueOrDefault()) * 100;
+
+                    // Xuất ra console để kiểm tra
+                    Console.WriteLine($"Thời gian: {loiNhuan.ThoiGian:MM/yyyy}");
+                    Console.WriteLine($"Tổng doanh thu: {doanhThu}");
+                    Console.WriteLine($"Lợi nhuận gộp: {loiNhuan.LoiNhuanGop.GetValueOrDefault()}, Tỷ lệ gộp: {tyLeLoiNhuanGop}%");
+                    Console.WriteLine($"Lợi nhuận ròng: {loiNhuan.LoiNhuanRong.GetValueOrDefault()}, Tỷ lệ ròng: {tyLeLoiNhuanRong}%");
+                    Console.WriteLine("----------------------------------------");
+
+                    // Thêm điểm vào series
+                    string thoiGian = string.Format(CultureInfo.InvariantCulture, "{0:MM/yyyy}", loiNhuan.ThoiGian);
+                    seriesGop.Points.AddXY(thoiGian, tyLeLoiNhuanGop);
+                    seriesRong.Points.AddXY(thoiGian, tyLeLoiNhuanRong);
+                }
+            }
+
+
+            // Thêm chú thích (Legend)
+            Legend legend = new Legend()
+            {
+                Font = new Font("Arial", 12, FontStyle.Bold)
+            };
+            chart_tile.Legends.Add(legend);
+
+            // Cập nhật biểu đồ
+            chart_tile.Invalidate();
+        }
+
 
         // load combobox chức năng
         private void LoadComboBoxChucNang()

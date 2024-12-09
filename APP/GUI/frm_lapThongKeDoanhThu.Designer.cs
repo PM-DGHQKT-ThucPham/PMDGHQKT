@@ -49,6 +49,7 @@
             this.dtp_ngayBatDau = new System.Windows.Forms.DateTimePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.chart_doanhThu = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.txt_tongTien = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsDoanhThu)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -75,9 +76,9 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.dgv_dsDoanhThu);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 316);
+            this.groupBox1.Location = new System.Drawing.Point(12, 305);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(918, 479);
+            this.groupBox1.Size = new System.Drawing.Size(918, 490);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Doanh thu từng tháng";
@@ -91,7 +92,7 @@
             this.dgv_dsDoanhThu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_dsDoanhThu.Location = new System.Drawing.Point(7, 26);
             this.dgv_dsDoanhThu.Name = "dgv_dsDoanhThu";
-            this.dgv_dsDoanhThu.Size = new System.Drawing.Size(905, 447);
+            this.dgv_dsDoanhThu.Size = new System.Drawing.Size(905, 458);
             this.dgv_dsDoanhThu.TabIndex = 0;
             // 
             // groupBox2
@@ -264,12 +265,24 @@
             this.chart_doanhThu.TabIndex = 0;
             this.chart_doanhThu.Text = "chart1";
             // 
+            // txt_tongTien
+            // 
+            this.txt_tongTien.AutoSize = true;
+            this.txt_tongTien.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_tongTien.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.txt_tongTien.Location = new System.Drawing.Point(610, 293);
+            this.txt_tongTien.Name = "txt_tongTien";
+            this.txt_tongTien.Size = new System.Drawing.Size(84, 20);
+            this.txt_tongTien.TabIndex = 6;
+            this.txt_tongTien.Text = "Tổng tiền";
+            // 
             // frm_lapThongKeDoanhThu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1322, 807);
+            this.Controls.Add(this.txt_tongTien);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -283,6 +296,7 @@
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart_doanhThu)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -306,5 +320,6 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_doanhThu;
         private System.Windows.Forms.ComboBox cbo_sanPham;
         private System.Windows.Forms.Button btnReport;
+        private System.Windows.Forms.Label txt_tongTien;
     }
 }
