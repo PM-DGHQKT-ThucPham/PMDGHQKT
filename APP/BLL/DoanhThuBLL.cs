@@ -94,5 +94,16 @@ namespace BLL
                 return false;
             }
         }
+        public List<(DateTime Thang, string LoaiDoanhThu, decimal DoanhThu, decimal TiLeTangTruong)> TinhTiLeTangTruongTheoLoai(string maSanPham)
+        {
+            try
+            {
+                return _doanhThuDAL.TinhTiLeTangTruongTheoLoai(maSanPham);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

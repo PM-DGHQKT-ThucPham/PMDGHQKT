@@ -1295,7 +1295,6 @@ namespace GUI
                 {
                     row.Height = Math.Max(row.Height, 30); // Đặt chiều cao tối thiểu cho các hàng
                 }
-
             }
             catch (Exception ex)
             {

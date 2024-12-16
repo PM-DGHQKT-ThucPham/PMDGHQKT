@@ -56,6 +56,7 @@
             this.dgv_dsLoiNhuan = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.btn_themLN = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsChiPhi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsDoanhThu)).BeginInit();
@@ -167,6 +168,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btn_themLN);
             this.groupBox2.Controls.Add(this.btn_capNhat);
             this.groupBox2.Controls.Add(this.txt_tyLeLoiNhuanRong);
             this.groupBox2.Controls.Add(this.label7);
@@ -376,6 +378,16 @@
             this.label6.Text = "Tính toán lợi nhuận ";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btn_themLN
+            // 
+            this.btn_themLN.BackgroundImage = global::GUI.Properties.Resources.icons8_add_35;
+            this.btn_themLN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_themLN.Location = new System.Drawing.Point(713, 116);
+            this.btn_themLN.Name = "btn_themLN";
+            this.btn_themLN.Size = new System.Drawing.Size(51, 40);
+            this.btn_themLN.TabIndex = 44;
+            this.btn_themLN.UseVisualStyleBackColor = true;
+            // 
             // frm_quanLyLoiNhuan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -430,5 +442,6 @@
         private System.Windows.Forms.TextBox txt_tyLeLoiNhuanGop;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btn_capNhat;
+        private System.Windows.Forms.Button btn_themLN;
     }
 }

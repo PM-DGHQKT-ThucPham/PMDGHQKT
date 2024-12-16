@@ -48,5 +48,9 @@ namespace BLL
         {
             return _loiNhuanDAL.TinhTyLeLoiNhuan(thang, nam);
         }
+        public bool ThemLoiNhuan(LoiNhuan ln)
+        {
+            return _loiNhuanDAL.ThemLoiNhuan(ln);
+        }
     }
 }

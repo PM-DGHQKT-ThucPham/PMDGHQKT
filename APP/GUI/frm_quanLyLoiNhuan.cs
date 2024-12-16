@@ -40,6 +40,62 @@ namespace GUI
             dgv_dsLoiNhuan.SelectionChanged += Dgv_dsLoiNhuan_SelectionChanged;
             btn_timKiem.Click += Btn_timKiem_Click;
             btn_capNhat.Click += Btn_capNhat_Click;
+            btn_themLN.Click += Btn_themLN_Click;
+        }
+
+        private void Btn_themLN_Click(object sender, EventArgs e)
+        {
+            // Tạo mã lợi nhuận tự động
+            string maLoiNhuan = TaoMaLoiNhuan(maSanPham);
+
+            if (maLoiNhuan != null)
+            {
+                // Lấy các thông tin khác từ giao diện
+                var loiNhuanMoi = new LoiNhuan
+                {
+                    MaSanPham = maSanPham,
+                    LoiNhuanGop = 0,
+                    LoiNhuanRong = 0,
+                    MaLoiNhuan = maLoiNhuan // Gán mã lợi nhuận tự động vào bản ghi
+                };
+
+                // Thêm lợi nhuận vào cơ sở dữ liệu
+                if (_loiNhuanBLL.ThemLoiNhuan(loiNhuanMoi))
+                {
+                    MessageBox.Show("Thêm tháng mới thành công!");
+                    // Tải lại dữ liệu lên DataGridView
+                    LoadLaiTrang();
+                }
+                else
+                {
+                    MessageBox.Show("Thêm tháng mới thất bại!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Lỗi tạo mã lợi nhuận.");
+            }
+        }
+        public string TaoMaLoiNhuan(string maSanPham)
+        {
+            try
+            {
+                // Lấy tháng và năm hiện tại với định dạng "yyMM" để giảm độ dài mã
+                string thangNam = DateTime.Now.ToString("yyMM");
+
+                // Tạo mã lợi nhuận theo định dạng: "LN-yyMM-MaSanPham"
+                string maLoiNhuan = $"LN{thangNam}{maSanPham}";
+
+                // Loại bỏ các số 0 dư thừa sau "LN"
+                maLoiNhuan = maLoiNhuan.Replace("0", string.Empty);
+
+                return maLoiNhuan;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tạo mã lợi nhuận: " + ex.Message);
+                return null;
+            }
         }
 
         private void Btn_capNhat_Click(object sender, EventArgs e)

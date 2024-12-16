@@ -18,7 +18,7 @@ namespace DAL
             try
             {
                 _lstDoanhThu = new List<DoanhThu>();
-                _lstDoanhThu = db.DoanhThus.Where(d =>d.LoaiDoanhThu.MaSanPham==maSanPham).ToList();
+                _lstDoanhThu = db.DoanhThus.Where(d => d.LoaiDoanhThu.MaSanPham == maSanPham).OrderByDescending(x => x.ThoiGian).ToList();
                 return _lstDoanhThu;
             }
             catch (Exception ex)
@@ -32,7 +32,7 @@ namespace DAL
             try
             {
                 DoanhThu doanhThu = new DoanhThu();
-                doanhThu = db.DoanhThus.FirstOrDefault(x => x.MaDoanhThu == maDoanhThu && x.LoaiDoanhThu.MaSanPham==maSanPham);
+                doanhThu = db.DoanhThus.FirstOrDefault(x => x.MaDoanhThu == maDoanhThu && x.LoaiDoanhThu.MaSanPham == maSanPham);
                 return doanhThu;
             }
             catch (Exception ex)
@@ -46,7 +46,7 @@ namespace DAL
             try
             {
                 _lstDoanhThu = new List<DoanhThu>();
-                _lstDoanhThu = db.DoanhThus.Where(x => x.MaLoaiDoanhThu == maLoaiDoanhThu && x.LoaiDoanhThu.MaSanPham==maSanPham).ToList();
+                _lstDoanhThu = db.DoanhThus.Where(x => x.MaLoaiDoanhThu == maLoaiDoanhThu && x.LoaiDoanhThu.MaSanPham == maSanPham).OrderByDescending(x => x.ThoiGian).ToList();
                 return _lstDoanhThu;
             }
             catch (Exception ex)
@@ -60,7 +60,7 @@ namespace DAL
             try
             {
                 _lstDoanhThu = new List<DoanhThu>();
-                _lstDoanhThu = db.DoanhThus.Where(x => x.ThoiGian == ngay && x.LoaiDoanhThu.MaSanPham == maSanPham).ToList();
+                _lstDoanhThu = db.DoanhThus.Where(x => x.ThoiGian == ngay && x.LoaiDoanhThu.MaSanPham == maSanPham).OrderByDescending(x => x.ThoiGian).ToList();
                 return _lstDoanhThu;
             }
             catch (Exception ex)
@@ -74,7 +74,7 @@ namespace DAL
             try
             {
                 _lstDoanhThu = new List<DoanhThu>();
-                _lstDoanhThu = db.DoanhThus.Where(x =>x.LoaiDoanhThu.MaSanPham==maSanPham && x.ThoiGian.HasValue && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam ).ToList();
+                _lstDoanhThu = db.DoanhThus.Where(x => x.LoaiDoanhThu.MaSanPham == maSanPham && x.ThoiGian.HasValue && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam).OrderByDescending(x => x.ThoiGian).ToList();
                 return _lstDoanhThu;
             }
             catch (Exception ex)
@@ -89,7 +89,7 @@ namespace DAL
             try
             {
                 _lstDoanhThu = new List<DoanhThu>();
-                _lstDoanhThu = db.DoanhThus.Where(x =>x.LoaiDoanhThu.MaSanPham==maSanPham && x.ThoiGian >= tuNgay && x.ThoiGian <= denNgay).ToList();
+                _lstDoanhThu = db.DoanhThus.Where(x => x.LoaiDoanhThu.MaSanPham == maSanPham && x.ThoiGian >= tuNgay && x.ThoiGian <= denNgay).OrderByDescending(x => x.ThoiGian).ToList();
                 return _lstDoanhThu;
             }
             catch (Exception ex)
@@ -149,6 +149,54 @@ namespace DAL
                 return false;
             }
         }
+        public List<(DateTime Thang, string LoaiDoanhThu, decimal DoanhThu, decimal TiLeTangTruong)> TinhTiLeTangTruongTheoLoai(string maSanPham)
+        {
+            try
+            {
+                // Lấy danh sách doanh thu nhóm theo loại doanh thu và tháng
+                var doanhThuTheoLoai = db.DoanhThus
+                    .Where(d => d.LoaiDoanhThu.MaSanPham == maSanPham)
+                    .GroupBy(d => new { d.LoaiDoanhThu.TenLoaiDoanhThu, Thang = new DateTime(d.ThoiGian.Value.Year, d.ThoiGian.Value.Month, 1) }) // Nhóm theo loại và tháng
+                    .Select(g => new
+                    {
+                        g.Key.TenLoaiDoanhThu,
+                        g.Key.Thang,
+                        TongDoanhThu = g.Sum(x => x.SoTien)
+                    })
+                    .OrderBy(d => d.Thang) // Sắp xếp theo thời gian
+                    .ToList();
 
+                // Nhóm danh sách theo loại doanh thu
+                var doanhThuTheoLoaiNhom = doanhThuTheoLoai.GroupBy(d => d.TenLoaiDoanhThu);
+
+                var ketQua = new List<(DateTime Thang, string LoaiDoanhThu, decimal DoanhThu, decimal TiLeTangTruong)>();
+
+                // Xử lý từng nhóm loại doanh thu
+                foreach (var nhom in doanhThuTheoLoaiNhom)
+                {
+                    var doanhThuThangDau = nhom.First().TongDoanhThu; // Doanh thu tháng đầu tiên của nhóm này
+
+                    // Tính tỷ lệ tăng trưởng cho từng tháng
+                    var ketQuaTheoLoai = nhom.Select(d => (
+                      d.Thang,
+                      d.TenLoaiDoanhThu,
+                      d.TongDoanhThu ?? 0, // Đảm bảo giá trị không bị null
+                         TiLeTangTruong: doanhThuThangDau > 0
+                        ? (decimal)Math.Round((double)((d.TongDoanhThu ?? 0 - doanhThuThangDau) / doanhThuThangDau) * 100, 2)
+                        : 0
+
+                  )).ToList();
+
+
+                    ketQua.AddRange(ketQuaTheoLoai);
+                }
+
+                return ketQua;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi khi tính tỷ lệ tăng trưởng theo loại doanh thu: " + ex.Message);
+            }
+        }
     }
 }

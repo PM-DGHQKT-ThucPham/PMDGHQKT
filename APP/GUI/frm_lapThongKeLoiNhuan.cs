@@ -466,6 +466,9 @@ namespace GUI
                 dgv_dsLoiNhuan.Columns["LoiNhuanGop"].DefaultCellStyle.Format = "N0";
             if (dgv_dsLoiNhuan.Columns["LoiNhuanRong"] != null)
                 dgv_dsLoiNhuan.Columns["LoiNhuanRong"].DefaultCellStyle.Format = "N0";
+
+            dgv_dsLoiNhuan.Columns["LoiNhuanGop"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Căn phải
+            dgv_dsLoiNhuan.Columns["LoiNhuanRong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Căn phải
         }
 
         //Hiển thị tất cả lợi nhuận theo mã sản phẩm

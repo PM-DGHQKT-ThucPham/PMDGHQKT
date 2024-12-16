@@ -19,7 +19,7 @@ namespace DAL
             try
             {
                 _lstChiPhi = new List<ChiPhi>();
-                _lstChiPhi = db.ChiPhis.Where(t => t.LoaiChiPhi.MaSanPham == maSanPham).ToList();
+                _lstChiPhi = db.ChiPhis.Where(t => t.LoaiChiPhi.MaSanPham == maSanPham).OrderByDescending(t => t.ThoiGian).ToList();
                 if (_lstChiPhi.Count > 0)
                 {
                     return _lstChiPhi;
@@ -55,7 +55,7 @@ namespace DAL
             try
             {
                 _lstChiPhi = new List<ChiPhi>();
-                _lstChiPhi = db.ChiPhis.Where(x => x.MaLoaiChiPhi == maLoaiChiPhi && x.LoaiChiPhi.MaSanPham==maSanPham).ToList();
+                _lstChiPhi = db.ChiPhis.Where(x => x.MaLoaiChiPhi == maLoaiChiPhi && x.LoaiChiPhi.MaSanPham == maSanPham).OrderByDescending(x => x.ThoiGian).ToList();
                 if (_lstChiPhi.Count > 0)
                 {
                     return _lstChiPhi;
@@ -73,7 +73,7 @@ namespace DAL
             try
             {
                 _lstChiPhi = new List<ChiPhi>();
-                _lstChiPhi = db.ChiPhis.Where( x =>x.LoaiChiPhi.MaSanPham==maSanPham && x.ThoiGian.HasValue && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam).ToList();
+                _lstChiPhi = db.ChiPhis.Where( x =>x.LoaiChiPhi.MaSanPham==maSanPham && x.ThoiGian.HasValue && x.ThoiGian.Value.Month == thang && x.ThoiGian.Value.Year == nam).OrderByDescending(x => x.ThoiGian).ToList();
                 if (_lstChiPhi.Count > 0)
                 {
                     return _lstChiPhi;
@@ -91,7 +91,7 @@ namespace DAL
             try
             {
                 _lstChiPhi = new List<ChiPhi>();
-                _lstChiPhi = db.ChiPhis.Where(x => x.LoaiChiPhi.MaSanPham == maSanPham && x.ThoiGian >= tuNgay && x.ThoiGian <= denNgay).ToList();
+                _lstChiPhi = db.ChiPhis.Where(x => x.LoaiChiPhi.MaSanPham == maSanPham && x.ThoiGian >= tuNgay && x.ThoiGian <= denNgay).OrderByDescending(x => x.ThoiGian).ToList();
                 if (_lstChiPhi.Count > 0)
                 {
                     return _lstChiPhi;

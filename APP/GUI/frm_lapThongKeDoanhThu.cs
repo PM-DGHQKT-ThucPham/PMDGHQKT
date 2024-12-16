@@ -60,6 +60,9 @@ namespace GUI
             dtp_ngayBatDau.CustomFormat = "MM/yyyy";
             dtp_ngayKetThuc.Format = DateTimePickerFormat.Custom;
             dtp_ngayKetThuc.CustomFormat = "MM/yyyy";
+            var data = _doanhThuBLL.TinhTiLeTangTruongTheoLoai(maSanPham); // Lấy dữ liệu doanh thu theo loại
+            HienThiBieuDo3LoaiDoanhThu(chart_doanhThuDuong, data); // Hiển thị lên biểu đồ
+
         }
 
         private void BtnReport_Click(object sender, EventArgs e)
@@ -314,6 +317,52 @@ namespace GUI
 
 
         // viết hàm xử lý ở đây
+        public void HienThiBieuDo3LoaiDoanhThu(Chart chart, List<(DateTime Thang, string LoaiDoanhThu, decimal DoanhThu, decimal TiLeTangTruong)> data)
+        {
+            // Xóa dữ liệu cũ trên biểu đồ
+            chart.Series.Clear();
+            chart.ChartAreas.Clear();
+
+            // Thêm một khu vực biểu đồ
+            chart.ChartAreas.Add(new ChartArea("TiLeTangTruong"));
+
+            // Lấy danh sách các loại doanh thu (Trực tuyến, Trực tiếp, Nhà phân phối)
+            var loaiDoanhThu = data.Select(d => d.LoaiDoanhThu).Distinct().ToList();
+
+            // Lặp qua từng loại doanh thu
+            foreach (var loai in loaiDoanhThu)
+            {
+                // Tạo Series mới cho loại doanh thu
+                var series = new Series(loai)
+                {
+                    ChartType = SeriesChartType.Line, // Biểu đồ đường
+                    BorderWidth = 2, // Độ rộng đường
+                    IsValueShownAsLabel = true // Hiển thị giá trị trên điểm
+                };
+
+                // Lấy dữ liệu của loại doanh thu này
+                var dataTheoLoai = data.Where(d => d.LoaiDoanhThu == loai).OrderBy(d => d.Thang).ToList();
+
+                // Thêm dữ liệu vào Series
+                foreach (var item in dataTheoLoai)
+                {
+                    series.Points.AddXY(item.Thang.ToString("MM/yyyy"), item.TiLeTangTruong); // Hiển thị tỷ lệ tăng trưởng
+                }
+
+                // Thêm Series vào biểu đồ
+                chart.Series.Add(series);
+            }
+
+            // Tùy chỉnh trục X và Y
+            var chartArea = chart.ChartAreas["TiLeTangTruong"];
+            chartArea.AxisX.Title = "Tháng";
+            chartArea.AxisY.Title = "Tỷ lệ tăng trưởng (%)";
+            chartArea.AxisX.Interval = 1;
+            chartArea.AxisX.LabelStyle.Angle = -45; // Xoay nhãn trục X
+            chartArea.AxisY.LabelStyle.Format = "0.##"; // Định dạng số trên trục Y
+        }
+
+
         //load lại trang
         private void LoadLaiTrang()
         {
@@ -322,6 +371,7 @@ namespace GUI
             HienThiDanhSachDoanhThu(_lstDoanhThu);
             HienThiDoanhThuTheoLoaiDoanhThu(_lstDoanhThu);
             LoadComboboxLoaiDoanhThu();
+            HienThiBieuDo3LoaiDoanhThu(chart_doanhThuDuong, _doanhThuBLL.TinhTiLeTangTruongTheoLoai(maSanPham));
         }
         private void LoadComboBoxSanPham()
         {
@@ -528,6 +578,8 @@ namespace GUI
             dgv_dsDoanhThu.ReadOnly = true;
             //định dạng kiểu tiền tệ
             dgv_dsDoanhThu.Columns["SoTien"].DefaultCellStyle.Format = "N0";
+            // tiền căn phải 
+            dgv_dsDoanhThu.Columns["SoTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Căn phải
             //ẩn các cột không can thiệp
             dgv_dsDoanhThu.Columns["LoaiDoanhThu"].Visible = false;
         }

@@ -270,7 +270,7 @@ namespace GUI
             List<ChiPhi> chiPhiBienDoi = _lstChiPhi.Where(x => x.LoaiChiPhi.TenLoaiChiPhi == "Chi phí biến đổi").ToList();
             HienThiChiPhiChiTietTheoLoai(chiPhiCoDinh,chart_codinh);
             HienThiChiPhiChiTietTheoLoai(chiPhiGianTiep,chart_giantiep);
-            HienThiChiPhiChiTietTheoLoai(chiPhiCoDinh,chart_biendoi);
+            HienThiChiPhiChiTietTheoLoai(chiPhiBienDoi,chart_biendoi);
 
         }
         private void HienThiChiPhiChiTietTheoLoai(List<ChiPhi> _lstChiPhi, Chart chart)
@@ -483,6 +483,7 @@ namespace GUI
 
             //định dạng tiền tệ cho cột số tiền
             dgv_dsChiPhi.Columns["SoTien"].DefaultCellStyle.Format = "N0";
+            dgv_dsChiPhi.Columns["SoTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Căn phải
 
             //định dạng ngày tháng cho cột thời gian
             dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Format = "dd/MM/yyyy";

@@ -17,7 +17,7 @@ namespace DAL
         {
             try
             {
-                _lstLoiNhuan = db.LoiNhuans.Where(x => x.MaSanPham == maSP).ToList();
+                _lstLoiNhuan = db.LoiNhuans.Where(x => x.MaSanPham == maSP).OrderBy(x=>x.ThoiGian).ToList();
                 return _lstLoiNhuan;
             }
             catch (Exception ex)
@@ -285,6 +285,42 @@ namespace DAL
             catch (Exception ex)
             {
                 throw new Exception("Có lỗi xảy ra khi tính toán tỷ lệ lợi nhuận", ex);
+            }
+        }
+        public bool ThemLoiNhuan(LoiNhuan ln)
+        {
+            try
+            {
+                using (var db = new DoAnTotNghiepDataContext())
+                {
+                    // Tìm tháng cuối cùng hiện có trong bảng
+                    var thangCuoi = db.LoiNhuans
+                        .OrderByDescending(l => l.ThoiGian)
+                        .FirstOrDefault()?.ThoiGian;
+
+                    // Tạo tháng tiếp theo
+                    var thangMoi = thangCuoi.HasValue
+                        ? thangCuoi.Value.AddMonths(1)
+                        : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+
+                    // Thêm bản ghi mới
+                    var loiNhuanMoi = new LoiNhuan
+                    {
+                        ThoiGian = thangMoi,
+                        MaSanPham = ln.MaSanPham,
+                        LoiNhuanGop = ln.LoiNhuanGop,
+                        LoiNhuanRong = ln.LoiNhuanRong,
+                        MaLoiNhuan =ln.MaLoiNhuan
+                    };
+
+                    db.LoiNhuans.InsertOnSubmit(loiNhuanMoi);
+                    db.SubmitChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
     }
