@@ -34,7 +34,7 @@ namespace GUI
             HienThiLoaiChiPhi();
             dgv_dsLoaiChiPhi.SelectionChanged += Dgv_dsLoaiChiPhi_SelectionChanged;
             dgv_dsChiPhi.SelectionChanged += Dgv_dsChiPhi_SelectionChanged;
-            cbo_sanPham.DropDownStyle=ComboBoxStyle.DropDownList;
+            cbo_sanPham.DropDownStyle = ComboBoxStyle.DropDownList;
             themXoaSuaChiPhi.ThemClicked += ThemXoaSuaChiPhi_ThemClicked;
             themXoaSuaChiPhi.HuyThemClicked += ThemXoaSuaChiPhi_HuyThemClicked;
             themXoaSuaChiPhi.XoaClicked += ThemXoaSuaChiPhi_XoaClicked;
@@ -50,9 +50,7 @@ namespace GUI
             themXoaSuaCP.HuyThemClicked += ThemXoaSuaCP_HuyThemClicked;
             LoadDataComboboxLoaiChiPhi();
             btn_khoiPhuc.Click += Btn_khoiPhuc_Click;
-
         }
-
         private void Btn_khoiPhuc_Click(object sender, EventArgs e)
         {
             HienThiLoaiChiPhi();
@@ -540,8 +538,7 @@ namespace GUI
                     // Lấy thông tin từ dòng hiện tại
                     txt_maChiPhi.Text = dgv_dsChiPhi.CurrentRow.Cells["MaChiPhi"].Value?.ToString();
                     txt_moTaChiPhi.Text = dgv_dsChiPhi.CurrentRow.Cells["MoTa"].Value?.ToString();
-                    txt_soTien.Text = dgv_dsChiPhi.CurrentRow.Cells["SoTien"].Value?.ToString();
-
+                    txt_soTien.Text = string.Format("{0:N0} VNĐ", Convert.ToDecimal(dgv_dsChiPhi.CurrentRow.Cells["SoTien"].Value ?? 0));
                     if (DateTime.TryParse(dgv_dsChiPhi.CurrentRow.Cells["ThoiGian"].Value?.ToString(), out DateTime thoiGian))
                     {
                         dtp_thoiGian.Value = thoiGian;
@@ -579,7 +576,7 @@ namespace GUI
                         txt_maLoaiChiPhi.Text = loaiChiPhi;
                         txt_tenLoaiChiPhi.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["TenLoaiChiPhi"].Value.ToString();
                         txt_moTaLoaiChiPhi.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["MoTa"].Value.ToString();
-                        txt_tongTien.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["TongTien"].Value.ToString();
+                        txt_tongTien.Text = string.Format("{0:N0} VNĐ", Convert.ToDecimal(dgv_dsLoaiChiPhi.CurrentRow.Cells["TongTien"].Value));
                         // lấy mã sản phẩm từ dgv_dsLoaiChiPhi
                         string maLoaiChiPhi = loaiChiPhi;
                         HienThiChiPhi(maLoaiChiPhi);

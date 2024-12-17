@@ -471,20 +471,30 @@ namespace GUI
             dgv_dsLoiNhuan.Columns["LoiNhuanRong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Căn phải
         }
 
-        //Hiển thị tất cả lợi nhuận theo mã sản phẩm
+        // Hiển thị tất cả lợi nhuận theo mã sản phẩm
         private void HienThiTatCaLoiNhuanTheoMaSanPham(List<LoiNhuan> _lst)
         {
             try
             {
                 _lstLoiNhuan = _lst;
+
                 if (_lstLoiNhuan.Count > 0)
                 {
+                    // Gán dữ liệu vào DataGridView
                     dgv_dsLoiNhuan.DataSource = _lstLoiNhuan;
 
+                    // Khởi tạo DataGridView
                     KhoiTaoDataGirdView();
                     themCotSoThuTu(dgv_dsLoiNhuan);
+
+                    // Gán sự kiện RowPostPaint để thêm số thứ tự
                     dgv_dsLoiNhuan.RowPostPaint -= dgvSanPham_RowPostPaint;
                     dgv_dsLoiNhuan.RowPostPaint += dgvSanPham_RowPostPaint;
+
+                    // Gán sự kiện CellFormatting để tô màu dòng
+                    dgv_dsLoiNhuan.CellFormatting -= Dgv_dsLoiNhuan_CellFormatting;
+                    dgv_dsLoiNhuan.CellFormatting += Dgv_dsLoiNhuan_CellFormatting;
+
                     dgv_dsLoiNhuan.Invalidate();
                     dgv_dsLoiNhuan.Refresh();
                 }
@@ -499,5 +509,34 @@ namespace GUI
             }
         }
 
+        // Sự kiện CellFormatting để tô màu dòng
+        private void Dgv_dsLoiNhuan_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgv_dsLoiNhuan.Rows[e.RowIndex].DataBoundItem is LoiNhuan loiNhuan)
+            {
+                // Điều kiện tô màu đỏ: Lợi nhuận ròng âm
+                if (loiNhuan.LoiNhuanRong < 0)
+                {
+                    dgv_dsLoiNhuan.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                    dgv_dsLoiNhuan.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White; // Màu chữ
+                }
+                else
+                {
+                    // Điều kiện tô màu xanh dương: Tháng có doanh thu cao nhất
+                    var doanhThuCaoNhat = _lstLoiNhuan.Max(x => x.LoiNhuanRong);
+                    if (loiNhuan.LoiNhuanRong == doanhThuCaoNhat)
+                    {
+                        dgv_dsLoiNhuan.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Blue;
+                        dgv_dsLoiNhuan.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White; // Màu chữ
+                    }
+                    else
+                    {
+                        // Mặc định màu trắng cho các dòng khác
+                        dgv_dsLoiNhuan.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                        dgv_dsLoiNhuan.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+                    }
+                }
+            }
+        }
     }
 }

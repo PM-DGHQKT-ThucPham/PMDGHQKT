@@ -419,7 +419,7 @@ namespace GUI
                     // Lấy thông tin từ dòng hiện tại
                     txt_maDoanhThu.Text = dgv_dsDoanhThu.CurrentRow.Cells["MaDoanhThu"].Value?.ToString();
                     txt_moTaDoanhThu.Text = dgv_dsDoanhThu.CurrentRow.Cells["MoTa"].Value?.ToString();
-                    txt_soTienDoanhThu.Text = dgv_dsDoanhThu.CurrentRow.Cells["SoTien"].Value?.ToString();
+                    txt_soTienDoanhThu.Text = string.Format("{0:N0} VNĐ", Convert.ToDecimal(dgv_dsDoanhThu.CurrentRow.Cells["SoTien"].Value ?? 0));
 
                     if (DateTime.TryParse(dgv_dsDoanhThu.CurrentRow.Cells["ThoiGian"].Value?.ToString(), out DateTime thoiGian))
                     {
@@ -458,7 +458,8 @@ namespace GUI
                         txt_maLoaiDoanhThu.Text = loaiDoanhThu;
                         txt_tenLoaiDoanhThu.Text = dgv_dsLoaiDoanhThu.CurrentRow.Cells["TenLoaiDoanhThu"].Value.ToString();
                         txt_moTaLoaiDoanhThu.Text = dgv_dsLoaiDoanhThu.CurrentRow.Cells["MoTa"].Value.ToString();
-                        txt_tongTienDoanhThu.Text = dgv_dsLoaiDoanhThu.CurrentRow.Cells["TongTien"].Value.ToString();
+                        txt_tongTienDoanhThu.Text = string.Format("{0:N0} VNĐ", Convert.ToDecimal(dgv_dsLoaiDoanhThu.CurrentRow.Cells["TongTien"].Value ?? 0));
+
                         // lấy mã sản phẩm từ dgv_dsLoaiDoanhThu
                         string maLoaiDoanhThu = loaiDoanhThu;
                         HienThiDoanhThu(maLoaiDoanhThu);

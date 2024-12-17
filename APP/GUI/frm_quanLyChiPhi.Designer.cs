@@ -45,14 +45,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbo_sanPham = new System.Windows.Forms.ComboBox();
-            this.btn_timKiem = new System.Windows.Forms.Button();
-            this.txt_timKiem = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgv_dsChiPhi = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.themXoaSuaCP = new UC.ThemXoaSua();
             this.cbo_loaiChiPhi = new System.Windows.Forms.ComboBox();
-            this.cbp_chucNang = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.dtp_thoiGian = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
@@ -257,23 +254,6 @@
             this.cbo_sanPham.Size = new System.Drawing.Size(253, 28);
             this.cbo_sanPham.TabIndex = 10;
             // 
-            // btn_timKiem
-            // 
-            this.btn_timKiem.BackgroundImage = global::GUI.Properties.Resources.icons8_find_35;
-            this.btn_timKiem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btn_timKiem.Location = new System.Drawing.Point(611, 127);
-            this.btn_timKiem.Name = "btn_timKiem";
-            this.btn_timKiem.Size = new System.Drawing.Size(51, 40);
-            this.btn_timKiem.TabIndex = 8;
-            this.btn_timKiem.UseVisualStyleBackColor = true;
-            // 
-            // txt_timKiem
-            // 
-            this.txt_timKiem.Location = new System.Drawing.Point(428, 132);
-            this.txt_timKiem.Name = "txt_timKiem";
-            this.txt_timKiem.Size = new System.Drawing.Size(177, 26);
-            this.txt_timKiem.TabIndex = 3;
-            // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -306,7 +286,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.themXoaSuaCP);
             this.groupBox4.Controls.Add(this.cbo_loaiChiPhi);
-            this.groupBox4.Controls.Add(this.cbp_chucNang);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.dtp_thoiGian);
             this.groupBox4.Controls.Add(this.label9);
@@ -315,9 +294,7 @@
             this.groupBox4.Controls.Add(this.txt_moTaChiPhi);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.txt_maChiPhi);
-            this.groupBox4.Controls.Add(this.btn_timKiem);
             this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.txt_timKiem);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(831, 67);
             this.groupBox4.Name = "groupBox4";
@@ -342,14 +319,6 @@
             this.cbo_loaiChiPhi.Name = "cbo_loaiChiPhi";
             this.cbo_loaiChiPhi.Size = new System.Drawing.Size(253, 28);
             this.cbo_loaiChiPhi.TabIndex = 27;
-            // 
-            // cbp_chucNang
-            // 
-            this.cbp_chucNang.FormattingEnabled = true;
-            this.cbp_chucNang.Location = new System.Drawing.Point(428, 99);
-            this.cbp_chucNang.Name = "cbp_chucNang";
-            this.cbp_chucNang.Size = new System.Drawing.Size(177, 28);
-            this.cbp_chucNang.TabIndex = 25;
             // 
             // label10
             // 
@@ -376,9 +345,9 @@
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
             this.label9.Location = new System.Drawing.Point(33, 138);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(123, 20);
+            this.label9.Size = new System.Drawing.Size(100, 20);
             this.label9.TabIndex = 18;
-            this.label9.Text = "Mã loại chi phí";
+            this.label9.Text = "Loại chi phí";
             // 
             // txt_soTien
             // 
@@ -469,8 +438,6 @@
         private System.Windows.Forms.DataGridView dgv_dsLoaiChiPhi;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox cbo_sanPham;
-        private System.Windows.Forms.Button btn_timKiem;
-        private System.Windows.Forms.TextBox txt_timKiem;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataGridView dgv_dsChiPhi;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -491,7 +458,6 @@
         private System.Windows.Forms.TextBox txt_tenLoaiChiPhi;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbp_chucNang;
         private System.Windows.Forms.Label label5;
         private UC.ThemXoaSua themXoaSuaChiPhi;
         private System.Windows.Forms.Button btn_clear;

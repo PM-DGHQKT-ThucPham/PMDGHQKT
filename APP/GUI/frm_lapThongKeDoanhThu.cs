@@ -583,31 +583,88 @@ namespace GUI
             //ẩn các cột không can thiệp
             dgv_dsDoanhThu.Columns["LoaiDoanhThu"].Visible = false;
         }
-        //lấy doanh sách doanh thu hiện lên datagridview
         private void HienThiDanhSachDoanhThu(List<DoanhThu> lstDoanhThu)
         {
             try
             {
-                 dgv_dsDoanhThu.DataSource = null;
+                dgv_dsDoanhThu.DataSource = null;
                 _lstDoanhThu = lstDoanhThu;
-                if (_lstDoanhThu != null)
+
+                if (_lstDoanhThu != null && _lstDoanhThu.Count > 0)
                 {
                     dgv_dsDoanhThu.DataSource = _lstDoanhThu;
                     KhoiTaoDgvDoanhThu();
                     themCotSoThuTu(dgv_dsDoanhThu);
+
+                    // Gán sự kiện RowPostPaint để thêm số thứ tự
                     dgv_dsDoanhThu.RowPostPaint -= dgvSanPham_RowPostPaint;
                     dgv_dsDoanhThu.RowPostPaint += dgvSanPham_RowPostPaint;
-                    dgv_dsDoanhThu.Invalidate();
-                    dgv_dsDoanhThu.Refresh();
+
                     // Tính tổng số tiền
                     decimal tongTien = _lstDoanhThu.Sum(x => x.SoTien ?? 0);
                     txt_tongTien.Text = $"Tổng tiền: {tongTien:N0} VNĐ";
+
+                    // Xác định tháng và năm có doanh thu cao nhất
+                    var doanhThuCaoNhat = _lstDoanhThu.OrderByDescending(x => x.SoTien).FirstOrDefault();
+                    if (doanhThuCaoNhat != null && doanhThuCaoNhat.ThoiGian.HasValue)
+                    {
+                        // Lấy tháng và năm có doanh thu cao nhất
+                        int thangCaoNhat = doanhThuCaoNhat.ThoiGian.Value.Month;
+                        int namCaoNhat = doanhThuCaoNhat.ThoiGian.Value.Year;
+
+                        // Lưu thông tin tháng và năm vào Tag của DataGridView
+                        dgv_dsDoanhThu.Tag = new { Thang = thangCaoNhat, Nam = namCaoNhat };
+
+                        // Gán sự kiện CellFormatting để tô màu dòng
+                        dgv_dsDoanhThu.CellFormatting -= Dgv_dsDoanhThu_CellFormatting;
+                        dgv_dsDoanhThu.CellFormatting += Dgv_dsDoanhThu_CellFormatting;
+                    }
+
+                    dgv_dsDoanhThu.Invalidate();
+                    dgv_dsDoanhThu.Refresh();
                 }
             }
             catch (Exception ex)
             {
-               Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);
             }
         }
+        private void Dgv_dsDoanhThu_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex >= 0 && dgv_dsDoanhThu.Rows[e.RowIndex].DataBoundItem is DoanhThu doanhThu)
+                {
+                    // Lấy thông tin tháng và năm có doanh thu cao nhất từ Tag
+                    var thangNamCaoNhat = dgv_dsDoanhThu.Tag as dynamic;
+                    if (thangNamCaoNhat != null)
+                    {
+                        int thangCaoNhat = thangNamCaoNhat.Thang;
+                        int namCaoNhat = thangNamCaoNhat.Nam;
+
+                        // Kiểm tra nếu tháng và năm hiện tại trong dòng là tháng và năm có doanh thu cao nhất
+                        if (doanhThu.ThoiGian.HasValue)
+                        {
+                            DateTime thoiGian = doanhThu.ThoiGian.Value;
+                            if (thoiGian.Month == thangCaoNhat && thoiGian.Year == namCaoNhat)
+                            {
+                                dgv_dsDoanhThu.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Blue;
+                                dgv_dsDoanhThu.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+                            }
+                            else
+                            {
+                                dgv_dsDoanhThu.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                                dgv_dsDoanhThu.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
     }
 }

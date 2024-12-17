@@ -38,6 +38,7 @@
             this.dgv_dsDoanhThu = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_themLN = new System.Windows.Forms.Button();
             this.btn_capNhat = new System.Windows.Forms.Button();
             this.txt_tyLeLoiNhuanRong = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@
             this.dgv_dsLoiNhuan = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.btn_themLN = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsChiPhi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsDoanhThu)).BeginInit();
@@ -194,6 +194,16 @@
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tìm kiếm thông tin lợi nhuận";
+            // 
+            // btn_themLN
+            // 
+            this.btn_themLN.BackgroundImage = global::GUI.Properties.Resources.icons8_add_35;
+            this.btn_themLN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_themLN.Location = new System.Drawing.Point(713, 116);
+            this.btn_themLN.Name = "btn_themLN";
+            this.btn_themLN.Size = new System.Drawing.Size(51, 40);
+            this.btn_themLN.TabIndex = 44;
+            this.btn_themLN.UseVisualStyleBackColor = true;
             // 
             // btn_capNhat
             // 
@@ -377,16 +387,6 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "Tính toán lợi nhuận ";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btn_themLN
-            // 
-            this.btn_themLN.BackgroundImage = global::GUI.Properties.Resources.icons8_add_35;
-            this.btn_themLN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btn_themLN.Location = new System.Drawing.Point(713, 116);
-            this.btn_themLN.Name = "btn_themLN";
-            this.btn_themLN.Size = new System.Drawing.Size(51, 40);
-            this.btn_themLN.TabIndex = 44;
-            this.btn_themLN.UseVisualStyleBackColor = true;
             // 
             // frm_quanLyLoiNhuan
             // 
