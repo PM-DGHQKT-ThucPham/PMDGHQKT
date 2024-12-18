@@ -25,6 +25,7 @@ namespace GUI
             dgvNhanVien.SelectionChanged += dgvDonDatHang_SelectionChanged;
             cbbVaiTro.SelectedIndexChanged += cbbVaiTro_SelectedIndexChanged;
             dgvNhanVien.CellFormatting += dgvNhanVien_CellFormatting;
+            btnDoiHinhAnh.Click += btnDoiHinhAnh_Click;
 
         }
 

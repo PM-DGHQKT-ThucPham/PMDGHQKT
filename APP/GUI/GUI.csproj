@@ -502,6 +502,7 @@
   <ItemGroup>
     <Content Include="Resources\bg1.jpg" />
     <Content Include="Resources\bg5.jpg" />
+    <None Include="Resources\luutao1.png" />
     <None Include="Resources\scripts_32x32.png" />
     <None Include="Resources\bg61.jpg" />
     <None Include="Resources\bg51.jpg" />
@@ -538,6 +539,7 @@
     <None Include="Resources\bubble_32x32.png" />
     <None Include="Resources\insert_32x32.png" />
     <None Include="Resources\congThuc.jpg" />
+    <None Include="Resources\cam1.png" />
     <Content Include="Resources\logo1.jpg" />
     <Content Include="Resources\logo2.jpg" />
     <Content Include="Resources\logo3.jpg" />

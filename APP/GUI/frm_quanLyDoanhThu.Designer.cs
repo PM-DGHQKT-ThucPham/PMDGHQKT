@@ -49,7 +49,6 @@
             this.themXoaSuaDT = new UC.ThemXoaSua();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cbo_loaiDoanhThu = new System.Windows.Forms.ComboBox();
-            this.cbp_chucNang = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.dtp_thoiGianDoanhThu = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
@@ -58,10 +57,10 @@
             this.txt_moTaDoanhThu = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txt_maDoanhThu = new System.Windows.Forms.TextBox();
-            this.btn_timKiem = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.txt_timKiem = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txt_tongTienLoaiDoanhThu = new System.Windows.Forms.Label();
+            this.txt_ttDoanhThu = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsLoaiDoanhThu)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsDoanhThu)).BeginInit();
@@ -90,9 +89,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_dsLoaiDoanhThu.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgv_dsLoaiDoanhThu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_dsLoaiDoanhThu.Location = new System.Drawing.Point(7, 26);
+            this.dgv_dsLoaiDoanhThu.Location = new System.Drawing.Point(7, 63);
             this.dgv_dsLoaiDoanhThu.Name = "dgv_dsLoaiDoanhThu";
-            this.dgv_dsLoaiDoanhThu.Size = new System.Drawing.Size(793, 484);
+            this.dgv_dsLoaiDoanhThu.Size = new System.Drawing.Size(793, 447);
             this.dgv_dsLoaiDoanhThu.TabIndex = 0;
             // 
             // groupBox3
@@ -100,11 +99,12 @@
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.txt_ttDoanhThu);
             this.groupBox3.Controls.Add(this.dgv_dsDoanhThu);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(824, 315);
+            this.groupBox3.Location = new System.Drawing.Point(824, 314);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(832, 516);
+            this.groupBox3.Size = new System.Drawing.Size(832, 517);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Danh sách doanh thu";
@@ -116,9 +116,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_dsDoanhThu.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgv_dsDoanhThu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_dsDoanhThu.Location = new System.Drawing.Point(7, 26);
+            this.dgv_dsDoanhThu.Location = new System.Drawing.Point(7, 63);
             this.dgv_dsDoanhThu.Name = "dgv_dsDoanhThu";
-            this.dgv_dsDoanhThu.Size = new System.Drawing.Size(819, 484);
+            this.dgv_dsDoanhThu.Size = new System.Drawing.Size(819, 448);
             this.dgv_dsDoanhThu.TabIndex = 0;
             // 
             // groupBox2
@@ -285,7 +285,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.themXoaSuaDT);
             this.groupBox4.Controls.Add(this.cbo_loaiDoanhThu);
-            this.groupBox4.Controls.Add(this.cbp_chucNang);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.dtp_thoiGianDoanhThu);
             this.groupBox4.Controls.Add(this.label9);
@@ -294,9 +293,7 @@
             this.groupBox4.Controls.Add(this.txt_moTaDoanhThu);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.txt_maDoanhThu);
-            this.groupBox4.Controls.Add(this.btn_timKiem);
             this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.txt_timKiem);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(824, 66);
             this.groupBox4.Name = "groupBox4";
@@ -312,14 +309,6 @@
             this.cbo_loaiDoanhThu.Name = "cbo_loaiDoanhThu";
             this.cbo_loaiDoanhThu.Size = new System.Drawing.Size(234, 28);
             this.cbo_loaiDoanhThu.TabIndex = 27;
-            // 
-            // cbp_chucNang
-            // 
-            this.cbp_chucNang.FormattingEnabled = true;
-            this.cbp_chucNang.Location = new System.Drawing.Point(428, 99);
-            this.cbp_chucNang.Name = "cbp_chucNang";
-            this.cbp_chucNang.Size = new System.Drawing.Size(177, 28);
-            this.cbp_chucNang.TabIndex = 25;
             // 
             // label10
             // 
@@ -397,16 +386,6 @@
             this.txt_maDoanhThu.Size = new System.Drawing.Size(234, 26);
             this.txt_maDoanhThu.TabIndex = 11;
             // 
-            // btn_timKiem
-            // 
-            this.btn_timKiem.BackgroundImage = global::GUI.Properties.Resources.icons8_find_35;
-            this.btn_timKiem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btn_timKiem.Location = new System.Drawing.Point(611, 127);
-            this.btn_timKiem.Name = "btn_timKiem";
-            this.btn_timKiem.Size = new System.Drawing.Size(51, 40);
-            this.btn_timKiem.TabIndex = 8;
-            this.btn_timKiem.UseVisualStyleBackColor = true;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -418,17 +397,11 @@
             this.label1.TabIndex = 12;
             this.label1.Text = "Mã doanh thu";
             // 
-            // txt_timKiem
-            // 
-            this.txt_timKiem.Location = new System.Drawing.Point(428, 132);
-            this.txt_timKiem.Name = "txt_timKiem";
-            this.txt_timKiem.Size = new System.Drawing.Size(177, 26);
-            this.txt_timKiem.TabIndex = 3;
-            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.txt_tongTienLoaiDoanhThu);
             this.groupBox1.Controls.Add(this.dgv_dsLoaiDoanhThu);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(5, 314);
@@ -437,6 +410,28 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Danh sách loại doanh thu";
+            // 
+            // txt_tongTienLoaiDoanhThu
+            // 
+            this.txt_tongTienLoaiDoanhThu.AutoSize = true;
+            this.txt_tongTienLoaiDoanhThu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_tongTienLoaiDoanhThu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.txt_tongTienLoaiDoanhThu.Location = new System.Drawing.Point(7, 31);
+            this.txt_tongTienLoaiDoanhThu.Name = "txt_tongTienLoaiDoanhThu";
+            this.txt_tongTienLoaiDoanhThu.Size = new System.Drawing.Size(84, 20);
+            this.txt_tongTienLoaiDoanhThu.TabIndex = 28;
+            this.txt_tongTienLoaiDoanhThu.Text = "Tổng tiền";
+            // 
+            // txt_ttDoanhThu
+            // 
+            this.txt_ttDoanhThu.AutoSize = true;
+            this.txt_ttDoanhThu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_ttDoanhThu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.txt_ttDoanhThu.Location = new System.Drawing.Point(6, 31);
+            this.txt_ttDoanhThu.Name = "txt_ttDoanhThu";
+            this.txt_ttDoanhThu.Size = new System.Drawing.Size(84, 20);
+            this.txt_ttDoanhThu.TabIndex = 29;
+            this.txt_ttDoanhThu.Text = "Tổng tiền";
             // 
             // frm_quanLyDoanhThu
             // 
@@ -453,12 +448,14 @@
             this.Text = "frm_quanLyDoanhThu";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsLoaiDoanhThu)).EndInit();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsDoanhThu)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -486,7 +483,6 @@
         private UC.ThemXoaSua themXoaSuaDT;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ComboBox cbo_loaiDoanhThu;
-        private System.Windows.Forms.ComboBox cbp_chucNang;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DateTimePicker dtp_thoiGianDoanhThu;
         private System.Windows.Forms.Label label9;
@@ -495,9 +491,9 @@
         private System.Windows.Forms.TextBox txt_moTaDoanhThu;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txt_maDoanhThu;
-        private System.Windows.Forms.Button btn_timKiem;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txt_timKiem;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label txt_ttDoanhThu;
+        private System.Windows.Forms.Label txt_tongTienLoaiDoanhThu;
     }
 }

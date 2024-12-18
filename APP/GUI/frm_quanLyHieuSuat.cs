@@ -130,12 +130,22 @@ namespace GUI
         /// <param name="maHieuSuat"></param>
         private void HienDuLieuTextBox(string maHieuSuat)
         {
-            HieuSuat hs = LayHieuSuatTheoMa(maHieuSuat);
-            txtMaHieuSuat.Text = hs.MaHieuSuat;
-            txtDanhGiaChucNang.Text = hs.DanhGiaChucNang.ToString();
-            txtDanhGiaTocDo.Text = hs.DanhGiaTocDo.ToString();
-            txtMucDoAnhHuong.Text = hs.MucDoAnhHuong.ToString();
-            txtMoTa.Text = hs.MoTa;
+            if (dgvHieuSuat.DataSource != null)
+            {
+                //HieuSuat hs = LayHieuSuatTheoMa(maHieuSuat);
+                //if (hs != null)
+                {
+                    txtMaHieuSuat.Text = dgvHieuSuat.CurrentRow.Cells[0].Value.ToString();
+                    //txtDanhGiaChucNang.Text = hs.DanhGiaChucNang.ToString();
+                    //txtDanhGiaTocDo.Text = hs.DanhGiaTocDo.ToString();
+                    //txtMucDoAnhHuong.Text = hs.MucDoAnhHuong.ToString();
+                    //txtMoTa.Text = hs.MoTa;
+                }
+                //else
+                {
+                    MessageBox.Show("Không tìm thấy hiệu suất với mã này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         /// <summary>

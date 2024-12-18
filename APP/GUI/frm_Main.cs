@@ -25,6 +25,13 @@ namespace GUI
             _frmDangNhap = frmDangNhap;
             btn_dangXuat.ItemClick += Btn_dangXuat_ItemClick;
             btn_thietLapTaiKhoan.ItemClick += Btn_thietLapTaiKhoan_ItemClick;
+            FormClosing += Frm_main_FormClosing;
+        }
+
+        private void Frm_main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Close();
+            _frmDangNhap.Show();
         }
 
         private void Btn_thietLapTaiKhoan_ItemClick(object sender, ItemClickEventArgs e)

@@ -69,6 +69,12 @@ namespace GUI
         {
             try
             {
+                if(diemSanPhamTheoTungTieuChis == null || diemSanPhamTheoTungTieuChis.Count == 0)
+                {
+                    dgvDiemTheoTieuChi.DataSource = null;
+                    lblDiemTong.Text = "0";
+                    return;
+                }
                 //Load lblDiemTong
                 decimal diemTong = 0;
                 foreach (DiemSanPhamTheoTungTieuChi item in diemSanPhamTheoTungTieuChis)

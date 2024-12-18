@@ -57,6 +57,10 @@
             this.dgv_dsLoiNhuan = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.txt_tongChiPhi = new System.Windows.Forms.Label();
+            this.txt_TongDoanhThu = new System.Windows.Forms.Label();
+            this.txt_tongLNG = new System.Windows.Forms.Label();
+            this.txt_tongLNR = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsChiPhi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsDoanhThu)).BeginInit();
@@ -100,7 +104,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.dgv_dsChiPhi);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(793, 81);
+            this.groupBox4.Location = new System.Drawing.Point(793, 114);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(706, 443);
             this.groupBox4.TabIndex = 15;
@@ -149,7 +153,7 @@
             this.dgv_dsDoanhThu.Location = new System.Drawing.Point(7, 26);
             this.dgv_dsDoanhThu.Name = "dgv_dsDoanhThu";
             this.dgv_dsDoanhThu.RowHeadersWidth = 51;
-            this.dgv_dsDoanhThu.Size = new System.Drawing.Size(700, 241);
+            this.dgv_dsDoanhThu.Size = new System.Drawing.Size(700, 170);
             this.dgv_dsDoanhThu.TabIndex = 0;
             // 
             // groupBox3
@@ -159,9 +163,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.dgv_dsDoanhThu);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(786, 524);
+            this.groupBox3.Location = new System.Drawing.Point(793, 596);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(713, 273);
+            this.groupBox3.Size = new System.Drawing.Size(713, 202);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Thông tin doanh thu";
@@ -285,6 +289,8 @@
             // 
             // dtp_thoiGian
             // 
+            this.dtp_thoiGian.CustomFormat = "MM/yyyy";
+            this.dtp_thoiGian.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtp_thoiGian.Location = new System.Drawing.Point(443, 25);
             this.dtp_thoiGian.Name = "dtp_thoiGian";
             this.dtp_thoiGian.Size = new System.Drawing.Size(264, 26);
@@ -356,16 +362,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_dsLoiNhuan.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgv_dsLoiNhuan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_dsLoiNhuan.Location = new System.Drawing.Point(7, 26);
+            this.dgv_dsLoiNhuan.Location = new System.Drawing.Point(8, 74);
             this.dgv_dsLoiNhuan.Name = "dgv_dsLoiNhuan";
             this.dgv_dsLoiNhuan.RowHeadersWidth = 51;
-            this.dgv_dsLoiNhuan.Size = new System.Drawing.Size(761, 435);
+            this.dgv_dsLoiNhuan.Size = new System.Drawing.Size(761, 386);
             this.dgv_dsLoiNhuan.TabIndex = 0;
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.txt_tongLNR);
+            this.groupBox1.Controls.Add(this.txt_tongLNG);
             this.groupBox1.Controls.Add(this.dgv_dsLoiNhuan);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 330);
@@ -388,12 +396,58 @@
             this.label6.Text = "Tính toán lợi nhuận ";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // txt_tongChiPhi
+            // 
+            this.txt_tongChiPhi.AutoSize = true;
+            this.txt_tongChiPhi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_tongChiPhi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.txt_tongChiPhi.Location = new System.Drawing.Point(796, 91);
+            this.txt_tongChiPhi.Name = "txt_tongChiPhi";
+            this.txt_tongChiPhi.Size = new System.Drawing.Size(116, 20);
+            this.txt_tongChiPhi.TabIndex = 45;
+            this.txt_tongChiPhi.Text = "Tổng chi phí :";
+            // 
+            // txt_TongDoanhThu
+            // 
+            this.txt_TongDoanhThu.AutoSize = true;
+            this.txt_TongDoanhThu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_TongDoanhThu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.txt_TongDoanhThu.Location = new System.Drawing.Point(796, 573);
+            this.txt_TongDoanhThu.Name = "txt_TongDoanhThu";
+            this.txt_TongDoanhThu.Size = new System.Drawing.Size(111, 20);
+            this.txt_TongDoanhThu.TabIndex = 46;
+            this.txt_TongDoanhThu.Text = "Tổng chi phí:";
+            // 
+            // txt_tongLNG
+            // 
+            this.txt_tongLNG.AutoSize = true;
+            this.txt_tongLNG.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_tongLNG.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.txt_tongLNG.Location = new System.Drawing.Point(16, 36);
+            this.txt_tongLNG.Name = "txt_tongLNG";
+            this.txt_tongLNG.Size = new System.Drawing.Size(162, 20);
+            this.txt_tongLNG.TabIndex = 45;
+            this.txt_tongLNG.Text = "Tổng lợi nhuận gộp";
+            // 
+            // txt_tongLNR
+            // 
+            this.txt_tongLNR.AutoSize = true;
+            this.txt_tongLNR.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_tongLNR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.txt_tongLNR.Location = new System.Drawing.Point(419, 36);
+            this.txt_tongLNR.Name = "txt_tongLNR";
+            this.txt_tongLNR.Size = new System.Drawing.Size(178, 20);
+            this.txt_tongLNR.TabIndex = 46;
+            this.txt_tongLNR.Text = "Tổng lợi nhuận ròng :";
+            // 
             // frm_quanLyLoiNhuan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1443, 810);
+            this.Controls.Add(this.txt_TongDoanhThu);
+            this.Controls.Add(this.txt_tongChiPhi);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -409,7 +463,9 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsLoiNhuan)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -443,5 +499,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btn_capNhat;
         private System.Windows.Forms.Button btn_themLN;
+        private System.Windows.Forms.Label txt_tongChiPhi;
+        private System.Windows.Forms.Label txt_TongDoanhThu;
+        private System.Windows.Forms.Label txt_tongLNR;
+        private System.Windows.Forms.Label txt_tongLNG;
     }
 }

@@ -279,7 +279,18 @@ namespace GUI
             if (cboSanPham.Items.Count > 0)
             {
                 string maSanPham = cboSanPham.SelectedValue.ToString();
+                SanPham selectedSanPham = (SanPham)cboSanPham.SelectedItem;
+                string tenPham = selectedSanPham.TenSanPham;
                 LoadDGVThietKe(maSanPham);
+                txt_tenSPNE.Text = tenPham;
+                if (maSanPham == "SP001")
+                {
+                    pic_HA.Image = Properties.Resources.luutao;
+                }
+                else
+                {
+                    pic_HA.Image = Properties.Resources.cam;
+                }
             }
             danhSachThietKeCuaSanPham = null;
             danhSachThietKeCuaSanPham = DanhSachThietKe(cboSanPham.SelectedValue.ToString());
@@ -370,6 +381,7 @@ namespace GUI
                     txtDanhGiaTienDung.Text = row.Cells["DanhGiaTienDung"].Value.ToString();
                     txtMucDoAnhHuong.Text = row.Cells["MucDoAnhHuong"].Value.ToString();
                 }
+                
             }
         }
 
@@ -534,5 +546,9 @@ namespace GUI
             }
         }
 
+        private void pic_HA_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

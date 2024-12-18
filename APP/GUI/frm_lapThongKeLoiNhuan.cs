@@ -74,13 +74,38 @@ namespace GUI
                 // Kiểm tra để tránh chia cho 0
                 if (doanhThuThang != 0)
                 {
-                    // Tính tỷ lệ lợi nhuận gộp và lợi nhuận ròng
                     decimal tyLeLoiNhuanGop = (loiNhuanGop / doanhThuThang) * 100;
                     decimal tyLeLoiNhuanRong = (loiNhuanRong / doanhThuThang) * 100;
 
                     // Cập nhật lên giao diện
                     txt_tyLeLoiNhuanGop.Text = tyLeLoiNhuanGop.ToString("F2") + '%'; // Hiển thị 2 chữ số sau dấu phẩy
                     txt_tyLeLoiNhuanRong.Text = tyLeLoiNhuanRong.ToString("F2") + '%'; // Hiển thị 2 chữ số sau dấu phẩy
+
+                    // Cập nhật màu nền và màu chữ cho tỷ lệ lợi nhuận ròng
+                    if (tyLeLoiNhuanRong < 0)
+                    {
+                        // Nếu tỷ lệ lợi nhuận ròng < 0, tô nền màu đỏ và chữ màu trắng để nổi bật
+                        txt_tyLeLoiNhuanRong.BackColor = Color.Red;
+                        txt_tyLeLoiNhuanRong.ForeColor = Color.White; // Màu chữ trắng
+                    }
+                    else if (tyLeLoiNhuanRong < 5)
+                    {
+                        // Nếu tỷ lệ lợi nhuận ròng dưới 5, tô nền màu vàng và chữ màu đen
+                        txt_tyLeLoiNhuanRong.BackColor = Color.Yellow;
+                        txt_tyLeLoiNhuanRong.ForeColor = Color.Black; // Màu chữ đen
+                    }
+                    else if (tyLeLoiNhuanRong <= 15)
+                    {
+                        // Nếu tỷ lệ lợi nhuận ròng từ 5% đến 15%, tô nền màu xanh lá và chữ màu trắng
+                        txt_tyLeLoiNhuanRong.BackColor = Color.Green;
+                        txt_tyLeLoiNhuanRong.ForeColor = Color.White; // Màu chữ trắng
+                    }
+                    else
+                    {
+                        // Nếu tỷ lệ lợi nhuận ròng trên 15%, tô nền màu hồng và chữ màu đen
+                        txt_tyLeLoiNhuanRong.BackColor = Color.Pink;
+                        txt_tyLeLoiNhuanRong.ForeColor = Color.Black; // Màu chữ đen
+                    }
                 }
                 else
                 {
@@ -435,7 +460,7 @@ namespace GUI
 
             if (dgv_dsLoiNhuan.Columns["ThoiGian"] != null)
                 dgv_dsLoiNhuan.Columns["ThoiGian"].HeaderText = "Thời gian";
-
+            dgv_dsLoiNhuan.Columns["ThoiGian"].DefaultCellStyle.Format = "MM/yyyy";
             if (dgv_dsLoiNhuan.Columns["MoTa"] != null)
                 dgv_dsLoiNhuan.Columns["MoTa"].HeaderText = "Mô tả";
 

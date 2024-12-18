@@ -151,14 +151,40 @@ namespace GUI
                 Decimal doanhThuThang = doanhThu?.SoTien ?? 0;
                 // Kiểm tra để tránh chia cho 0
                 if (doanhThuThang != 0)
-                {
-                    // Tính tỷ lệ lợi nhuận gộp và lợi nhuận ròng
+                {// Tính tỷ lệ lợi nhuận gộp và lợi nhuận ròng
                     decimal tyLeLoiNhuanGop = (loiNhuanGop / doanhThuThang) * 100;
                     decimal tyLeLoiNhuanRong = (loiNhuanRong / doanhThuThang) * 100;
 
                     // Cập nhật lên giao diện
                     txt_tyLeLoiNhuanGop.Text = tyLeLoiNhuanGop.ToString("F2") + '%'; // Hiển thị 2 chữ số sau dấu phẩy
                     txt_tyLeLoiNhuanRong.Text = tyLeLoiNhuanRong.ToString("F2") + '%'; // Hiển thị 2 chữ số sau dấu phẩy
+
+                    // Cập nhật màu nền và màu chữ cho tỷ lệ lợi nhuận ròng
+                    if (tyLeLoiNhuanRong < 0)
+                    {
+                        // Nếu tỷ lệ lợi nhuận ròng < 0, tô nền màu đỏ và chữ màu trắng để nổi bật
+                        txt_tyLeLoiNhuanRong.BackColor = Color.Red;
+                        txt_tyLeLoiNhuanRong.ForeColor = Color.White; // Màu chữ trắng
+                    }
+                    else if (tyLeLoiNhuanRong < 5)
+                    {
+                        // Nếu tỷ lệ lợi nhuận ròng dưới 5, tô nền màu vàng và chữ màu đen
+                        txt_tyLeLoiNhuanRong.BackColor = Color.Yellow;
+                        txt_tyLeLoiNhuanRong.ForeColor = Color.Black; // Màu chữ đen
+                    }
+                    else if (tyLeLoiNhuanRong <= 15)
+                    {
+                        // Nếu tỷ lệ lợi nhuận ròng từ 5% đến 15%, tô nền màu xanh lá và chữ màu trắng
+                        txt_tyLeLoiNhuanRong.BackColor = Color.Green;
+                        txt_tyLeLoiNhuanRong.ForeColor = Color.White; // Màu chữ trắng
+                    }
+                    else
+                    {
+                        // Nếu tỷ lệ lợi nhuận ròng trên 15%, tô nền màu hồng và chữ màu đen
+                        txt_tyLeLoiNhuanRong.BackColor = Color.Pink;
+                        txt_tyLeLoiNhuanRong.ForeColor = Color.Black; // Màu chữ đen
+                    }
+
                 }
                 else
                 {
@@ -174,6 +200,10 @@ namespace GUI
                 KhoiTaoDoanhThu();
                 dgv_dsDoanhThu.RowPostPaint -= Dgv_dsDoanhThu_RowPostPaint;
                 dgv_dsDoanhThu.RowPostPaint += Dgv_dsDoanhThu_RowPostPaint;
+
+                // tính tổng tiền doanh thu
+                decimal tongDoanhThu = (decimal)lstDoanhThu.Sum(dt => dt.SoTien);
+                txt_TongDoanhThu.Text = "Tổng doanh thu: " + tongDoanhThu.ToString("N0") + " VNĐ";
                 //hiển thị chi phí theo tháng
                 List<ChiPhi> lstChiPhi = _chiPhiBLL.LayChiPhiTheoThangNam(ln.ThoiGian.Value.Month, ln.ThoiGian.Value.Year, maSanPham);
                 dgv_dsChiPhi.DataSource = lstChiPhi;
@@ -181,6 +211,9 @@ namespace GUI
                 KhoiTaoChiPhi();
                 dgv_dsChiPhi.RowPostPaint -= Dgv_dsChiPhi_RowPostPaint;
                 dgv_dsChiPhi.RowPostPaint += Dgv_dsChiPhi_RowPostPaint;
+                //tính tổng tiền chi phí
+                decimal tongChiPhi = (decimal)lstChiPhi.Sum(cp => cp.SoTien);
+                txt_tongChiPhi.Text = "Tổng chi phí: " + tongChiPhi.ToString("N0") + " VNĐ";
             }
         }
 
@@ -257,6 +290,11 @@ namespace GUI
                     KhoiTaoLoiNhuan();
                     dgv_dsLoiNhuan.RowPostPaint -= Dgv_dsLoiNhuan_RowPostPaint;
                     dgv_dsLoiNhuan.RowPostPaint += Dgv_dsLoiNhuan_RowPostPaint;
+                    // tings tổng lợi nhuận gộp và ròng
+                    decimal tongLoiNhuanGop = (decimal)_lstLoiNhuan.Sum(ln => ln.LoiNhuanGop);
+                    decimal tongLoiNhuanRong = (decimal)_lstLoiNhuan.Sum(ln => ln.LoiNhuanRong);
+                    txt_tongLNG.Text = "Tổng lợi nhuận gộp: " + tongLoiNhuanGop.ToString("N0") + " VNĐ";
+                    txt_tongLNR.Text = "Tổng lợi nhuận ròng: " + tongLoiNhuanRong.ToString("N0") + " VNĐ";
                 }
             }
             catch
@@ -294,6 +332,7 @@ namespace GUI
                 // Đổi tên cột
                 dgv_dsLoiNhuan.Columns["MaLoiNhuan"].HeaderText = "Mã lợi nhuận";
                 dgv_dsLoiNhuan.Columns["ThoiGian"].HeaderText = "Thời gian";
+                dgv_dsLoiNhuan.Columns["ThoiGian"].DefaultCellStyle.Format = "MM/yyyy";
                 dgv_dsLoiNhuan.Columns["LoiNhuanGop"].HeaderText = "Lợi nhuận gộp";
                 dgv_dsLoiNhuan.Columns["LoiNhuanRong"].HeaderText = "Lợi nhuận ròng";
                 dgv_dsLoiNhuan.Columns["MaSanPham"].HeaderText = "Mã sản phẩm";
@@ -364,6 +403,9 @@ namespace GUI
                     KhoiTaoDoanhThu();
                     dgv_dsDoanhThu.RowPostPaint -= Dgv_dsDoanhThu_RowPostPaint;
                     dgv_dsDoanhThu.RowPostPaint += Dgv_dsDoanhThu_RowPostPaint;
+                    // tính tổng tiền doanh thu
+                    decimal tongDoanhThu = (decimal)_lstDoanhThu.Sum(dt => dt.SoTien);
+                    txt_TongDoanhThu.Text = "Tổng doanh thu: "+ tongDoanhThu.ToString("N0")+" VNĐ";
                 }
             }
             catch
@@ -401,6 +443,9 @@ namespace GUI
                     KhoiTaoChiPhi();
                     dgv_dsChiPhi.RowPostPaint -= Dgv_dsChiPhi_RowPostPaint;
                     dgv_dsChiPhi.RowPostPaint += Dgv_dsChiPhi_RowPostPaint;
+                    //tính tổng tiền chi phí
+                    decimal tongChiPhi = (decimal)_lstChiPhi.Sum(cp => cp.SoTien);
+                    txt_tongChiPhi.Text = "Tổng chi phí: " + tongChiPhi.ToString("N0") + " VNĐ";
                 }
             }
             catch
@@ -466,6 +511,7 @@ namespace GUI
                 dgv_dsDoanhThu.Columns["MoTa"].HeaderText = "Mô Tả";
                 dgv_dsDoanhThu.Columns["SoTien"].HeaderText = "Số tiền";
                 dgv_dsDoanhThu.Columns["ThoiGian"].HeaderText = "Thời gian";
+                dgv_dsDoanhThu.Columns["ThoiGian"].DefaultCellStyle.Format = "MM/yyyy";
                 dgv_dsDoanhThu.Columns["MaLoaiDoanhThu"].HeaderText = "Mã loại doanh thu";
 
                 // In đậm tiêu đề cột
@@ -561,7 +607,7 @@ namespace GUI
                 // Đảm bảo cột "ThoiGian" có định dạng ngày tháng nếu cần
                 if (dgv_dsChiPhi.Columns.Contains("ThoiGian"))
                 {
-                    dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Format = "dd/MM/yyyy"; // Định dạng ngày tháng (tuỳ theo yêu cầu)
+                    dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Format = "MM/yyyy"; // Định dạng ngày tháng (tuỳ theo yêu cầu)
                     dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Căn giữa
                 }
 

@@ -59,6 +59,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txt_maChiPhi = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.txt_tongTienLoaiChiPhi = new System.Windows.Forms.Label();
+            this.txt_ttChiPhi = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsLoaiChiPhi)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -84,6 +86,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.txt_tongTienLoaiChiPhi);
             this.groupBox1.Controls.Add(this.dgv_dsLoaiChiPhi);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 316);
@@ -95,14 +98,15 @@
             // 
             // dgv_dsLoaiChiPhi
             // 
+            this.dgv_dsLoaiChiPhi.AllowUserToAddRows = false;
             this.dgv_dsLoaiChiPhi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_dsLoaiChiPhi.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgv_dsLoaiChiPhi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_dsLoaiChiPhi.Location = new System.Drawing.Point(7, 26);
+            this.dgv_dsLoaiChiPhi.Location = new System.Drawing.Point(7, 49);
             this.dgv_dsLoaiChiPhi.Name = "dgv_dsLoaiChiPhi";
-            this.dgv_dsLoaiChiPhi.Size = new System.Drawing.Size(793, 435);
+            this.dgv_dsLoaiChiPhi.Size = new System.Drawing.Size(793, 412);
             this.dgv_dsLoaiChiPhi.TabIndex = 0;
             // 
             // groupBox2
@@ -259,6 +263,7 @@
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.txt_ttChiPhi);
             this.groupBox3.Controls.Add(this.dgv_dsChiPhi);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(824, 316);
@@ -270,14 +275,15 @@
             // 
             // dgv_dsChiPhi
             // 
+            this.dgv_dsChiPhi.AllowUserToAddRows = false;
             this.dgv_dsChiPhi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_dsChiPhi.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgv_dsChiPhi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_dsChiPhi.Location = new System.Drawing.Point(7, 26);
+            this.dgv_dsChiPhi.Location = new System.Drawing.Point(7, 49);
             this.dgv_dsChiPhi.Name = "dgv_dsChiPhi";
-            this.dgv_dsChiPhi.Size = new System.Drawing.Size(662, 435);
+            this.dgv_dsChiPhi.Size = new System.Drawing.Size(662, 412);
             this.dgv_dsChiPhi.TabIndex = 0;
             // 
             // groupBox4
@@ -333,6 +339,8 @@
             // 
             // dtp_thoiGian
             // 
+            this.dtp_thoiGian.CustomFormat = "MM/yyyy";
+            this.dtp_thoiGian.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtp_thoiGian.Location = new System.Drawing.Point(433, 59);
             this.dtp_thoiGian.Name = "dtp_thoiGian";
             this.dtp_thoiGian.Size = new System.Drawing.Size(241, 26);
@@ -407,6 +415,28 @@
             this.label1.TabIndex = 12;
             this.label1.Text = "Mã chi phí";
             // 
+            // txt_tongTienLoaiChiPhi
+            // 
+            this.txt_tongTienLoaiChiPhi.AutoSize = true;
+            this.txt_tongTienLoaiChiPhi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_tongTienLoaiChiPhi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.txt_tongTienLoaiChiPhi.Location = new System.Drawing.Point(6, 22);
+            this.txt_tongTienLoaiChiPhi.Name = "txt_tongTienLoaiChiPhi";
+            this.txt_tongTienLoaiChiPhi.Size = new System.Drawing.Size(84, 20);
+            this.txt_tongTienLoaiChiPhi.TabIndex = 28;
+            this.txt_tongTienLoaiChiPhi.Text = "Tổng tiền";
+            // 
+            // txt_ttChiPhi
+            // 
+            this.txt_ttChiPhi.AutoSize = true;
+            this.txt_ttChiPhi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_ttChiPhi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.txt_ttChiPhi.Location = new System.Drawing.Point(10, 22);
+            this.txt_ttChiPhi.Name = "txt_ttChiPhi";
+            this.txt_ttChiPhi.Size = new System.Drawing.Size(84, 20);
+            this.txt_ttChiPhi.TabIndex = 29;
+            this.txt_ttChiPhi.Text = "Tổng tiền";
+            // 
             // frm_quanLyChiPhi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -421,10 +451,12 @@
             this.Name = "frm_quanLyChiPhi";
             this.Text = "frm_quanLyChiPhi";
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsLoaiChiPhi)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dsChiPhi)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
@@ -464,5 +496,7 @@
         private System.Windows.Forms.ComboBox cbo_loaiChiPhi;
         private UC.ThemXoaSua themXoaSuaCP;
         private System.Windows.Forms.Button btn_khoiPhuc;
+        private System.Windows.Forms.Label txt_tongTienLoaiChiPhi;
+        private System.Windows.Forms.Label txt_ttChiPhi;
     }
 }

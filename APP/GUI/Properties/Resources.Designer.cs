@@ -133,6 +133,16 @@ namespace GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cam {
+            get {
+                object obj = ResourceManager.GetObject("cam", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap congThuc {
             get {
                 object obj = ResourceManager.GetObject("congThuc", resourceCulture);
@@ -386,6 +396,16 @@ namespace GUI.Properties {
         internal static System.Drawing.Bitmap logo6 {
             get {
                 object obj = ResourceManager.GetObject("logo6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap luutao {
+            get {
+                object obj = ResourceManager.GetObject("luutao", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

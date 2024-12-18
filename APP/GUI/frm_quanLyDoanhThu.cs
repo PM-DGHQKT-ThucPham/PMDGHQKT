@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using UC;
 
@@ -51,6 +52,8 @@ namespace GUI
             LoadDataComboboxLoaiDoanhThu();
             btn_khoiPhuc.Click += Btn_khoiPhuc_Click;
             cbo_loaiDoanhThu.Enabled = false;
+            dtp_thoiGianDoanhThu.Format = DateTimePickerFormat.Custom;
+            dtp_thoiGianDoanhThu.CustomFormat = "MM/yyyy";
         }
 
         private void ThemXoaSuaDT_XoaClicked(object sender, EventArgs e)
@@ -127,13 +130,33 @@ namespace GUI
                     // Kiểm tra dữ liệu nhập liệu
                     if (!KiemTraRongTextBoxDoanhThu())
                     {
-                        // Lấy doanh thu từ các TextBox
+                        // Làm sạch và chuẩn hóa giá trị số tiền
+                        string rawSoTien = txt_soTienDoanhThu.Text
+                        .Replace("VNĐ", "") // Loại bỏ đơn vị VNĐ
+                        .Replace(".", "")    // Loại bỏ dấu chấm ngăn cách phần nghìn
+                        .Replace(",", ".")   // Thay dấu phẩy bằng dấu chấm
+                        .Trim();             // Xóa khoảng trắng thừa
+
+                        // Chuyển đổi số tiền thành decimal
+                        decimal soTien = decimal.TryParse(rawSoTien, out decimal parsedSoTien) ? parsedSoTien : 0;
+
+                        // Kiểm tra giá trị rỗng hoặc null trước khi gán
+                        string maDoanhThu = string.IsNullOrWhiteSpace(txt_maDoanhThu.Text)
+                            ? throw new ArgumentException("Mã doanh thu không được để trống.")
+                            : txt_maDoanhThu.Text;
+
+                        string maLoaiDoanhThu = cbo_loaiDoanhThu.SelectedValue?.ToString() ??
+                            throw new ArgumentException("Bạn phải chọn loại doanh thu.");
+
+                        string moTa = txt_moTaDoanhThu.Text?.Trim() ?? "";
+
+                        // Tạo đối tượng DoanhThu
                         DoanhThu doanhThu = new DoanhThu
                         {
-                            MaDoanhThu = txt_maDoanhThu.Text,
-                            MaLoaiDoanhThu = cbo_loaiDoanhThu.SelectedValue.ToString(),
-                            MoTa = txt_moTaDoanhThu.Text,
-                            SoTien = decimal.TryParse(txt_soTienDoanhThu.Text, out decimal soTien) ? soTien : 0,
+                            MaDoanhThu = maDoanhThu,
+                            MaLoaiDoanhThu = maLoaiDoanhThu,
+                            MoTa = moTa,
+                            SoTien = soTien,
                             ThoiGian = dtp_thoiGianDoanhThu.Value
                         };
 
@@ -474,7 +497,9 @@ namespace GUI
 
         private void Btn_khoiPhuc_Click(object sender, EventArgs e)
         {
-            HienThiLoaiDoanhThu();
+            dgv_dsLoaiDoanhThu.SelectionChanged -= Dgv_dsLoaiDoanhThu_SelectionChanged;
+            dgv_dsLoaiDoanhThu.DataSource = null;
+            LoadLaiTrang();
         }
 
         private void ThemXoaSuaDT_HuyThemClicked(object sender, EventArgs e)
@@ -518,6 +543,8 @@ namespace GUI
                     {
                         MessageBox.Show("Lưu thay đổi thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         HienThiDoanhThu(maLoai);
+                        //load lại trang
+                        LoadLaiTrang();
                     }
                     else
                     {
@@ -544,8 +571,23 @@ namespace GUI
                         MessageBox.Show("Vui lòng nhập đầy đủ thông tin trước khi sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
+                    // Lấy giá trị từ TextBox
+                    string input = txt_soTienDoanhThu.Text;
 
-                    if (!decimal.TryParse(txt_soTienDoanhThu.Text, out decimal soTien))
+                    // Loại bỏ đơn vị "VNĐ" (không phân biệt hoa/thường) và khoảng trắng
+                    input = Regex.Replace(input, @"VNĐ", "", RegexOptions.IgnoreCase);
+
+                    // Loại bỏ tất cả khoảng trắng trong chuỗi
+                    input = input.Replace(" ", "");
+
+                    // Loại bỏ tất cả ký tự không phải số, dấu chấm hoặc dấu phẩy
+                    input = Regex.Replace(input, @"[^\d.,]", "");
+
+                    // Thay dấu phẩy (,) thành dấu chấm (.) để chuẩn hóa định dạng số thập phân
+                    input = input.Replace(",", ".");
+
+                    // Kiểm tra và chuyển đổi sang kiểu decimal
+                    if (!decimal.TryParse(input, out decimal soTien))
                     {
                         MessageBox.Show("Số tiền phải là một giá trị hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
@@ -638,6 +680,8 @@ namespace GUI
                 dgv_dsDoanhThu.Columns["MoTa"].HeaderText = "Mô Tả";
                 dgv_dsDoanhThu.Columns["SoTien"].HeaderText = "Số tiền";
                 dgv_dsDoanhThu.Columns["ThoiGian"].HeaderText = "Thời gian";
+                //hiển thị thời gian lên dgv là tháng năm
+                dgv_dsDoanhThu.Columns["ThoiGian"].DefaultCellStyle.Format = "MM/yyyy";
                 dgv_dsDoanhThu.Columns["MaLoaiDoanhThu"].HeaderText = "Mã loại doanh thu";
 
                 // In đậm tiêu đề cột
@@ -771,6 +815,9 @@ namespace GUI
                     // Refresh và cập nhật giao diện
                     dgv_dsDoanhThu.Invalidate();
                     dgv_dsDoanhThu.Refresh();
+                    //tính tổng tiền của loại doanh thu
+                    decimal tongTien =(decimal)danhSachDoanhThu.Sum(dt => dt.SoTien);
+                    txt_ttDoanhThu.Text ="Tổng tiền doanh thu:"+ string.Format("{0:N0} VNĐ", tongTien);
                 }
                 else
                 {
@@ -1251,6 +1298,7 @@ namespace GUI
         {
             try
             {
+                _loaiDoanhThuBLL = new LoaiDoanhThuBLL();
                 // Lấy danh sách loại doanh thu từ BLL (Business Logic Layer)
                 var danhSachLoaiDoanhThu = _loaiDoanhThuBLL.LayDanhSachLoaiDoanhThu(maSanPham);
 
@@ -1273,6 +1321,10 @@ namespace GUI
                     // Refresh và cập nhật giao diện
                     dgv_dsLoaiDoanhThu.Invalidate();
                     dgv_dsLoaiDoanhThu.Refresh();
+
+                    // tính tổng tiền loai doanh thu
+                    decimal tongTien = (decimal)danhSachLoaiDoanhThu.Sum(ldt => ldt.TongTien);
+                    txt_tongTienLoaiDoanhThu.Text = "Tổng tiền doanh thu "+string.Format("{0:N0} VNĐ", tongTien);
                 }
                 else
                 {
