@@ -15,46 +15,46 @@ namespace DAL
             List<DiemSanPhamTheoTungTieuChi> lst = new List<DiemSanPhamTheoTungTieuChi>();
             var bang1 = db.SanPhams.Where(t => t.MaSanPham == masanpham).FirstOrDefault();            
 
-            var bang2 = db.DoBens.Where(t => t.MaSanPham == masanpham).FirstOrDefault();
+            var bang2 = db.DoBens.Where(t => t.MaSanPham == masanpham).ToList();
             if (bang2 != null)
             {
                 lst.Add(new DiemSanPhamTheoTungTieuChi()
                 {
                     TenTieuChi = "Chất lượng",
-                    MucDoAnhHuong = (decimal)bang2.MucDoAnhHuong,
-                    TrongSo = (decimal)bang2.SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC001").FirstOrDefault().TrongSo
+                    MucDoAnhHuong = (decimal)bang2.Average(t=>t.MucDoAnhHuong),
+                    TrongSo = (decimal)bang2[0].SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC001").FirstOrDefault().TrongSo
                 });
             }
 
-            var bang3 = db.ThietKes.Where(t => t.MaSanPham == masanpham).FirstOrDefault();
+            var bang3 = db.ThietKes.Where(t => t.MaSanPham == masanpham).ToList();
             if (bang3 != null)
             {
                 lst.Add(new DiemSanPhamTheoTungTieuChi()
                 {
                     TenTieuChi = "Thiết kế",
-                    MucDoAnhHuong = (decimal)bang3.MucDoAnhHuong,
-                    TrongSo = (decimal)bang3.SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC002").FirstOrDefault().TrongSo
+                    MucDoAnhHuong = (decimal)bang3.Average(t => t.MucDoAnhHuong),
+                    TrongSo = (decimal)bang3[0].SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC002").FirstOrDefault().TrongSo
                 });
             }
             
-            var bang4 = db.HieuSuats.Where(t => t.MaSanPham == masanpham).FirstOrDefault();
+            var bang4 = db.HieuSuats.Where(t => t.MaSanPham == masanpham).ToList();
             if (bang4 != null)
             {
                 lst.Add(new DiemSanPhamTheoTungTieuChi()
                 {
                     TenTieuChi = "Hiệu suất",
-                    MucDoAnhHuong = (decimal)bang4.MucDoAnhHuong,
-                    TrongSo = (decimal)bang4.SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC003").FirstOrDefault().TrongSo
+                    MucDoAnhHuong = (decimal)bang4.Average(t => t.MucDoAnhHuong),
+                    TrongSo = (decimal)bang4[0].SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC003").FirstOrDefault().TrongSo
                 });
             }
-            var bang5 = db.GiaCas.Where(t => t.MaSanPham == masanpham).FirstOrDefault();
+            var bang5 = db.GiaCas.Where(t => t.MaSanPham == masanpham).ToList();
             if (bang5 != null)
             {
                 lst.Add(new DiemSanPhamTheoTungTieuChi()
                 {
                     TenTieuChi = "Giá cả",
-                    MucDoAnhHuong = (decimal)bang5.MucDoAnhHuong,
-                    TrongSo = (decimal)bang5.SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC004").FirstOrDefault().TrongSo
+                    MucDoAnhHuong = (decimal)bang5.Average(t=> t.MucDoAnhHuong),
+                    TrongSo = (decimal)bang5[0].SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC004").FirstOrDefault().TrongSo
                 });
             }
 
@@ -71,24 +71,24 @@ namespace DAL
                 });
             }
 
-            var bang7 = db.DichVuKhachHangs.Where(t => t.MaSanPham == masanpham).FirstOrDefault();
+            var bang7 = db.DichVuKhachHangs.Where(t => t.MaSanPham == masanpham).ToList();
             if (bang7 != null)
             {
                 lst.Add(new DiemSanPhamTheoTungTieuChi()
                 {
                     TenTieuChi = "Dịch vụ khách hàng",
-                    MucDoAnhHuong = (decimal)bang7.MucDoAnhHuong,
-                    TrongSo = (decimal)bang7.SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC006").FirstOrDefault().TrongSo
+                    MucDoAnhHuong = (decimal)bang7.Average(t => t.MucDoAnhHuong),
+                    TrongSo = (decimal)bang7[0].SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC006").FirstOrDefault().TrongSo
                 });
             }
-            var bang8 = db.BenVungs.Where(t => t.MaSanPham == masanpham).FirstOrDefault();
+            var bang8 = db.BenVungs.Where(t => t.MaSanPham == masanpham).ToList();
             if (bang8 != null)
             {
                 lst.Add(new DiemSanPhamTheoTungTieuChi()
                 {
                     TenTieuChi = "Tính Bền vững",
-                    MucDoAnhHuong = (decimal)bang8.MucDoAnhHuong,
-                    TrongSo = (decimal)bang8.SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC007").FirstOrDefault().TrongSo
+                    MucDoAnhHuong = (decimal)bang8.Average(t => t.MucDoAnhHuong),
+                    TrongSo = (decimal)bang8[0].SanPham.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC007").FirstOrDefault().TrongSo
                 });
             }
             if (bang1 != null)

@@ -253,60 +253,69 @@ namespace GUI
 
         private bool KiemTraDuLieuTextbox()
         {
-            if (txtMaDoBen.Text.Length <= 0)
+            try
             {
-                MessageBox.Show("Mã độ bền không được để trống");
-                txtMaDoBen.Focus();
+                if (txtMaDoBen.Text.Length <= 0)
+                {
+                    MessageBox.Show("Mã độ bền không được để trống");
+                    txtMaDoBen.Focus();
+                    return false;
+                }
+                if (cboSanPham.SelectedValue.ToString().Length <= 0)
+                {
+                    MessageBox.Show("Mã sản phẩm bị lỗi");
+                    return false;
+                }
+                if (txtMoTa.Text.Length <= 0)
+                {
+                    MessageBox.Show("Mô tả không được để trống");
+                    txtMoTa.Focus();
+                    return false;
+                }
+                if (txtTuoiThoNgay.Text.Length <= 0)
+                {
+                    MessageBox.Show("Tuổi thọ không được để trống");
+                    txtTuoiThoNgay.Focus();
+                    return false;
+                }
+                if (!KiemTraTextBoxLaSo(txtTuoiThoNgay) || Convert.ToDecimal(txtTuoiThoNgay.Text) <= 0 || Convert.ToDecimal(txtTuoiThoNgay.Text) > 730)
+                {
+                    MessageBox.Show("Đánh giá hỗ trợ phải lớn hơn 0 và nhỏ hơn 730(2 năm)");
+                    txtTuoiThoNgay.Focus();
+                    return false;
+                }
+                if (txtDanhGiaDoBen.Text.Length <= 0)
+                {
+                    MessageBox.Show("Đánh giá độ bền không được để trống");
+                    txtDanhGiaDoBen.Focus();
+                    return false;
+                }
+                if (!KiemTraTextBoxLaSo(txtDanhGiaDoBen) || Convert.ToInt32(txtDanhGiaDoBen.Text) <= 0 || Convert.ToInt32(txtDanhGiaDoBen.Text) > 10)
+                {
+                    MessageBox.Show("Thời gian bảo hành phải lớn hơn 0 và nhỏ hơn 10");
+                    txtDanhGiaDoBen.Focus();
+                    return false;
+                }
+                if (txtMucDoAnhHuong.Text.Length <= 0)
+                {
+                    MessageBox.Show("Mức độ ảnh hưởng không được để trống");
+                    txtMucDoAnhHuong.Focus();
+                    return false;
+                }
+                if (!KiemTraTextBoxLaSo(txtMucDoAnhHuong) || Convert.ToDecimal(txtMucDoAnhHuong.Text) <= 0 || Convert.ToDecimal(txtMucDoAnhHuong.Text) > 10)
+                {
+                    MessageBox.Show("Mức độ ảnh hưởng phải lớn hơn 0 và nhỏ hơn 10");
+                    txtMucDoAnhHuong.Focus();
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (cboSanPham.SelectedValue.ToString().Length <= 0)
-            {
-                MessageBox.Show("Mã sản phẩm bị lỗi");
-                return false;
-            }
-            if (txtMoTa.Text.Length <= 0)
-            {
-                MessageBox.Show("Mô tả không được để trống");
-                txtMoTa.Focus();
-                return false;
-            }
-            if (txtTuoiThoNgay.Text.Length <= 0)
-            {
-                MessageBox.Show("Tuổi thọ không được để trống");
-                txtTuoiThoNgay.Focus();
-                return false;
-            }
-            if (!KiemTraTextBoxLaSo(txtTuoiThoNgay) || Convert.ToDecimal(txtTuoiThoNgay.Text) <= 0 || Convert.ToDecimal(txtTuoiThoNgay.Text) > 730)
-            {
-                MessageBox.Show("Đánh giá hỗ trợ phải lớn hơn 0 và nhỏ hơn 730(2 năm)");
-                txtTuoiThoNgay.Focus();
-                return false;
-            }
-            if (txtDanhGiaDoBen.Text.Length <= 0)
-            {
-                MessageBox.Show("Đánh giá độ bền không được để trống");
-                txtDanhGiaDoBen.Focus();
-                return false;
-            }
-            if (!KiemTraTextBoxLaSo(txtDanhGiaDoBen) || Convert.ToInt32(txtDanhGiaDoBen.Text) <= 0 || Convert.ToInt32(txtDanhGiaDoBen.Text) > 10)
-            {
-                MessageBox.Show("Thời gian bảo hành phải lớn hơn 0 và nhỏ hơn 10");
-                txtDanhGiaDoBen.Focus();
-                return false;
-            }
-            if (txtMucDoAnhHuong.Text.Length <= 0)
-            {
-                MessageBox.Show("Mức độ ảnh hưởng không được để trống");
-                txtMucDoAnhHuong.Focus();
-                return false;
-            }
-            if (!KiemTraTextBoxLaSo(txtMucDoAnhHuong) || Convert.ToDecimal(txtMucDoAnhHuong.Text) <= 0 || Convert.ToDecimal(txtMucDoAnhHuong.Text) > 10)
-            {
-                MessageBox.Show("Mức độ ảnh hưởng phải lớn hơn 0 và nhỏ hơn 10");
-                txtMucDoAnhHuong.Focus();
-                return false;
-            }
-            return true;
+            
         }
 
         private DoBen LayDichVuTuTextBox()
