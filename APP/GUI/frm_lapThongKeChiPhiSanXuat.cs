@@ -486,7 +486,7 @@ namespace GUI
             dgv_dsChiPhi.Columns["SoTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Căn phải
 
             //định dạng ngày tháng cho cột thời gian
-            dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Format = "MM/yyyy";
 
             //ẩn cột loai chi phí
             dgv_dsChiPhi.Columns["LoaiChiPhi"].Visible = false;

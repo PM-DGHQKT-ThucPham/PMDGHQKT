@@ -561,6 +561,7 @@ namespace GUI
             dgv_dsDoanhThu.Columns["MoTa"].HeaderText = "Mô tả";
             dgv_dsDoanhThu.Columns["SoTien"].HeaderText = "Số tiền";
             dgv_dsDoanhThu.Columns["ThoiGian"].HeaderText = "Thời gian";
+            dgv_dsDoanhThu.Columns["ThoiGian"].DefaultCellStyle.Format = "MM/yyyy";
 
             //in đậm tiêu đề 
             dgv_dsDoanhThu.Columns["MaDoanhThu"].HeaderCell.Style.Font = new Font("Arial", 12, FontStyle.Bold);

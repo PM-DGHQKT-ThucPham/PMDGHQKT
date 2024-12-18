@@ -93,15 +93,27 @@ namespace DAL
             }
             if (bang1 != null)
             {
-                lst.Add(new DiemSanPhamTheoTungTieuChi()
+                if(lst.Count != 0)
                 {
-                    TenTieuChi = "Nguyên liệu",
-                    MucDoAnhHuong = (decimal)bang1.MucDoAnhHuongTongNguyenLieu,
-                    TrongSo = (decimal)bang1.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC008").FirstOrDefault().TrongSo
-                });
+                    //lst.Add(new DiemSanPhamTheoTungTieuChi();
+                    //{
+                    //    TenTieuChi = "Nguyên liệu",
+                    //    MucDoAnhHuong = (decimal)bang1.MucDoAnhHuongTongNguyenLieu,
+                    //    TrongSo = (decimal)bang1.TieuChi_SanPhams.Where(t => t.MaTieuChi == "TC008").FirstOrDefault().TrongSo
+                    //});
+                    DiemSanPhamTheoTungTieuChi d = new DiemSanPhamTheoTungTieuChi();
+                    d.TenTieuChi = "Nguyên liệu";
+                    decimal diem = bang1.MucDoAnhHuongTongNguyenLieu.Value;
+                    if(diem < 0)
+                    {
+                        diem = 0;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
             }
-
-
             return lst;
         }
     }

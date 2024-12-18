@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using UC;
+using System.Text.RegularExpressions;
 
 namespace GUI
 {
@@ -130,7 +131,20 @@ namespace GUI
                         return;
                     }
 
-                    if (!decimal.TryParse(txt_soTien.Text, out decimal soTien))
+                    // Lấy giá trị từ TextBox
+                    string input = txt_soTien.Text;
+
+                    // Loại bỏ đơn vị "VNĐ" (không phân biệt hoa/thường) và khoảng trắng
+                    input = Regex.Replace(input, @"VNĐ", "", RegexOptions.IgnoreCase).Trim();
+
+                    // Loại bỏ tất cả ký tự không phải số, dấu chấm hoặc dấu phẩy
+                    input = Regex.Replace(input, @"[^\d.,]", "");
+
+                    // Thay dấu phẩy (,) thành dấu chấm (.) để chuẩn hóa định dạng số thập phân
+                    input = input.Replace(".", "").Replace(",", ".");
+
+                    // Kiểm tra và chuyển đổi sang kiểu decimal
+                    if (!decimal.TryParse(input, out decimal soTien))
                     {
                         MessageBox.Show("Số tiền phải là một giá trị hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
@@ -600,9 +614,13 @@ namespace GUI
         //load lại trang
         private void LoadLaiTrang()
         {
+            dgv_dsLoaiChiPhi.SelectionChanged -= Dgv_dsLoaiChiPhi_SelectionChanged;
+            dgv_dsLoaiChiPhi.DataSource= null;
             HienThiLoaiChiPhi();
+            dgv_dsLoaiChiPhi.SelectionChanged += Dgv_dsLoaiChiPhi_SelectionChanged;
 
         }
+
         private void LoadComboBoxSanPham()
         {
             try
@@ -692,14 +710,25 @@ namespace GUI
                 chiPhi.MaChiPhi = txt_maChiPhi.Text;
                 chiPhi.MoTa = txt_moTaChiPhi.Text;
 
-                if (decimal.TryParse(txt_soTien.Text, out decimal soTien))
+                // Lấy giá trị từ TextBox
+                string input = txt_soTien.Text;
+
+                // Loại bỏ đơn vị "VNĐ" (không phân biệt hoa/thường) và khoảng trắng
+                input = Regex.Replace(input, @"VNĐ", "", RegexOptions.IgnoreCase).Trim();
+
+                // Loại bỏ tất cả ký tự không phải số, dấu chấm hoặc dấu phẩy
+                input = Regex.Replace(input, @"[^\d.,]", "");
+
+                // Thay dấu phẩy (,) thành dấu chấm (.) để chuẩn hóa định dạng số thập phân
+                input = input.Replace(".", "").Replace(",", ".");
+
+                // Kiểm tra và chuyển đổi sang kiểu decimal
+                if (!decimal.TryParse(input, out decimal soTien))
                 {
-                    chiPhi.SoTien = soTien;
+                    MessageBox.Show("Số tiền phải là một giá trị hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    throw new Exception("Số tiền không hợp lệ!");
                 }
-                else
-                {
-                    throw new FormatException("Số tiền phải là số hợp lệ!");
-                }
+
 
                 chiPhi.ThoiGian = dtp_thoiGian.Value;
 
@@ -1040,6 +1069,9 @@ namespace GUI
 
                 TatDataBindingDataGridViewLoaiChiPhi();
                 BatDataBindingDataGridViewLoaiChiPhi();
+                // tính tổng tiền loại chi phí
+                decimal tongTien =(decimal)_lstLoaiChiPhi.Sum(x=>x.TongTien);
+                txt_tongTienLoaiChiPhi.Text = "Tổng tiền loại chi phí: " +string.Format("{0:N0} VNĐ", tongTien);
             }
             catch (Exception ex)
             {
@@ -1071,10 +1103,19 @@ namespace GUI
                 // Ràng buộc dữ liệu từ DataGridView vào các TextBox
                 if (dgv_dsLoaiChiPhi.CurrentRow != null)
                 {
-                    txt_maLoaiChiPhi.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["MaLoaiChiPhi"].Value.ToString();
-                    txt_tenLoaiChiPhi.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["TenLoaiChiPhi"].Value.ToString();
-                    txt_moTaLoaiChiPhi.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["MoTa"].Value.ToString();
-                    txt_tongTien.Text = dgv_dsLoaiChiPhi.CurrentRow.Cells["TongTien"].Value.ToString();
+                    var maLoaiChiPhiCell = dgv_dsLoaiChiPhi.CurrentRow.Cells["MaLoaiChiPhi"];
+                    var tenLoaiChiPhiCell = dgv_dsLoaiChiPhi.CurrentRow.Cells["TenLoaiChiPhi"];
+                    var moTaLoaiChiPhiCell = dgv_dsLoaiChiPhi.CurrentRow.Cells["MoTa"];
+                    var tongTienCell = dgv_dsLoaiChiPhi.CurrentRow.Cells["TongTien"];
+
+                    if (maLoaiChiPhiCell != null && maLoaiChiPhiCell.Value != null)
+                        txt_maLoaiChiPhi.Text = maLoaiChiPhiCell.Value.ToString();
+                    if (tenLoaiChiPhiCell != null && tenLoaiChiPhiCell.Value != null)
+                        txt_tenLoaiChiPhi.Text = tenLoaiChiPhiCell.Value.ToString();
+                    if (moTaLoaiChiPhiCell != null && moTaLoaiChiPhiCell.Value != null)
+                        txt_moTaLoaiChiPhi.Text = moTaLoaiChiPhiCell.Value.ToString();
+                    if (tongTienCell != null && tongTienCell.Value != null)
+                        txt_tongTien.Text = tongTienCell.Value.ToString();
                 }
             }
             catch (Exception ex)
@@ -1196,7 +1237,7 @@ namespace GUI
                 // Đảm bảo cột "ThoiGian" có định dạng ngày tháng nếu cần
                 if (dgv_dsChiPhi.Columns.Contains("ThoiGian"))
                 {
-                    dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Format = "dd/MM/yyyy"; // Định dạng ngày tháng (tuỳ theo yêu cầu)
+                    dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Format = "MM/yyyy"; // Định dạng ngày tháng (tuỳ theo yêu cầu)
                     dgv_dsChiPhi.Columns["ThoiGian"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Căn giữa
                 }
 
@@ -1323,6 +1364,9 @@ namespace GUI
 
                     dgv_dsChiPhi.Invalidate();
                     dgv_dsChiPhi.Refresh();
+                    // Hiển thị tổng số chi phí
+                    decimal tongTien = (decimal)danhSachChiPhi.Sum(x => x.SoTien);
+                    txt_ttChiPhi.Text = "Tổng số chi phí:"+ tongTien.ToString("N0")+" VNĐ";
                 }
                 else
                 {
@@ -1342,6 +1386,7 @@ namespace GUI
         {
             try
             {
+                _loaiChiPhiBLL = new LoaiChiPhiBLL();
                 var danhSachLoaiChiPhi = _loaiChiPhiBLL.LayDanhSachLoaiChiPhi(maSanPham);
 
                 // Tạo BindingList và gán làm DataSource
@@ -1353,6 +1398,9 @@ namespace GUI
                 dgv_dsLoaiChiPhi.RowPostPaint += dgvSanPham_RowPostPaint;
                 dgv_dsLoaiChiPhi.Invalidate();
                 dgv_dsLoaiChiPhi.Refresh();
+                // Hiển thị tổng số tiền loại chi phí
+                decimal tongTien = (decimal)danhSachLoaiChiPhi.Sum(x => x.TongTien);
+                txt_tongTienLoaiChiPhi.Text = "Tổng số tiền loại chi phí:" + tongTien.ToString("N0") + " VNĐ";
             }
             catch
             {

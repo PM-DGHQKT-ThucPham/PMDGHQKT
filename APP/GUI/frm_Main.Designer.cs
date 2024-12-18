@@ -382,6 +382,7 @@
             this.btn_quanLyPhanHoiKhachHang,
             this.btn_quanLyBenVung,
             this.btn_tinhNangBoSung});
+            this.accordionControlElement5.Expanded = true;
             this.accordionControlElement5.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("accordionControlElement5.ImageOptions.Image")));
             this.accordionControlElement5.Name = "accordionControlElement5";
             this.accordionControlElement5.Tag = "Q014";

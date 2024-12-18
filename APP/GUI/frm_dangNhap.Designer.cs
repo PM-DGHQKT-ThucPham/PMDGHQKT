@@ -141,6 +141,7 @@
             this.Controls.Add(this.txt_matkhau);
             this.Controls.Add(this.txt_tentaikhoan);
             this.Name = "frm_dangNhap";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_dangNhap";
             this.ResumeLayout(false);
             this.PerformLayout();
