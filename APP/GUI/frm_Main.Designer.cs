@@ -216,7 +216,7 @@
             this.btn_lapThongKeChiPhiSanXuat.Name = "btn_lapThongKeChiPhiSanXuat";
             this.btn_lapThongKeChiPhiSanXuat.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.btn_lapThongKeChiPhiSanXuat.Tag = "Q001";
-            this.btn_lapThongKeChiPhiSanXuat.Text = "Lập thống kê chi phí sản xuất";
+            this.btn_lapThongKeChiPhiSanXuat.Text = "Lập thống kê chi phí ";
             this.btn_lapThongKeChiPhiSanXuat.Click += new System.EventHandler(this.btn_lapThongKeChiPhiSanXuat_Click);
             // 
             // btn_lapThongKeDoanhThu

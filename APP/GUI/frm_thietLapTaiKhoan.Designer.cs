@@ -30,9 +30,17 @@
         {
             this.label10 = new System.Windows.Forms.Label();
             this.txt = new System.Windows.Forms.GroupBox();
+            this.txtNhapLaiMatKhau = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtChucVu = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtMatKhauMoi = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btn_CapNhat = new System.Windows.Forms.Button();
             this.btnDong = new System.Windows.Forms.Button();
             this.rbtnNu = new System.Windows.Forms.RadioButton();
             this.rbtnNam = new System.Windows.Forms.RadioButton();
+            this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
             this.dtpNgaySinh = new System.Windows.Forms.DateTimePicker();
             this.txtHoVaTen = new System.Windows.Forms.TextBox();
             this.txtMatKhau = new System.Windows.Forms.TextBox();
@@ -48,14 +56,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_CapNhat = new System.Windows.Forms.Button();
-            this.txtMatKhauMoi = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtChucVu = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
-            this.txtNhapLaiMatKhau = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.txt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
             this.SuspendLayout();
@@ -107,10 +107,85 @@
             this.txt.Margin = new System.Windows.Forms.Padding(2);
             this.txt.Name = "txt";
             this.txt.Padding = new System.Windows.Forms.Padding(2);
-            this.txt.Size = new System.Drawing.Size(1108, 542);
+            this.txt.Size = new System.Drawing.Size(1108, 431);
             this.txt.TabIndex = 35;
             this.txt.TabStop = false;
             this.txt.Text = "Thông tin nhân viên";
+            // 
+            // txtNhapLaiMatKhau
+            // 
+            this.txtNhapLaiMatKhau.Location = new System.Drawing.Point(853, 193);
+            this.txtNhapLaiMatKhau.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNhapLaiMatKhau.Name = "txtNhapLaiMatKhau";
+            this.txtNhapLaiMatKhau.Size = new System.Drawing.Size(203, 27);
+            this.txtNhapLaiMatKhau.TabIndex = 12;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label12.Location = new System.Drawing.Point(687, 197);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(164, 19);
+            this.label12.TabIndex = 11;
+            this.label12.Text = "Nhập lại mật khẩu:";
+            // 
+            // txtChucVu
+            // 
+            this.txtChucVu.Enabled = false;
+            this.txtChucVu.Location = new System.Drawing.Point(461, 95);
+            this.txtChucVu.Margin = new System.Windows.Forms.Padding(2);
+            this.txtChucVu.Name = "txtChucVu";
+            this.txtChucVu.Size = new System.Drawing.Size(203, 27);
+            this.txtChucVu.TabIndex = 10;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label11.Location = new System.Drawing.Point(375, 98);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(79, 19);
+            this.label11.TabIndex = 9;
+            this.label11.Text = "Chức vụ:";
+            // 
+            // txtMatKhauMoi
+            // 
+            this.txtMatKhauMoi.Location = new System.Drawing.Point(853, 147);
+            this.txtMatKhauMoi.Margin = new System.Windows.Forms.Padding(2);
+            this.txtMatKhauMoi.Name = "txtMatKhauMoi";
+            this.txtMatKhauMoi.Size = new System.Drawing.Size(203, 27);
+            this.txtMatKhauMoi.TabIndex = 8;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.label6.Location = new System.Drawing.Point(687, 151);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(126, 19);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Mật khẩu mới:";
+            // 
+            // btn_CapNhat
+            // 
+            this.btn_CapNhat.AutoSize = true;
+            this.btn_CapNhat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
+            this.btn_CapNhat.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_CapNhat.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btn_CapNhat.Location = new System.Drawing.Point(827, 267);
+            this.btn_CapNhat.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_CapNhat.Name = "btn_CapNhat";
+            this.btn_CapNhat.Size = new System.Drawing.Size(92, 41);
+            this.btn_CapNhat.TabIndex = 6;
+            this.btn_CapNhat.Text = "Cập nhât";
+            this.btn_CapNhat.UseVisualStyleBackColor = false;
             // 
             // btnDong
             // 
@@ -149,6 +224,14 @@
             this.rbtnNam.TabStop = true;
             this.rbtnNam.Text = "Nam";
             this.rbtnNam.UseVisualStyleBackColor = true;
+            // 
+            // radioGroup1
+            // 
+            this.radioGroup1.Location = new System.Drawing.Point(130, 142);
+            this.radioGroup1.Margin = new System.Windows.Forms.Padding(2);
+            this.radioGroup1.Name = "radioGroup1";
+            this.radioGroup1.Size = new System.Drawing.Size(202, 32);
+            this.radioGroup1.TabIndex = 3;
             // 
             // dtpNgaySinh
             // 
@@ -307,95 +390,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Họ và tên:";
             // 
-            // btn_CapNhat
-            // 
-            this.btn_CapNhat.AutoSize = true;
-            this.btn_CapNhat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.btn_CapNhat.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_CapNhat.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btn_CapNhat.Location = new System.Drawing.Point(827, 267);
-            this.btn_CapNhat.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_CapNhat.Name = "btn_CapNhat";
-            this.btn_CapNhat.Size = new System.Drawing.Size(92, 41);
-            this.btn_CapNhat.TabIndex = 6;
-            this.btn_CapNhat.Text = "Cập nhât";
-            this.btn_CapNhat.UseVisualStyleBackColor = false;
-            // 
-            // txtMatKhauMoi
-            // 
-            this.txtMatKhauMoi.Location = new System.Drawing.Point(853, 147);
-            this.txtMatKhauMoi.Margin = new System.Windows.Forms.Padding(2);
-            this.txtMatKhauMoi.Name = "txtMatKhauMoi";
-            this.txtMatKhauMoi.Size = new System.Drawing.Size(203, 27);
-            this.txtMatKhauMoi.TabIndex = 8;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label6.Location = new System.Drawing.Point(687, 151);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(126, 19);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Mật khẩu mới:";
-            // 
-            // txtChucVu
-            // 
-            this.txtChucVu.Enabled = false;
-            this.txtChucVu.Location = new System.Drawing.Point(461, 95);
-            this.txtChucVu.Margin = new System.Windows.Forms.Padding(2);
-            this.txtChucVu.Name = "txtChucVu";
-            this.txtChucVu.Size = new System.Drawing.Size(203, 27);
-            this.txtChucVu.TabIndex = 10;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label11.Location = new System.Drawing.Point(375, 98);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(79, 19);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "Chức vụ:";
-            // 
-            // radioGroup1
-            // 
-            this.radioGroup1.Location = new System.Drawing.Point(130, 142);
-            this.radioGroup1.Margin = new System.Windows.Forms.Padding(2);
-            this.radioGroup1.Name = "radioGroup1";
-            this.radioGroup1.Size = new System.Drawing.Size(202, 32);
-            this.radioGroup1.TabIndex = 3;
-            // 
-            // txtNhapLaiMatKhau
-            // 
-            this.txtNhapLaiMatKhau.Location = new System.Drawing.Point(853, 193);
-            this.txtNhapLaiMatKhau.Margin = new System.Windows.Forms.Padding(2);
-            this.txtNhapLaiMatKhau.Name = "txtNhapLaiMatKhau";
-            this.txtNhapLaiMatKhau.Size = new System.Drawing.Size(203, 27);
-            this.txtNhapLaiMatKhau.TabIndex = 12;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(19)))), ((int)(((byte)(176)))));
-            this.label12.Location = new System.Drawing.Point(687, 197);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(164, 19);
-            this.label12.TabIndex = 11;
-            this.label12.Text = "Nhập lại mật khẩu:";
-            // 
             // frm_thietLapTaiKhoan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1250, 690);
+            this.ClientSize = new System.Drawing.Size(1250, 629);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txt);
             this.Name = "frm_thietLapTaiKhoan";
