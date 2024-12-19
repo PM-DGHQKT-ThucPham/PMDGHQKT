@@ -56,10 +56,9 @@ namespace GUI
 
         private void Btn_dangXuat_ItemClick(object sender, ItemClickEventArgs e)
         {
-            // Đóng form chính và hiển thị lại form đăng nhập
-            frm_dangNhap loginForm = new frm_dangNhap();
-            loginForm.Show();
+            
             this.Close(); // Đóng form chính
+            _frmDangNhap.Show();
         }
 
         private void Frm_main1_Load(object sender, EventArgs e)

@@ -119,6 +119,7 @@
             this.txtNhapLaiMatKhau.Name = "txtNhapLaiMatKhau";
             this.txtNhapLaiMatKhau.Size = new System.Drawing.Size(203, 27);
             this.txtNhapLaiMatKhau.TabIndex = 12;
+            this.txtNhapLaiMatKhau.UseSystemPasswordChar = true;
             // 
             // label12
             // 
@@ -160,6 +161,7 @@
             this.txtMatKhauMoi.Name = "txtMatKhauMoi";
             this.txtMatKhauMoi.Size = new System.Drawing.Size(203, 27);
             this.txtMatKhauMoi.TabIndex = 8;
+            this.txtMatKhauMoi.UseSystemPasswordChar = true;
             // 
             // label6
             // 
@@ -259,6 +261,7 @@
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(203, 27);
             this.txtMatKhau.TabIndex = 1;
+            this.txtMatKhau.UseSystemPasswordChar = true;
             // 
             // txtTaiKhoan
             // 

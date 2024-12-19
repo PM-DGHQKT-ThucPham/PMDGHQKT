@@ -26,7 +26,9 @@ namespace GUI
             cbbVaiTro.SelectedIndexChanged += cbbVaiTro_SelectedIndexChanged;
             dgvNhanVien.CellFormatting += dgvNhanVien_CellFormatting;
             btnDoiHinhAnh.Click += btnDoiHinhAnh_Click;
-
+            btnTim.Click += btnTim_Click;
+            button1.Click += button1_Click;
+            btnTaoNhanVien.Click += btnTaoNhanVien_Click;
         }
 
         private void cbbVaiTro_SelectedIndexChanged(object sender, EventArgs e)
@@ -270,6 +272,108 @@ namespace GUI
 
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void btnDoiHinhAnh_Click(object sender, EventArgs e)
+        {
+            if (dgvNhanVien.CurrentRow != null && dgvNhanVien.CurrentRow.Cells["MaNhanVien"] != null)
+            {
+                string maNhanVien = dgvNhanVien.CurrentRow.Cells["MaNhanVien"].Value?.ToString();
+                if (maNhanVien != null)
+                {
+                    NhanVien nhanVien = nhanVienBLL.LayNhanVien(maNhanVien);
+
+                    // Tạo đối tượng OpenFileDialog
+                    OpenFileDialog openFileDialog = new OpenFileDialog
+                    {
+                        Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+                    };
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            string filePath = openFileDialog.FileName;
+                            string fileExtension = Path.GetExtension(filePath);
+                            string newFileName = maNhanVien + fileExtension;
+                            string resourcePath = Path.Combine(Application.StartupPath, "Resources", newFileName);
+                            Console.WriteLine($"StartupPath: {Application.StartupPath}");
+                            Console.WriteLine($"New File Name: {newFileName}");
+
+                            // Create Resources directory if it doesn't exist
+                            string resourceDir = Path.Combine(Application.StartupPath, "Resources");
+                            if (!Directory.Exists(resourceDir))
+                            {
+                                Directory.CreateDirectory(resourceDir);
+                            }
+
+                            // Kiểm tra và xóa hình cũ
+                            string oldImagePath = nhanVien.HinhAnh != null ? Path.Combine(resourceDir, nhanVien.HinhAnh) : null;
+                            if (oldImagePath != null && File.Exists(oldImagePath))
+                            {
+                                try
+                                {
+                                    picHinhAnh.Image?.Dispose();  // Giải phóng tài nguyên hình ảnh cũ
+                                    File.Delete(oldImagePath);  // Xóa hình ảnh cũ
+                                }
+                                catch (IOException ex)
+                                {
+                                    MessageBox.Show($"Lỗi khi xóa hình ảnh cũ: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
+
+                            // Sao chép tệp hình ảnh vào thư mục Resources
+                            File.Copy(filePath, resourcePath, true);
+
+                            // Cập nhật tên file vào cơ sở dữ liệu
+                            nhanVien.HinhAnh = newFileName;
+                            nhanVienBLL.CapNhatNhanVien(nhanVien);
+
+                            // Hiển thị ảnh mới trong PictureBox
+                            picHinhAnh.Image = Image.FromFile(resourcePath);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Lỗi khi tải ảnh: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không thể lấy mã nhân viên.", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có hàng nào được chọn hoặc cột 'MaNhanVien' không tồn tại.", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnTaoNhanVien_Click(object sender, EventArgs e)
+        {
+            frm_ThemNhanVien frm = new frm_ThemNhanVien();
+            frm.ShowDialog();
+            frm.Tao += Frm_Tao;
+        }
+
+        private void Frm_Tao(object sender, EventArgs e)
+        {
+            loadDGVNhanVien();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            List<NhanVien> lstNhanVien = new List<NhanVien>();
+            lstNhanVien = new NhanVienBLL().LayDanhSachNhanVien();
+            dgvNhanVien.DataSource = lstNhanVien;
+            DinhDangDGVNhanVien();
+            ThemCotSTT(dgvNhanVien);
+        }
+
+        private void btnCapNhat_Click_1(object sender, EventArgs e)
+        {
             // Thông báo xác nhận trước khi cập nhật
             DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn cập nhật thông tin nhân viên này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
@@ -300,92 +404,6 @@ namespace GUI
                     MessageBox.Show("Cập nhật nhân viên thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void btnDoiHinhAnh_Click(object sender, EventArgs e)
-        {
-            // Lấy mã nhân viên hiện tại
-            string maNhanVien = dgvNhanVien.CurrentRow.Cells["MaNhanVien"].Value.ToString();
-            NhanVien nhanVien = nhanVienBLL.LayNhanVien(maNhanVien);
-
-            // Tạo đối tượng OpenFileDialog
-            OpenFileDialog openFileDialog = new OpenFileDialog
-            {
-                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
-            };
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    string filePath = openFileDialog.FileName;
-                    string fileExtension = Path.GetExtension(filePath);
-                    string newFileName = maNhanVien + fileExtension;
-                    string resourcePath = Path.Combine(Application.StartupPath, "Resources", newFileName);
-                    Console.WriteLine($"StartupPath: {Application.StartupPath}");
-                    Console.WriteLine($"New File Name: {newFileName}");
-
-                    // Create Resources directory if it doesn't exist
-                    string resourceDir = Path.Combine(Application.StartupPath, "Resources");
-                    if (!Directory.Exists(resourceDir))
-                    {
-                        Directory.CreateDirectory(resourceDir);
-                    }
-
-                    // Kiểm tra và xóa hình cũ
-                    string oldImagePath = nhanVien.HinhAnh != null ? Path.Combine(resourceDir, nhanVien.HinhAnh) : null;
-                    if (oldImagePath != null && File.Exists(oldImagePath))
-                    {
-                        try
-                        {
-                            picHinhAnh.Image?.Dispose();  // Giải phóng tài nguyên hình ảnh cũ
-                            File.Delete(oldImagePath);  // Xóa hình ảnh cũ
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show($"Lỗi khi xóa hình ảnh cũ: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    }
-
-
-                    // Sao chép tệp hình ảnh vào thư mục Resources
-                    File.Copy(filePath, resourcePath, true);
-
-                    // Cập nhật tên file vào cơ sở dữ liệu
-                    nhanVien.HinhAnh = newFileName;
-                    nhanVienBLL.CapNhatNhanVien(nhanVien);
-
-                    // Hiển thị ảnh mới trong PictureBox
-                    picHinhAnh.Image = Image.FromFile(resourcePath);
-                }
-                catch (Exception ex)
-                {
-
-                    MessageBox.Show($"Lỗi khi tải ảnh: {ex.Message}", "Thông báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void btnTaoNhanVien_Click(object sender, EventArgs e)
-        {
-            frm_ThemNhanVien frm = new frm_ThemNhanVien();
-            frm.ShowDialog();
-            frm.Tao += Frm_Tao;
-        }
-
-        private void Frm_Tao(object sender, EventArgs e)
-        {
-            loadDGVNhanVien();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            List<NhanVien> lstNhanVien = new List<NhanVien>();
-            lstNhanVien = new NhanVienBLL().LayDanhSachNhanVien();
-            dgvNhanVien.DataSource = lstNhanVien;
-            DinhDangDGVNhanVien();
-            ThemCotSTT(dgvNhanVien);
         }
     }
 }

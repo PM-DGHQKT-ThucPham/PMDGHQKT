@@ -130,14 +130,17 @@ namespace GUI
                     ChucVu = chucVu,
                     Email = email,
                     TaiKhoan = taiKhoan,
-                    SoDienThoai = soDienThoai
+                    SoDienThoai = soDienThoai,
+                    TrangThaiHoatDong = true,
+                    NgayTao = DateTime.Now,
+                    NgayCapNhat = DateTime.Now,
                 };
 
                 // Nếu có mật khẩu mới, thì gán vào
                 if (!string.IsNullOrEmpty(matKhauMoi))
                 {
                     //xác nhận mật khẩu mới
-                    if (matKhauMoi == txt.Text)
+                    if (matKhauMoi == txtNhapLaiMatKhau.Text)
                     {
                         nv.MatKhau = matKhauMoi;  // Đổi mật khẩu
                     }
